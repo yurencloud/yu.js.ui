@@ -2,7 +2,7 @@ const webpack = require('webpack')
 const path = require('path')
 
 module.exports = {
-  entry: './src/index',
+  entry: './example/index',
 
   output: {
     filename: 'index.bundle.js',
@@ -20,6 +20,10 @@ module.exports = {
             presets: ['@babel/preset-env'],
           },
         },
+      },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
       },
     ],
   },
