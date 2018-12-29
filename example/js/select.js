@@ -1,4 +1,4 @@
-import YuButton from '../../src/component/button'
+import YuSelect from '../../src/component/select'
 
 // const props = {
 //   content(value) {
@@ -11,11 +11,15 @@ import YuButton from '../../src/component/button'
 // }
 
 
-const yuButton = new YuButton('button', {
-  type: 'primary', plain: true, circle: true, text: '必',
+const yuSelect = new YuSelect('select', {
+  option: [
+    { value: 'cat', label: '猫' },
+    { value: 'dog', label: '狗' },
+    { value: 'pig', label: '猪' },
+  ],
 })
 
 document.getElementById('buttonInput').addEventListener('blur', (e) => {
-  yuButton.setState('type', e.target.value)
+  yuSelect.setState('type', e.target.value)
   // props.setProp('content', e.target.value)
 })

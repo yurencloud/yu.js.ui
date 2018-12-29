@@ -1,6 +1,6 @@
 import classnames from 'classnames'
 
-export default class YuButton {
+export default class YuSelect {
   constructor(value, props) {
     this.node = document.getElementById(value)
     this.className = {
@@ -9,6 +9,8 @@ export default class YuButton {
       plain: false,
       circle: false,
     }
+    this.value = ''
+    this.text = ''
     if (props) {
       for (const key in props) {
         this.setState(key, props[key])
@@ -16,15 +18,18 @@ export default class YuButton {
     }
   }
 
-  type = (value) => {
-    Object.assign(this.className, {
-      primary: false, danger: false, warning: false, info: false, success: false,
-    }, { [value]: true })
-    this.node.className = classnames(this.className)
-  }
-
-  text = (value) => {
-    this.node.innerText = value
+  option = (value) => {
+    value.forEach((item) => {
+      const li = document.createElement('LI')
+      li.innerText = item.label
+      li.setAttribute('data-value', item.value)
+      this.node.lastElementChild.appendChild(li)
+    })
+    this.node.lastElementChild.addEventListener('click', (e) => {
+      this.value = e.target.getAttribute('data-value')
+      this.text = e.target.innerText
+      this.node.children[0].firstElementChild.value = this.text
+    })
   }
 
   disabled = (value) => {

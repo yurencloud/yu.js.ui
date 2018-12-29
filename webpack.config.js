@@ -1,5 +1,6 @@
 const webpack = require('webpack')
 const path = require('path')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 module.exports = {
   entry: './example/index',
@@ -18,13 +19,22 @@ module.exports = {
           loader: 'babel-loader',
           options: {
             presets: ['@babel/preset-env'],
+            plugins: ['@babel/plugin-proposal-class-properties'],
           },
         },
       },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader'],
+        exclude: ['node_modules'],
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: 'css-loader',
+        }),
       },
     ],
   },
+
+  plugins: [
+    new ExtractTextPlugin('styles.css'),
+  ],
 }

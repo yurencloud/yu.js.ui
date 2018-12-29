@@ -4,6 +4,7 @@ module.exports = {
         "commonjs": true,
         "es6": true
     },
+    "parser": "babel-eslint",
     "extends": "airbnb",
     "parserOptions": {
         "sourceType": "module"
@@ -11,10 +12,6 @@ module.exports = {
     "rules": {
         "indent": [
             "error",
-        ],
-        "linebreak-style": [
-            "error",
-            "windows"
         ],
         "quotes": [
             "error",
@@ -26,5 +23,6 @@ module.exports = {
         ],
         "import/no-extraneous-dependencies": [0],
         "no-console": [0],
+        "linebreak-style": [0],
     }
 };
