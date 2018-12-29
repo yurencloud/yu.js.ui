@@ -1,0 +1,37 @@
+{
+  "name": "yurencloud",
+  "version": "1.0.0",
+  "description": "new yurencloud project",
+  "main": "index.js",
+  "scripts": {
+    "start": "live-server ./example --port=9001 --watch=."
+  },
+  "keywords": [
+    "yurencloud",
+    "yuren",
+    "yu",
+    "mackwang",
+    "yurencloud.com"
+  ],
+  "author": {
+    "name": "mackwang",
+    "email": "641212003@qq.com",
+    "url": "http://www.yurencloud.com"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "yu.calculator": "^1.0.2"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.11.1",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.2",
+    "eslint-plugin-react": "^7.12.0",
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.2.3",
+    "babel-loader": "^8.0.4",
+    "webpack": "^4.1.0"
+  }
+}
