@@ -23,3 +23,7 @@ document.getElementById('buttonInput').addEventListener('blur', (e) => {
   yuSelect.setState('type', e.target.value)
   // props.setProp('content', e.target.value)
 })
+
+document.getElementById('show').addEventListener('click', (e) => {
+  console.log(yuSelect.value)
+})
