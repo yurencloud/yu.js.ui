@@ -2,7 +2,10 @@ import classnames from 'classnames'
 
 export default class YuButton {
   constructor(value, props) {
-    this.node = document.getElementById(value)
+    this.node = document.querySelector(value)
+    if (!this.node) {
+      return
+    }
     this.className = {
       'yu-button': true,
       disabled: false,

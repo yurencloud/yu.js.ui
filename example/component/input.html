@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>yu.js.ui</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../dist/styles.css">
+    <link rel="stylesheet" href="../index.css">
+</head>
+<body>
+<div class="web-container">
+    <h4 class="web-title">输入框</h4>
+    <div class="yu-input">
+        <input type="text" placeholder="用户名">
+    </div>
+
+    <h4 class="web-title">禁用</h4>
+    <div class="yu-input disabled">
+        <input type="text" disabled placeholder="用户名">
+    </div>
+
+    <h4 class="web-title">可清空</h4>
+    <div class="yu-input">
+        <input type="text" placeholder="用户名">
+        <span class="clearable">
+          <i class="iconfont icon-close-circle"></i>
+        </span>
+    </div>
+
+    <h4 class="web-title">图标</h4>
+    <div class="yu-input">
+        <span class="prefix icon">
+          <i class="iconfont icon-user"></i>
+        </span>
+        <input type="text" class="prefix" placeholder="用户名">
+    </div>
+    <div class="yu-input">
+        <input type="text" class="suffix" placeholder="用户名">
+        <span class="suffix icon">
+          <i class="iconfont icon-user"></i>
+        </span>
+    </div>
+
+    <h4 class="web-title">长文本输入</h4>
+    <div class="yu-input textarea">
+        <textarea cols="60" rows="4"></textarea>
+    </div>
+
+    <h4 class="web-title">组合</h4>
+    <div class="yu-input">
+        <div class="yu-button prepend">确认</div>
+        <input type="text" class="prepend" placeholder="用户名">
+    </div>
+    <div class="yu-input">
+        <input type="text" class="append" placeholder="用户名">
+        <div class="yu-button append">确认</div>
+    </div>
+
+    <h4 class="web-title">大小</h4>
+    <div class="yu-input">
+        <input type="text" class="large" placeholder="用户名">
+    </div>
+    <div class="yu-input">
+        <input type="text" placeholder="用户名">
+    </div>
+    <div class="yu-input">
+        <input type="text" class="small" placeholder="用户名">
+    </div>
+
+    <h4 class="web-title">100%宽</h4>
+    <div class="yu-input">
+        <input type="text" class="full" placeholder="用户名">
+    </div>
+</div>
+</body>
+<script src="../dist/index.bundle.js"></script>
+<script>
+    var yuInput = new YU.Input('.yu-input', {
+        defaultValue: 'apple',
+    })
+</script>
+</html>

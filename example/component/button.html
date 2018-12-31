@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>yu.js.ui</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../dist/styles.css">
+    <link rel="stylesheet" href="../index.css">
+</head>
+<body>
+<div class="web-container">
+    <h4 class="web-title">按钮类型</h4>
+    <button class="yu-button">button</button>
+    <div class="yu-button">div</div>
+    <input type="button" class="yu-button" value="input"/>
+
+    <h4 class="web-title">按钮颜色</h4>
+    <button class="yu-button primary">primary</button>
+    <button class="yu-button success">success</button>
+    <button class="yu-button warning">warning</button>
+    <button class="yu-button danger">danger</button>
+    <button class="yu-button info">info</button>
+
+
+    <h4 class="web-title">扁平按钮</h4>
+    <button class="yu-button plain">default</button>
+    <button class="yu-button plain primary">primary</button>
+    <button class="yu-button plain success">success</button>
+    <button class="yu-button plain warning">warning</button>
+    <button class="yu-button plain danger">danger</button>
+    <button class="yu-button plain info">info</button>
+
+    <h4 class="web-title">禁用按钮</h4>
+    <button class="yu-button disabled">default</button>
+    <button class="yu-button disabled primary">primary</button>
+    <button class="yu-button disabled success">success</button>
+    <button class="yu-button disabled warning">warning</button>
+    <button class="yu-button disabled danger">danger</button>
+    <button class="yu-button disabled info">info</button>
+
+    <h4 class="web-title">不同尺寸</h4>
+    <button class="yu-button large">large</button>
+    <button class="yu-button">default</button>
+    <button class="yu-button small">small</button>
+
+    <h4 class="web-title">圆形按钮</h4>
+    <button class="yu-button circle">圆</button>
+
+    <h4 class="web-title">按钮组</h4>
+    <div class="yu-button-group">
+        <button class="yu-button">item</button>
+        <button class="yu-button">item</button>
+        <button class="yu-button">item</button>
+    </div>
+    <div class="yu-button-group">
+        <button class="yu-button primary">item</button>
+        <button class="yu-button primary">item</button>
+        <button class="yu-button primary">item</button>
+    </div>
+    <div class="yu-button-group">
+        <button class="yu-button primary plain">item</button>
+        <button class="yu-button primary plain">item</button>
+        <button class="yu-button primary plain">item</button>
+    </div>
+    <div class="yu-button-group">
+        <button class="yu-button">item</button>
+        <button class="yu-button primary">item</button>
+        <button class="yu-button primary plain">item</button>
+    </div>
+
+    <h4 class="web-title">图标</h4>
+    <button class="yu-button"><i class="iconfont icon-trash"></i> Delete</button>
+    <button class="yu-button"><i class="iconfont icon-location"></i> Location</button>
+
+    <h4 class="web-title">深色背景效果</h4>
+    <div class="web-dark-background">
+        <button class="yu-button">primary</button>
+        <button class="yu-button primary">primary</button>
+        <button class="yu-button primary plain">primary</button>
+    </div>
+</div>
+</body>
+<script src="../dist/index.bundle.js"></script>
+<script>
+    var yuButton = new YU.Button('.yu-button')
+
+    document.querySelector('.yu-button.primary').addEventListener('click', () => {
+        yuButton.setState('type', 'primary')
+    })
+
+    document.querySelector('.yu-button.plain').addEventListener('click', () => {
+        yuButton.setState('plain', true)
+    })
+
+    document.querySelector('.yu-button.disabled').addEventListener('click', () => {
+        yuButton.setState('disabled', true)
+    })
+
+    document.querySelector('.yu-button.large').addEventListener('click', () => {
+        yuButton.setState('size', 'large')
+    })
+
+    document.querySelector('.yu-button.circle').addEventListener('click', () => {
+        yuButton.setState('text', '爱')
+        yuButton.setState('circle', true)
+    })
+</script>
+</html>
