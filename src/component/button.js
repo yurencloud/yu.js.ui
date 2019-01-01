@@ -1,29 +1,17 @@
-import classnames from 'classnames'
-
 export default class YuButton {
   constructor(value, props) {
     this.node = document.querySelector(value)
-    if (!this.node) {
-      return
-    }
-    this.className = {
-      'yu-button': true,
-      disabled: false,
-      plain: false,
-      circle: false,
-    }
+    if (!this.node) return
     if (props) {
-      for (const key in props) {
+      for (const key of Object.keys(props)) {
         this.setState(key, props[key])
       }
     }
   }
 
   type = (value) => {
-    Object.assign(this.className, {
-      primary: false, danger: false, warning: false, info: false, success: false,
-    }, { [value]: true })
-    this.node.className = classnames(this.className)
+    this.node.classList.remove('primary', 'danger', 'warning', 'info', 'success')
+    this.node.classList.add(value)
   }
 
   text = (value) => {
@@ -31,23 +19,20 @@ export default class YuButton {
   }
 
   disabled = (value) => {
-    this.className.disabled = value
-    this.node.className = classnames(this.className)
+    this.node.classList.toggle('disabled', value)
   }
 
   plain = (value) => {
-    this.className.plain = value
-    this.node.className = classnames(this.className)
+    this.node.classList.toggle('plain', value)
   }
 
   size = (value) => {
-    Object.assign(this.className, { small: false, large: false }, { [value]: true })
-    this.node.className = classnames(this.className)
+    this.node.classList.remove('small', 'large')
+    this.node.classList.add(value)
   }
 
   circle = (value) => {
-    this.className.circle = value
-    this.node.className = classnames(this.className)
+    this.node.classList.toggle('circle', value)
   }
 
   setState(stateName, value) {

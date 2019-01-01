@@ -1,29 +1,24 @@
-import classnames from 'classnames'
-
 export default class YuInput {
   constructor(value, props) {
     this.node = document.querySelector(value)
-    this.input = this.node.querySelector('input')
+    this.inputNode = this.node.querySelector('input')
     this.value = ''
-    this.className = {
-      'yu-input': true,
-      disabled: false,
-    }
+    this.clear = false
 
     if (props) {
-      for (const key in props) {
+      for (const key of Object.keys(props)) {
         this.setState(key, props[key])
       }
     }
 
-    this.input.addEventListener('change', (e) => {
+    this.inputNode.addEventListener('change', (e) => {
       this.value = e.target.value
-      console.log(this.value)
     })
-    this.input.addEventListener('input', (e) => {
+    this.inputNode.addEventListener('input', (e) => {
       this.value = e.target.value
-      console.log(this.value)
-      this.showClear()
+      if (this.clear) {
+        this.showClear(this.value.length > 0)
+      }
     })
   }
 
@@ -32,26 +27,62 @@ export default class YuInput {
   }
 
   disabled = (value) => {
-    this.className.disabled = value
-    this.node.className = classnames(this.className)
+    this.node.classList.toggle('disabled', value)
   }
 
-  showClear = () => {
-    const span = document.createElement('SPAN')
-    span.className = 'clearable'
-    const i = document.createElement('I')
-    i.className = 'iconfont icon-close-circle'
-    span.appendChild(i)
-    this.node.appendChild(span)
-    i.addEventListener('click', (e) => {
-      console.log(2)
-      this.input.value = ''
-      this.value = ''
-      e.target.parentNode.parentNode.removeChild(e.target.parentNode)
-    })
+  clearable = (value) => {
+    this.clear = value
   }
 
-  setState(stateName, value) {
-    this[stateName](value)
+  showClear = (value) => {
+    let clearNode = this.node.querySelector('span.clearable')
+    if (!clearNode) {
+      const span = document.createElement('SPAN')
+      span.className = 'clearable'
+      const i = document.createElement('I')
+      i.className = 'iconfont icon-close-circle'
+      span.appendChild(i)
+      this.node.appendChild(span)
+      i.addEventListener('click', (e) => {
+        console.log(2)
+        this.inputNode.value = ''
+        this.value = ''
+        const parent = e.target.parentNode
+        parent.parentNode.removeChild(parent)
+      })
+
+      clearNode = span
+    }
+
+    clearNode.style.display = value ? 'inline-block' : 'none'
   }
+
+    prefix = (value) => {
+      const span = document.createElement('SPAN')
+      span.className = 'prefix icon'
+      const i = document.createElement('I')
+      i.className = `iconfont ${value}`
+      span.appendChild(i)
+      this.node.insertBefore(span, this.inputNode)
+      this.inputNode.classList.add('prefix')
+    }
+
+    suffix = (value) => {
+      const span = document.createElement('SPAN')
+      span.className = 'suffix icon'
+      const i = document.createElement('I')
+      i.className = `iconfont ${value}`
+      span.appendChild(i)
+      this.node.appendChild(span, this.inputNode)
+      this.inputNode.classList.add('suffix')
+    }
+
+    size = (value) => {
+        this.node.classList.remove('small', 'large')
+        this.node.classList.add(value)
+    }
+
+    setState(stateName, value) {
+      this[stateName](value)
+    }
 }

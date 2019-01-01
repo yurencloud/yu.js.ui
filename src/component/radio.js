@@ -1,11 +1,9 @@
 export default class YuRadio {
   constructor(value, props) {
     this.node = document.querySelector(value)
-    if (!this.node) {
-      return
-    }
+    if (!this.node) return
     if (props) {
-      for (const key in props) {
+      for (const key of Object.keys(props)) {
         this.setState(key, props[key])
       }
     }
@@ -27,23 +25,13 @@ export default class YuRadio {
   }
 
   disabled = (value) => {
-    if (value) {
-      Array.from(this.node.children).forEach((item) => {
-        item.classList.add('disabled')
-      })
-    } else {
-      Array.from(this.node.children).forEach((item) => {
-        item.classList.remove('disabled')
-      })
-    }
+    Array.from(this.node.children).forEach((item) => {
+      item.classList.toggle('disabled', value)
+    })
   }
 
   vertical = (value) => {
-    if (value) {
-      this.node.classList.add('vertical')
-    } else {
-      this.node.classList.remove('vertical')
-    }
+    this.node.classList.toggle('vertical', value)
   }
 
   setState(stateName, value) {

@@ -34,8 +34,10 @@ export default class YuSelect {
       this.text = []
       delete props.multi
     }
-    for (const key in props) {
-      this.setState(key, props[key])
+    if (props) {
+      for (const key of Object.keys(props)) {
+        this.setState(key, props[key])
+      }
     }
 
     this.node.lastElementChild.className = classnames(this.optionClassName)

@@ -1,16 +1,12 @@
-import classnames from 'classnames'
-
 export default class YuCheckbox {
   constructor(value, props) {
     this.node = document.querySelector(value)
     this.checkboxNode = this.node.querySelectorAll('label:not(.control)')
     this.controlNode = this.node.querySelector('.control')
-    if (!this.node) {
-      return
-    }
+    if (!this.node) return
     this.value = []
     if (props) {
-      for (const key in props) {
+      for (const key of Object.keys(props)) {
         this.setState(key, props[key])
       }
     }
@@ -57,36 +53,21 @@ export default class YuCheckbox {
   }
 
   disabled = (value) => {
-    if (value) {
-      Array.from(this.node.children).forEach((item) => {
-        item.classList.add('disabled')
-      })
-    } else {
-      Array.from(this.node.children).forEach((item) => {
-        item.classList.remove('disabled')
-      })
-    }
+    Array.from(this.node.children).forEach((item) => {
+      item.classList.toggle('disabled', value)
+    })
   }
 
   vertical = (value) => {
-    if (value) {
-      this.node.classList.add('vertical')
-    } else {
-      this.node.classList.remove('vertical')
-    }
+    this.node.classList.toggle('vertical', value)
   }
 
   control = (value) => {
     const controlNode = this.node.querySelector('.control')
     if (controlNode) {
+      controlNode.className = 'yu-checkbox control'
       if (value.length > 0) {
-        if (value.length === this.checkboxNode.length) {
-          controlNode.className = 'yu-checkbox control checked'
-        } else {
-          controlNode.className = 'yu-checkbox control part'
-        }
-      } else {
-        controlNode.className = 'yu-checkbox control'
+        controlNode.classList.add(value.length === this.checkboxNode.length ? 'checked' : 'part')
       }
     }
   }
