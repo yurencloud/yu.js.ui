@@ -141,4 +141,10 @@ export default class YuSelect {
     setState(stateName, value) {
       this[stateName](value)
     }
+
+    setProps(props) {
+      for (const key of Object.keys(props)) {
+        this.setState(key, props[key])
+      }
+    }
 }
