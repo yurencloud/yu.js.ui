@@ -2,7 +2,7 @@ const calculator = require('yu.calculator')
 
 export default class YuCounter {
   constructor(value, props) {
-    this.node = document.querySelector(value)
+    this.node = typeof value === 'string' ? document.querySelector(value) : value
     const isCounterSide = this.node.classList.contains('yu-counter-side')
     this.inputNode = this.node.querySelector('input')
     const buttons = this.node.querySelectorAll('button')
@@ -49,35 +49,39 @@ export default class YuCounter {
     })
   }
 
-  changeButtonState = () => {
-    if (typeof this.maxValue === 'number' && this.maxValue > this.value && this.addNode.classList.contains('disabled')) {
-      this.addNode.classList.remove('disabled')
+    changeButtonState = () => {
+      if (typeof this.maxValue === 'number' && this.maxValue > this.value && this.addNode.classList.contains('disabled')) {
+        this.addNode.classList.remove('disabled')
+      }
+
+      if (typeof this.minValue === 'number' && this.minValue < this.value && this.subNode.classList.contains('disabled')) {
+        this.subNode.classList.remove('disabled')
+      }
     }
 
-    if (typeof this.minValue === 'number' && this.minValue < this.value && this.subNode.classList.contains('disabled')) {
-      this.subNode.classList.remove('disabled')
+    max = (value) => {
+      this.maxValue = value
     }
-  }
 
-  max = (value) => {
-    this.maxValue = value
-  }
-
-  min = (value) => {
-    this.minValue = value
-  }
-
-  step = (value) => {
-    this.stepValue = value
-  }
-
-  setState(stateName, value) {
-    this[stateName](value)
-  }
-
-  setProps(props) {
-    for (const key of Object.keys(props)) {
-      this.setState(key, props[key])
+    min = (value) => {
+      this.minValue = value
     }
-  }
+
+    step = (value) => {
+      this.stepValue = value
+    }
+
+    disabled = (value) => {
+      this.node.classList.toggle('disabled', value)
+    }
+
+    setState(stateName, value) {
+      this[stateName](value)
+    }
+
+    setProps(props) {
+      for (const key of Object.keys(props)) {
+        this.setState(key, props[key])
+      }
+    }
 }

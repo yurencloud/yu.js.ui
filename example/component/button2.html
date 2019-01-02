@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>yu.js.ui</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../dist/styles.css">
+    <link rel="stylesheet" href="../index.css">
+</head>
+<body>
+<div class="web-container">
+    <h4 class="web-title">按钮类型</h4>
+    <button class="yu-button" :type="primary" :name="test" :option="['name']">button</button>
+
+</div>
+</body>
+<script src="../dist/index.bundle.js"></script>
+<script>
+    var yuButton = new YU.Components('.yu-button')
+    Array.from(document.querySelector('.yu-button').attributes).forEach((item) => {
+        if (item.name.indexOf(':') === 0) {
+            console.log(item.value)
+        }
+    })
+</script>
+</html>

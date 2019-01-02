@@ -2,7 +2,7 @@ import classnames from 'classnames'
 
 export default class YuSelect {
   constructor(value, props) {
-    this.node = document.querySelector(value)
+    this.node = typeof value === 'string' ? document.querySelector(value) : value
     if (!this.node) {
       return
     }

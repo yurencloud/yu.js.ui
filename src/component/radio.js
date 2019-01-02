@@ -1,6 +1,6 @@
 export default class YuRadio {
   constructor(value, props) {
-    this.node = document.querySelector(value)
+    this.node = typeof value === 'string' ? document.querySelector(value) : value
     if (!this.node) return
     if (props) {
       for (const key of Object.keys(props)) {

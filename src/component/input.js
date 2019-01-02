@@ -1,6 +1,6 @@
 export default class YuInput {
   constructor(value, props) {
-    this.node = document.querySelector(value)
+    this.node = typeof value === 'string' ? document.querySelector(value) : value
     const isTextarea = this.node.classList.contains('textarea')
     if (isTextarea) {
       this.inputNode = this.node.querySelector('textarea')

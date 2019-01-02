@@ -1,6 +1,6 @@
 export default class YuCheckbox {
   constructor(value, props) {
-    this.node = document.querySelector(value)
+    this.node = typeof value === 'string' ? document.querySelector(value) : value
     this.checkboxNode = this.node.querySelectorAll('label:not(.control)')
     this.controlNode = this.node.querySelector('.control')
     if (!this.node) return
