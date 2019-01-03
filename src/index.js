@@ -5,6 +5,7 @@ import YuInput from './component/input'
 import YuCounter from './component/counter'
 import YuSelect from './component/select'
 import YuInit from './util/init'
+import YuComponent from './util/component'
 
 const YU = {
   Button: YuButton,
@@ -13,8 +14,11 @@ const YU = {
   Input: YuInput,
   Counter: YuCounter,
   Select: YuSelect,
+
+  // 非组件
+  Component: YuComponent,
   Init: YuInit,
-  Data: {},
+  Props: {},
 }
 
 export default YU

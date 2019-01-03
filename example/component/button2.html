@@ -10,8 +10,8 @@
 <body>
 <div class="web-container">
     <h4 class="web-title">按钮类型</h4>
-    <button class="yu-button" :type="danger">button</button>
-    <button class="yu-button" :type="danger">button</button>
+    <button class="yu-button" :type='"primary"'>button</button>
+    <button class="yu-button" :type="type">button</button>
 
 </div>
 </body>
@@ -24,11 +24,15 @@
     //     }
     // })
 
+    YU.Props = {
+        type: 'warning'
+    }
+
     var the = new YU.Init('Button')
-    console.log(the)
-    the.Button[1].setState('type', 'primary')
-    the.Button[1].setState('plain', true)
+
+    // the.Button[1].setState('type', 'primary')
+    // the.Button[1].setState('plain', true)
     // the.myButton.setState('type', 'primary')
-    // console.log()
+
 </script>
 </html>
