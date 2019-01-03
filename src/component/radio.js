@@ -1,13 +1,14 @@
-export default class YuRadio {
-  constructor(value, props) {
-    this.node = typeof value === 'string' ? document.querySelector(value) : value
-    if (!this.node) return
-    if (props) {
-      for (const key of Object.keys(props)) {
-        this.setState(key, props[key])
-      }
-    }
-    this.value = ''
+import YuComponent from '../util/component'
+
+export default class YuRadio extends YuComponent {
+  constructor(component, states) {
+    super()
+    this.node = this.getNode(component)
+
+    this.states.value = ''
+
+    this.setStates(states)
+
     Array.from(this.node.querySelectorAll('label')).forEach((item) => {
       item.addEventListener('click', (e) => {
         e.preventDefault()
@@ -20,27 +21,17 @@ export default class YuRadio {
     })
   }
 
-  defaultValue = (value) => {
-    this.node.querySelector(`input[value=${value}]`).parentNode.parentNode.classList.add('checked')
-  }
-
-  disabled = (value) => {
-    Array.from(this.node.children).forEach((item) => {
-      item.classList.toggle('disabled', value)
-    })
-  }
-
-  vertical = (value) => {
-    this.node.classList.toggle('vertical', value)
-  }
-
-  setState(stateName, value) {
-    this[stateName](value)
-  }
-
-  setProps(props) {
-    for (const key of Object.keys(props)) {
-      this.setState(key, props[key])
+    defaultValue = (value) => {
+      this.node.querySelector(`input[value=${value}]`).parentNode.parentNode.classList.add('checked')
     }
-  }
+
+    disabled = (value) => {
+      Array.from(this.node.children).forEach((item) => {
+        item.classList.toggle('disabled', value)
+      })
+    }
+
+    vertical = (value) => {
+      this.node.classList.toggle('vertical', value)
+    }
 }

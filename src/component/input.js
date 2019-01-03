@@ -1,109 +1,98 @@
-export default class YuInput {
-  constructor(value, props) {
-    this.node = typeof value === 'string' ? document.querySelector(value) : value
-    const isTextarea = this.node.classList.contains('textarea')
-    if (isTextarea) {
+import YuComponent from '../util/component'
+
+export default class YuInput extends YuComponent {
+  constructor(component, states) {
+    super()
+    this.node = this.getNode(component)
+    if (this.node.classList.contains('textarea')) {
       this.inputNode = this.node.querySelector('textarea')
     } else {
       this.inputNode = this.node.querySelector('input')
     }
 
-    this.value = ''
-    this.clear = false
+    this.states.value = ''
+    this.states.clear = false
 
-    if (props) {
-      for (const key of Object.keys(props)) {
-        this.setState(key, props[key])
-      }
-    }
+    this.setStates(states)
 
     this.inputNode.addEventListener('change', (e) => {
-      this.value = e.target.value
+      this.states.component = e.target.value
     })
+
     this.inputNode.addEventListener('input', (e) => {
-      this.value = e.target.value
-      console.log(this.value)
-      if (this.clear) {
-        this.showClear(this.value.length > 0)
+      this.states.component = e.target.value
+      console.log(this.states.value)
+      if (this.states.clear) {
+        this.showClear(this.states.value.length > 0)
       }
     })
   }
 
-  defaultValue = (value) => {
-    this.inputNode.value = value
-    this.value = value
-    if (this.clear) {
-      this.showClear(this.value.length > 0)
+    value = (value) => {
+      this.inputNode.value = value
+      this.states.value = value
+      if (this.states.clear) {
+        this.showClear(this.states.value.length > 0)
+      }
     }
-  }
 
-  disabled = (value) => {
-    this.node.classList.toggle('disabled', value)
-  }
+    disabled = (value) => {
+      this.node.classList.toggle('disabled', value)
+    }
 
-  clearable = (value) => {
-    this.clear = value
-  }
+    clearable = (value) => {
+      this.states.clear = value
+    }
 
-  showClear = (value) => {
-    let clearNode = this.node.querySelector('span.clearable')
-    if (!clearNode) {
+    showClear = (value) => {
+      let clearNode = this.node.querySelector('span.clearable')
+      if (!clearNode) {
+        const span = document.createElement('SPAN')
+        span.className = 'clearable'
+        const i = document.createElement('I')
+        i.className = 'iconfont icon-close-circle'
+        span.appendChild(i)
+        this.node.appendChild(span)
+        i.addEventListener('click', (e) => {
+          console.log(2)
+          this.inputNode.value = ''
+          this.states.value = ''
+          const parent = e.target.parentNode
+          parent.parentNode.removeChild(parent)
+        })
+
+        clearNode = span
+      }
+
+      clearNode.style.display = value ? 'inline-block' : 'none'
+    }
+
+    prefix = (value) => {
       const span = document.createElement('SPAN')
-      span.className = 'clearable'
+      span.className = 'prefix icon'
       const i = document.createElement('I')
-      i.className = 'iconfont icon-close-circle'
+      i.className = `iconfont ${value}`
       span.appendChild(i)
-      this.node.appendChild(span)
-      i.addEventListener('click', (e) => {
-        console.log(2)
-        this.inputNode.value = ''
-        this.value = ''
-        const parent = e.target.parentNode
-        parent.parentNode.removeChild(parent)
-      })
-
-      clearNode = span
+      this.node.insertBefore(span, this.inputNode)
+      this.inputNode.classList.add('prefix')
     }
 
-    clearNode.style.display = value ? 'inline-block' : 'none'
-  }
-
-  prefix = (value) => {
-    const span = document.createElement('SPAN')
-    span.className = 'prefix icon'
-    const i = document.createElement('I')
-    i.className = `iconfont ${value}`
-    span.appendChild(i)
-    this.node.insertBefore(span, this.inputNode)
-    this.inputNode.classList.add('prefix')
-  }
-
-  suffix = (value) => {
-    const span = document.createElement('SPAN')
-    span.className = 'suffix icon'
-    const i = document.createElement('I')
-    i.className = `iconfont ${value}`
-    span.appendChild(i)
-    this.node.appendChild(span, this.inputNode)
-    this.inputNode.classList.add('suffix')
-  }
-
-  size = (value) => {
-    this.inputNode.classList.remove('small', 'large')
-    this.inputNode.classList.add(value)
-  }
-
-  full = (value) => {
-    this.inputNode.classList.toggle('full', value)
-  }
-
-  setState(stateName, value) {
-    this[stateName](value)
-  }
-
-  setProps(props) {
-    for (const key of Object.keys(props)) {
-      this.setState(key, props[key])
+    suffix = (value) => {
+      const span = document.createElement('SPAN')
+      span.className = 'suffix icon'
+      const i = document.createElement('I')
+      i.className = `iconfont ${value}`
+      span.appendChild(i)
+      this.node.appendChild(span, this.inputNode)
+      this.inputNode.classList.add('suffix')
     }
-  }
+
+    size = (value) => {
+      this.inputNode.classList.remove('small', 'large')
+      this.inputNode.classList.add(value)
+    }
+
+    full = (value) => {
+      this.inputNode.classList.toggle('full', value)
+    }
 }

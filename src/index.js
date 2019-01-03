@@ -4,7 +4,7 @@ import YuCheckbox from './component/checkbox'
 import YuInput from './component/input'
 import YuCounter from './component/counter'
 import YuSelect from './component/select'
-import YuComponents from './util/components'
+import YuInit from './util/init'
 
 const YU = {
   Button: YuButton,
@@ -13,7 +13,8 @@ const YU = {
   Input: YuInput,
   Counter: YuCounter,
   Select: YuSelect,
-  Components: YuComponents,
+  Init: YuInit,
+  Data: {},
 }
 
 export default YU

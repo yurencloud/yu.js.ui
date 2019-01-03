@@ -1,12 +1,10 @@
 import classnames from 'classnames'
+import YuComponent from '../util/component'
 
-export default class YuSelect {
-  constructor(value, props) {
-    this.node = typeof value === 'string' ? document.querySelector(value) : value
-    if (!this.node) {
-      return
-    }
-    // eslint-disable-next-line prefer-destructuring
+export default class YuSelect extends YuComponent {
+  constructor(component, states) {
+    super()
+    this.node = this.getNode(component)
     this.inputNode = this.node.getElementsByTagName('INPUT')[0]
     this.optionNode = this.node.lastElementChild
 
@@ -28,15 +26,15 @@ export default class YuSelect {
     this.value = ''
     this.text = ''
 
-    this.multi = props && props.multi
+    this.multi = states && states.multi
     if (this.multi) {
       this.value = []
       this.text = []
-      delete props.multi
+      delete states.multi
     }
-    if (props) {
-      for (const key of Object.keys(props)) {
-        this.setState(key, props[key])
+    if (states) {
+      for (const key of Object.keys(states)) {
+        this.setState(key, states[key])
       }
     }
 
@@ -65,66 +63,66 @@ export default class YuSelect {
     })
   }
 
-  clear = (value) => {
-    if (value) {
-      this.inputNode.nextElementSibling.children[0].classList = 'iconfont icon-close-circle'
-      this.node.querySelector('.icon-close-circle').addEventListener('click', (e) => {
-        e.target.className = 'iconfont icon-angle-down'
-        // 重置option
-        if (this.multi) {
-          this.value = []
-          this.text = []
-          this.inputNode.value = ''
-          Array.from(this.optionNode.children).forEach((item) => {
-            item.classList.remove('hide')
-          })
-        } else {
-          this.value = ''
-          this.text = ''
-          this.inputNode.value = ''
-          Array.from(this.optionNode.children).forEach((item) => {
-            item.classList.remove('active')
-          })
-        }
-      })
-    } else {
-      this.inputNode.nextElementSibling.children[0].classList = 'iconfont icon-angle-down'
-    }
-  }
-
-  overflow = (value) => {
-    this.optionClassName.overflow = value
-    this.node.lastElementChild.className = classnames(this.optionClassName)
-  }
-
-  option = (value) => {
-    value.forEach((item) => {
-      const li = document.createElement('LI')
-      li.innerText = item.label
-      li.setAttribute('data-value', item.value)
-      if (item.disabled) {
-        li.className = 'disabled'
+    clear = (value) => {
+      if (value) {
+        this.inputNode.nextElementSibling.children[0].classList = 'iconfont icon-close-circle'
+        this.node.querySelector('.icon-close-circle').addEventListener('click', (e) => {
+          e.target.className = 'iconfont icon-angle-down'
+          // 重置option
+          if (this.multi) {
+            this.value = []
+            this.text = []
+            this.inputNode.value = ''
+            Array.from(this.optionNode.children).forEach((item) => {
+              item.classList.remove('hide')
+            })
+          } else {
+            this.value = ''
+            this.text = ''
+            this.inputNode.value = ''
+            Array.from(this.optionNode.children).forEach((item) => {
+              item.classList.remove('active')
+            })
+          }
+        })
+      } else {
+        this.inputNode.nextElementSibling.children[0].classList = 'iconfont icon-angle-down'
       }
-      this.node.lastElementChild.appendChild(li)
-    })
-  }
+    }
 
-  visible = (value) => {
-    this.optionClassName['zoom-in-top-enter'] = false
-    this.optionClassName['zoom-in-top-enter-active'] = value
-    this.optionClassName['zoom-in-top-leave-active'] = !value
-    this.optionNode.className = classnames(this.optionClassName)
-  }
+    overflow = (value) => {
+      this.optionClassName.overflow = value
+      this.node.lastElementChild.className = classnames(this.optionClassName)
+    }
 
-  disabled = (value) => {
-    this.className.disabled = value
-    this.node.className = classnames(this.className)
-  }
+    option = (value) => {
+      value.forEach((item) => {
+        const li = document.createElement('LI')
+        li.innerText = item.label
+        li.setAttribute('data-value', item.value)
+        if (item.disabled) {
+          li.className = 'disabled'
+        }
+        this.node.lastElementChild.appendChild(li)
+      })
+    }
 
-  size = (value) => {
-    Object.assign(this.className, { small: false, large: false }, { [value]: true })
-    this.node.className = classnames(this.className)
-  }
+    visible = (value) => {
+      this.optionClassName['zoom-in-top-enter'] = false
+      this.optionClassName['zoom-in-top-enter-active'] = value
+      this.optionClassName['zoom-in-top-leave-active'] = !value
+      this.optionNode.className = classnames(this.optionClassName)
+    }
+
+    disabled = (value) => {
+      this.className.disabled = value
+      this.node.className = classnames(this.className)
+    }
+
+    size = (value) => {
+      Object.assign(this.className, { small: false, large: false }, { [value]: true })
+      this.node.className = classnames(this.className)
+    }
 
     onSelect = (value, text) => {
       if (this.multi) {
@@ -135,16 +133,6 @@ export default class YuSelect {
         this.value = value
         this.text = text
         this.inputNode.value = this.text
-      }
-    }
-
-    setState(stateName, value) {
-      this[stateName](value)
-    }
-
-    setProps(props) {
-      for (const key of Object.keys(props)) {
-        this.setState(key, props[key])
       }
     }
 }

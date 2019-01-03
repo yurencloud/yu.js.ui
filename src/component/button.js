@@ -1,47 +1,35 @@
-export default class YuButton {
-  constructor(value, props) {
-    this.node = typeof value === 'string' ? document.querySelector(value) : value
-    if (!this.node) return
-    if (props) {
-      for (const key of Object.keys(props)) {
-        this.setState(key, props[key])
-      }
+import YuComponent from '../util/component'
+
+export default class YuButton extends YuComponent {
+  constructor(component, states) {
+    super()
+    this.node = this.getNode(component)
+    this.setStates(states)
+  }
+
+    type = (type) => {
+      this.node.classList.remove('primary', 'danger', 'warning', 'info', 'success')
+      this.node.classList.add(type)
     }
-  }
 
-  type = (value) => {
-    this.node.classList.remove('primary', 'danger', 'warning', 'info', 'success')
-    this.node.classList.add(value)
-  }
-
-  text = (value) => {
-    this.node.innerText = value
-  }
-
-  disabled = (value) => {
-    this.node.classList.toggle('disabled', value)
-  }
-
-  plain = (value) => {
-    this.node.classList.toggle('plain', value)
-  }
-
-  size = (value) => {
-    this.node.classList.remove('small', 'large')
-    this.node.classList.add(value)
-  }
-
-  circle = (value) => {
-    this.node.classList.toggle('circle', value)
-  }
-
-  setState(stateName, value) {
-    this[stateName](value)
-  }
-
-  setProps(props) {
-    for (const key of Object.keys(props)) {
-      this.setState(key, props[key])
+    text = (text) => {
+      this.node.innerText = text
     }
-  }
+
+    disabled = (isDisabled) => {
+      this.node.classList.toggle('disabled', isDisabled)
+    }
+
+    plain = (isPlain) => {
+      this.node.classList.toggle('plain', isPlain)
+    }
+
+    size = (size) => {
+      this.node.classList.remove('small', 'large')
+      this.node.classList.add(size)
+    }
+
+    circle = (isCircle) => {
+      this.node.classList.toggle('circle', isCircle)
+    }
 }
