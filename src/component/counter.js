@@ -5,7 +5,8 @@ const calculator = require('yu.calculator')
 export default class YuCounter extends YuComponent {
   constructor(component, states) {
     super()
-    this.node = this.getNode(component)
+    this.initNode(component)
+
     const isCounterSide = this.node.classList.contains('yu-counter-side')
     this.inputNode = this.node.querySelector('input')
     const buttons = this.node.querySelectorAll('button')
@@ -20,8 +21,6 @@ export default class YuCounter extends YuComponent {
 
     this.states.value = 0
     this.states.step = 1
-
-    this.setStates(states)
 
     this.addNode.addEventListener('click', (e) => {
       const sum = calculator.add(this.states.value, this.states.step)
@@ -48,8 +47,10 @@ export default class YuCounter extends YuComponent {
       }
 
       this.changeButtonState()
-      this.inputNode.component = this.states.value
+      this.inputNode.value = this.states.value
     })
+
+    this.initStates(states)
   }
 
     changeButtonState = () => {

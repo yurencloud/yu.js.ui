@@ -3,15 +3,13 @@ import YuComponent from '../util/component'
 export default class YuCheckbox extends YuComponent {
   constructor(component, states) {
     super()
-    this.node = this.getNode(component)
-    this.checkboxNode = this.node.querySelectorAll('label:not(.control)')
+    this.initNode(component)
+    this.checkboxNodes = this.node.querySelectorAll('label:not(.control)')
     this.controlNode = this.node.querySelector('.control')
 
     this.states.value = []
 
-    this.setStates(states)
-
-    Array.from(this.checkboxNode).forEach((item) => {
+    Array.from(this.checkboxNodes).forEach((item) => {
       item.addEventListener('click', (e) => {
         e.preventDefault()
         if (e.currentTarget.classList.contains('disabled')) return
@@ -32,20 +30,23 @@ export default class YuCheckbox extends YuComponent {
       if (e.currentTarget.classList.contains('disabled')) return
       if (this.states.value.length > 0) {
         this.states.value = []
-        Array.from(this.checkboxNode).forEach((item) => {
+        Array.from(this.checkboxNodes).forEach((item) => {
           item.classList.remove('checked')
         })
         this.controlNode.className = 'yu-checkbox control'
       } else {
         this.states.value = []
-        Array.from(this.checkboxNode).forEach((item) => {
+        Array.from(this.checkboxNodes).forEach((item) => {
           item.classList.add('checked')
           this.states.value.push(item.querySelector('input').value)
         })
         this.controlNode.className = 'yu-checkbox control checked'
       }
     })
+
+    this.initStates(states)
   }
+
 
     value = (value) => {
       this.node.querySelector(`input[value=${value}]`).parentNode.parentNode.classList.add('checked')
@@ -68,7 +69,7 @@ export default class YuCheckbox extends YuComponent {
       if (controlNode) {
         controlNode.className = 'yu-checkbox control'
         if (value.length > 0) {
-          controlNode.classList.add(value.length === this.checkboxNode.length ? 'checked' : 'part')
+          controlNode.classList.add(value.length === this.checkboxNodes.length ? 'checked' : 'part')
         }
       }
     }

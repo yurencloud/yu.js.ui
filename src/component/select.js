@@ -4,9 +4,9 @@ import YuComponent from '../util/component'
 export default class YuSelect extends YuComponent {
   constructor(component, states) {
     super()
-    this.node = this.getNode(component)
-    this.inputNode = this.node.getElementsByTagName('INPUT')[0]
-    this.optionNode = this.node.lastElementChild
+    this.initNode(component)
+    this.inputNode = this.node.querySelector('input')
+    this.optionNode = this.node.querySelector('.yu-option')
 
     this.className = {
       'yu-button': true,
@@ -23,19 +23,14 @@ export default class YuSelect extends YuComponent {
       'zoom-in-top-leave-active': false,
     }
 
-    this.value = ''
-    this.text = ''
+    this.states.value = ''
+    this.states.text = ''
 
-    this.multi = states && states.multi
-    if (this.multi) {
-      this.value = []
-      this.text = []
+    this.states.multi = states && states.multi
+    if (this.states.multi) {
+      this.states.value = []
+      this.states.text = []
       delete states.multi
-    }
-    if (states) {
-      for (const key of Object.keys(states)) {
-        this.setState(key, states[key])
-      }
     }
 
     this.node.lastElementChild.className = classnames(this.optionClassName)
@@ -52,7 +47,7 @@ export default class YuSelect extends YuComponent {
     })
     this.node.lastElementChild.addEventListener('mousedown', (e) => {
       this.onSelect(e.target.getAttribute('data-value'), e.target.innerText)
-      if (this.multi) {
+      if (this.states.multi) {
         e.target.classList.add('hide')
       } else {
         Array.from(e.target.parentNode.children).forEach((item) => {
@@ -61,6 +56,8 @@ export default class YuSelect extends YuComponent {
         e.target.classList.add('active')
       }
     })
+
+    this.initStates(states)
   }
 
     clear = (value) => {
@@ -69,16 +66,16 @@ export default class YuSelect extends YuComponent {
         this.node.querySelector('.icon-close-circle').addEventListener('click', (e) => {
           e.target.className = 'iconfont icon-angle-down'
           // 重置option
-          if (this.multi) {
-            this.value = []
-            this.text = []
+          if (this.states.multi) {
+            this.states.value = []
+            this.states.text = []
             this.inputNode.value = ''
             Array.from(this.optionNode.children).forEach((item) => {
               item.classList.remove('hide')
             })
           } else {
-            this.value = ''
-            this.text = ''
+            this.states.value = ''
+            this.states.text = ''
             this.inputNode.value = ''
             Array.from(this.optionNode.children).forEach((item) => {
               item.classList.remove('active')
@@ -125,14 +122,14 @@ export default class YuSelect extends YuComponent {
     }
 
     onSelect = (value, text) => {
-      if (this.multi) {
-        this.value.push(value)
-        this.text.push(text)
-        this.inputNode.value = this.text.join(',')
+      if (this.states.multi) {
+        this.states.value.push(value)
+        this.states.text.push(text)
+        this.inputNode.value = this.states.text.join(',')
       } else {
-        this.value = value
-        this.text = text
-        this.inputNode.value = this.text
+        this.states.value = value
+        this.states.text = text
+        this.inputNode.value = this.states.text
       }
     }
 }

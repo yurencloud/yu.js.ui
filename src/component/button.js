@@ -3,8 +3,8 @@ import YuComponent from '../util/component'
 export default class YuButton extends YuComponent {
   constructor(component, states) {
     super()
-    this.node = this.getNode(component)
-    this.setStates(states)
+    this.initNode(component)
+    this.initStates(states)
   }
 
     type = (type) => {

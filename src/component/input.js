@@ -3,7 +3,7 @@ import YuComponent from '../util/component'
 export default class YuInput extends YuComponent {
   constructor(component, states) {
     super()
-    this.node = this.getNode(component)
+    this.initNode(component)
     if (this.node.classList.contains('textarea')) {
       this.inputNode = this.node.querySelector('textarea')
     } else {
@@ -13,7 +13,6 @@ export default class YuInput extends YuComponent {
     this.states.value = ''
     this.states.clear = false
 
-    this.setStates(states)
 
     this.inputNode.addEventListener('change', (e) => {
       this.states.component = e.target.value
@@ -26,6 +25,8 @@ export default class YuInput extends YuComponent {
         this.showClear(this.states.value.length > 0)
       }
     })
+
+    this.initStates(states)
   }
 
     value = (value) => {

@@ -18,7 +18,7 @@ const YU = {
   // 非组件
   Component: YuComponent,
   Init: YuInit,
-  Props: {},
+  Data: {},
 }
 
 export default YU
