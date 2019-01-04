@@ -15,12 +15,11 @@ export default class YuInput extends YuComponent {
 
 
     this.inputNode.addEventListener('change', (e) => {
-      this.states.component = e.target.value
+      this.states.value = e.target.value
     })
 
     this.inputNode.addEventListener('input', (e) => {
-      this.states.component = e.target.value
-      console.log(this.states.value)
+      this.states.value = e.target.value
       if (this.states.clear) {
         this.showClear(this.states.value.length > 0)
       }
@@ -37,15 +36,15 @@ export default class YuInput extends YuComponent {
       }
     }
 
-    disabled = (value) => {
-      this.node.classList.toggle('disabled', value)
+    disabled = (isDisabled) => {
+      this.node.classList.toggle('disabled', isDisabled)
     }
 
-    clearable = (value) => {
-      this.states.clear = value
+    clearable = (clearable) => {
+      this.states.clear = clearable
     }
 
-    showClear = (value) => {
+    showClear = (isShowClear) => {
       let clearNode = this.node.querySelector('span.clearable')
       if (!clearNode) {
         const span = document.createElement('SPAN')
@@ -55,7 +54,6 @@ export default class YuInput extends YuComponent {
         span.appendChild(i)
         this.node.appendChild(span)
         i.addEventListener('click', (e) => {
-          console.log(2)
           this.inputNode.value = ''
           this.states.value = ''
           const parent = e.target.parentNode
@@ -65,35 +63,35 @@ export default class YuInput extends YuComponent {
         clearNode = span
       }
 
-      clearNode.style.display = value ? 'inline-block' : 'none'
+      clearNode.style.display = isShowClear ? 'inline-block' : 'none'
     }
 
-    prefix = (value) => {
+    prefix = (prefixIcon) => {
       const span = document.createElement('SPAN')
       span.className = 'prefix icon'
       const i = document.createElement('I')
-      i.className = `iconfont ${value}`
+      i.className = `iconfont ${prefixIcon}`
       span.appendChild(i)
       this.node.insertBefore(span, this.inputNode)
       this.inputNode.classList.add('prefix')
     }
 
-    suffix = (value) => {
+    suffix = (suffixIcon) => {
       const span = document.createElement('SPAN')
       span.className = 'suffix icon'
       const i = document.createElement('I')
-      i.className = `iconfont ${value}`
+      i.className = `iconfont ${suffixIcon}`
       span.appendChild(i)
       this.node.appendChild(span, this.inputNode)
       this.inputNode.classList.add('suffix')
     }
 
-    size = (value) => {
+    size = (size) => {
       this.inputNode.classList.remove('small', 'large')
-      this.inputNode.classList.add(value)
+      this.inputNode.classList.add(size)
     }
 
-    full = (value) => {
-      this.inputNode.classList.toggle('full', value)
+    full = (isFullWidth) => {
+      this.inputNode.classList.toggle('full', isFullWidth)
     }
 }

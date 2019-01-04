@@ -18,14 +18,13 @@ export default class YuCounter extends YuComponent {
       this.subNode = buttons[0]
     }
 
-
     this.states.value = 0
     this.states.step = 1
 
     this.addNode.addEventListener('click', (e) => {
       const sum = calculator.add(this.states.value, this.states.step)
 
-      if (typeof this.states.max === 'number' && this.states.max < sum) {
+      if (typeof this.states.max === 'number' && this.states.max <= sum) {
         this.states.value = this.states.max
         e.currentTarget.classList.add('disabled')
       } else {
@@ -33,19 +32,18 @@ export default class YuCounter extends YuComponent {
       }
 
       this.changeButtonState()
-      this.inputNode.component = this.states.value
+      this.inputNode.value = this.states.value
     })
 
     this.subNode.addEventListener('click', (e) => {
       const difference = calculator.sub(this.states.value, this.states.step)
 
-      if (typeof this.states.min === 'number' && this.states.min > difference) {
+      if (typeof this.states.min === 'number' && this.states.min >= difference) {
         this.states.value = this.states.min
         e.currentTarget.classList.add('disabled')
       } else {
         this.states.value = difference
       }
-
       this.changeButtonState()
       this.inputNode.value = this.states.value
     })

@@ -11,11 +11,6 @@ export default function parseAttributesToStates(attributes) {
         return
       }
 
-      if (start === '\'' || start === '"') {
-        states[name] = item.value.substr(1, item.value.length - 2)
-        return
-      }
-
       if (start === '{' || start === '[') {
         states[name] = JSON.parse(item.value)
         return
@@ -31,7 +26,12 @@ export default function parseAttributesToStates(attributes) {
         return
       }
 
-      states[name] = YU.Data[item.value]
+      if (start === '$') {
+        states[name] = YU.Data[item.value.substr(1)]
+        return
+      }
+
+      states[name] = item.value
     }
   })
   return states

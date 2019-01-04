@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../dist/styles.css">
 </head>
 <body>
-<div class="yu-select">
+<div class="yu-select" :ref="select" :option="$option">
     <div class="yu-input">
         <input type="text" class="suffix" placeholder="请选择">
         <span class="suffix icon"><i class="iconfont icon-angle-down"></i></span>
@@ -16,4 +16,14 @@
 </div>
 </body>
 <script src="../dist/index.bundle.js"></script>
+<script>
+    YU.Data = {
+        option: [
+            {label: '苹果', value: 'apple'},
+            {label: '香蕉', value: 'banana'},
+            {label: '桃子', value: 'peach'},
+        ]
+    }
+    var the = YU.Init('Select')
+</script>
 </html>

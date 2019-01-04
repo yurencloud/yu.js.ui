@@ -30,7 +30,6 @@ export default class YuSelect extends YuComponent {
     if (this.states.multi) {
       this.states.value = []
       this.states.text = []
-      delete states.multi
     }
 
     this.node.lastElementChild.className = classnames(this.optionClassName)
@@ -111,13 +110,13 @@ export default class YuSelect extends YuComponent {
       this.optionNode.className = classnames(this.optionClassName)
     }
 
-    disabled = (value) => {
-      this.className.disabled = value
+    disabled = (isDisabled) => {
+      this.className.disabled = isDisabled
       this.node.className = classnames(this.className)
     }
 
-    size = (value) => {
-      Object.assign(this.className, { small: false, large: false }, { [value]: true })
+    size = (size) => {
+      Object.assign(this.className, { small: false, large: false }, { [size]: true })
       this.node.className = classnames(this.className)
     }
 
