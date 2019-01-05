@@ -5,25 +5,69 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../dist/styles.css">
+    <link rel="stylesheet" href="../index.css">
 </head>
 <body>
-<div class="yu-select" :ref="select" :option="$option">
-    <div class="yu-input">
-        <input type="text" class="suffix" placeholder="请选择">
-        <span class="suffix icon"><i class="iconfont icon-angle-down"></i></span>
+<div class="web-container">
+    <h4 class="web-title">下拉选择</h4>
+    <div class="yu-select" :ref="select" :multi="true">
+        <div class="yu-input">
+            <input type="text" class="suffix" placeholder="请选择">
+            <span class="suffix icon">
+                <i class="iconfont icon-angle-down"></i>
+            </span>
+        </div>
+        <ul class="yu-option">
+            <li data-value="cat">猫</li>
+            <li data-value="dog">狗</li>
+            <li data-value="pig">猪</li>
+        </ul>
     </div>
-    <ul class="yu-option"></ul>
+    <div style="height: 120px"></div>
+    <h4 class="web-title">禁用</h4>
+    <div class="yu-select">
+        <div class="yu-input disabled">
+            <input type="text" class="suffix" placeholder="请选择">
+            <span class="suffix icon">
+                <i class="iconfont icon-angle-down"></i>
+            </span>
+        </div>
+        <ul class="yu-option" style="display: none">
+            <li>猫</li>
+            <li>猫</li>
+            <li>猫</li>
+            <li>猫</li>
+        </ul>
+    </div>
+    <div style="height: 120px"></div>
+    <h4 class="web-title">自定义选项</h4>
+    <div class="yu-select">
+        <div class="yu-input">
+            <input type="text" class="suffix" placeholder="请选择">
+            <span class="suffix icon">
+                <i class="iconfont icon-angle-down"></i>
+            </span>
+        </div>
+        <ul class="yu-option">
+            <li>
+                <h2>hello</h2>
+            </li>
+            <li>猫</li>
+            <li>猫</li>
+            <li>猫</li>
+        </ul>
+    </div>
 </div>
 </body>
 <script src="../dist/index.bundle.js"></script>
 <script>
-    YU.Data = {
-        option: [
-            {label: '苹果', value: 'apple'},
-            {label: '香蕉', value: 'banana'},
-            {label: '桃子', value: 'peach'},
-        ]
-    }
+    // YU.Data = {
+    //     option: [
+    //         {label: '苹果', value: 'apple'},
+    //         {label: '香蕉', value: 'banana'},
+    //         {label: '桃子', value: 'peach'},
+    //     ]
+    // }
     var the = YU.Init('Select')
 </script>
 </html>

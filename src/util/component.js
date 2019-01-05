@@ -5,14 +5,14 @@ export default class YuComponent {
 
     initNode = (component) => {
       this.node = typeof component === 'string' ? document.querySelector(component) : component
+      // attributes只是为了方便组件初始化，改变attributes不能改变state
+      this.states = this.parseAttributesToStates(this.node.attributes)
     }
 
     initStates(statesValue) {
       // states优先于attributes
-      // attributes只是为了方便组件初始化，改变attributes不能改变state
-      const attributeStates = this.parseAttributesToStates(this.node.attributes)
-      const states = Object.assign(attributeStates, statesValue || {})
-      this.setStates(states)
+      Object.assign(this.states, statesValue || {})
+      this.setStates(this.states)
       this.node.setAttribute(':mounted', true)
     }
 

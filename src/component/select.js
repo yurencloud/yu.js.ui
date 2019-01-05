@@ -1,4 +1,3 @@
-import classnames from 'classnames'
 import YuComponent from '../util/component'
 
 export default class YuSelect extends YuComponent {
@@ -6,36 +5,21 @@ export default class YuSelect extends YuComponent {
     super()
     this.initNode(component)
     this.inputNode = this.node.querySelector('input')
+    this.inputIconNode = this.node.querySelector('.suffix>i')
     this.optionNode = this.node.querySelector('.yu-option')
-
-    this.className = {
-      'yu-button': true,
-      disabled: false,
-      plain: false,
-      circle: false,
-    }
-
-    this.optionClassName = {
-      'yu-option': true,
-      'zoom-in-top-enter': true,
-      overflow: false,
-      'zoom-in-top-enter-active': false,
-      'zoom-in-top-leave-active': false,
-    }
 
     this.states.value = ''
     this.states.text = ''
 
-    this.states.multi = states && states.multi
     if (this.states.multi) {
       this.states.value = []
       this.states.text = []
     }
 
-    this.node.lastElementChild.className = classnames(this.optionClassName)
+    this.optionNode.classList.add('zoom-in-top-enter')
 
     this.inputNode.addEventListener('focus', () => {
-      this.setState('visible', true)
+      this.setState('visible', !this.states.disabled)
     })
     this.inputNode.addEventListener('blur', (e) => {
       this.setState('visible', false)
@@ -44,7 +28,7 @@ export default class YuSelect extends YuComponent {
     this.inputNode.addEventListener('input', (e) => {
       this.setState('clear', e.target.value.length > 0)
     })
-    this.node.lastElementChild.addEventListener('mousedown', (e) => {
+    this.optionNode.addEventListener('mousedown', (e) => {
       this.onSelect(e.target.getAttribute('data-value'), e.target.innerText)
       if (this.states.multi) {
         e.target.classList.add('hide')
@@ -59,36 +43,41 @@ export default class YuSelect extends YuComponent {
     this.initStates(states)
   }
 
-    clear = (value) => {
-      if (value) {
-        this.inputNode.nextElementSibling.children[0].classList = 'iconfont icon-close-circle'
-        this.node.querySelector('.icon-close-circle').addEventListener('click', (e) => {
-          e.target.className = 'iconfont icon-angle-down'
-          // 重置option
-          if (this.states.multi) {
-            this.states.value = []
-            this.states.text = []
-            this.inputNode.value = ''
-            Array.from(this.optionNode.children).forEach((item) => {
-              item.classList.remove('hide')
-            })
-          } else {
-            this.states.value = ''
-            this.states.text = ''
-            this.inputNode.value = ''
-            Array.from(this.optionNode.children).forEach((item) => {
-              item.classList.remove('active')
-            })
-          }
-        })
+    clear = (isClearable) => {
+      if (isClearable) {
+        this.inputIconNode.classList.remove('icon-angle-down')
+        this.inputIconNode.classList.add('icon-close-circle')
+        this.inputIconNode.addEventListener('click', this.clearEvent)
       } else {
-        this.inputNode.nextElementSibling.children[0].classList = 'iconfont icon-angle-down'
+        this.inputIconNode.classList.remove('icon-close-circle')
+        this.inputIconNode.classList.add('icon-angle-down')
+        this.inputIconNode.removeEventListener('click', this.clearEvent)
       }
     }
 
-    overflow = (value) => {
-      this.optionClassName.overflow = value
-      this.node.lastElementChild.className = classnames(this.optionClassName)
+    clearEvent = (e) => {
+      e.target.classList.remove('icon-close-circle')
+      e.target.classList.add('icon-angle-down')
+      // 重置option
+      if (this.states.multi) {
+        this.states.value = []
+        this.states.text = []
+        this.inputNode.value = ''
+        Array.from(this.optionNode.children).forEach((item) => {
+          item.classList.remove('hide')
+        })
+      } else {
+        this.states.value = ''
+        this.states.text = ''
+        this.inputNode.value = ''
+        Array.from(this.optionNode.children).forEach((item) => {
+          item.classList.remove('active')
+        })
+      }
+    }
+
+    overflow = (isOverflow) => {
+      this.optionNode.classList.toggle('overflow', isOverflow)
     }
 
     option = (value) => {
@@ -104,20 +93,19 @@ export default class YuSelect extends YuComponent {
     }
 
     visible = (value) => {
-      this.optionClassName['zoom-in-top-enter'] = false
-      this.optionClassName['zoom-in-top-enter-active'] = value
-      this.optionClassName['zoom-in-top-leave-active'] = !value
-      this.optionNode.className = classnames(this.optionClassName)
+      this.optionNode.classList.remove('zoom-in-top-enter')
+      this.optionNode.classList.toggle('zoom-in-top-enter-active', value)
+      this.optionNode.classList.toggle('zoom-in-top-leave-active', !value)
     }
 
     disabled = (isDisabled) => {
-      this.className.disabled = isDisabled
-      this.node.className = classnames(this.className)
+      this.inputNode.parentNode.classList.toggle('disabled', isDisabled)
+      this.inputNode.setAttribute('readOnly', isDisabled)
     }
 
     size = (size) => {
-      Object.assign(this.className, { small: false, large: false }, { [size]: true })
-      this.node.className = classnames(this.className)
+      this.node.classList.remove('small', 'large')
+      this.node.classList.add(size)
     }
 
     onSelect = (value, text) => {
