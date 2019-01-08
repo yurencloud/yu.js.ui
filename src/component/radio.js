@@ -23,7 +23,9 @@ export default class YuRadio extends YuComponent {
   }
 
     value = (value) => {
-      this.node.querySelector(`input[value=${value}]`).parentNode.parentNode.classList.add('checked')
+      if (value.length > 0) {
+        this.node.querySelector(`input[value=${value}]`).parentNode.parentNode.classList.add('checked')
+      }
     }
 
     disabled = (isDisabled) => {

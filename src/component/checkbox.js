@@ -49,8 +49,9 @@ export default class YuCheckbox extends YuComponent {
 
 
     value = (value) => {
-      this.node.querySelector(`input[value=${value}]`).parentNode.parentNode.classList.add('checked')
-      this.states.value.push(value)
+      value.forEach((item) => {
+        this.node.querySelector(`input[value=${item}]`).parentNode.parentNode.classList.add('checked')
+      })
       this.control(this.states.value)
     }
 
