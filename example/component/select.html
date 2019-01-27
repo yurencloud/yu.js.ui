@@ -16,7 +16,7 @@
                 <i class="iconfont icon-angle-down"></i>
             </span>
         </div>
-        <ul class="yu-option">
+        <ul class="yu-option transition">
             <li data-value="cat">猫</li>
             <li data-value="dog">狗</li>
             <li data-value="pig">猪</li>
@@ -47,7 +47,7 @@
                 <i class="iconfont icon-angle-down"></i>
             </span>
         </div>
-        <ul class="yu-option">
+        <ul class="yu-option transition">
             <li>
                 <h2>hello</h2>
             </li>
@@ -68,5 +68,8 @@
     //     ]
     // }
     var the = YU.Init('Select')
+    the.select.onChange = function(value){
+        console.log(value)
+    }
 </script>
 </html>

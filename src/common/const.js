@@ -6,6 +6,7 @@ const NODE_CLASSNAME = {
   Input: '.yu-input',
   Radio: '.yu-radio-group',
   Select: '.yu-select',
+  Cascader: '.yu-cascader',
 }
 
 export default NODE_CLASSNAME

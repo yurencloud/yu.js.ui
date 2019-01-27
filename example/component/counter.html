@@ -160,10 +160,17 @@
         min: -10,
         max: 10,
     })
+    yuCounter.onChange = (value) => {
+        console.log(value)
+    }
     var yuCounterSide = new YU.Counter('.yu-counter-side', {
         step: '5',
         min: -10,
         max: 10,
     })
+
+    yuCounterSide.onChange = (value) => {
+        console.log(value)
+    }
 </script>
 </html>

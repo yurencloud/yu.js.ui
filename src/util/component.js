@@ -64,7 +64,20 @@ export default class YuComponent {
 
           states[name] = item.value
         }
+
+        // 绑定事件
+        if (item.name.indexOf('@') === 0) {
+          const eventName = `on${item.name[1].toLocaleUpperCase()}${item.name.substr(2)}`
+          this[eventName] = YU.Data[item.value]
+        }
       })
       return states
+    }
+
+    // 触发事件
+    emit(eventName, ...args) {
+      if (this[eventName]) {
+        this[eventName](...args)
+      }
     }
 }

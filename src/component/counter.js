@@ -33,6 +33,7 @@ export default class YuCounter extends YuComponent {
 
       this.changeButtonState()
       this.inputNode.value = this.states.value
+      this.emit('onChange', this.states.value)
     })
 
     this.subNode.addEventListener('click', (e) => {
@@ -46,6 +47,7 @@ export default class YuCounter extends YuComponent {
       }
       this.changeButtonState()
       this.inputNode.value = this.states.value
+      this.emit('onChange', this.states.value)
     })
 
     this.initStates(states)

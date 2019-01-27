@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>yu.js.ui</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../dist/styles.css">
+</head>
+<body>
+<div class="web-container">
+    <h4 class="web-title">级联选项</h4>
+    <div class="yu-cascader" :option="$option">
+        <div class="yu-input">
+            <input type="text" class="suffix" placeholder="请选择">
+            <span class="suffix icon">
+                <i class="iconfont icon-angle-down"></i>
+            </span>
+        </div>
+        <div class="yu-cascader-option transition">
+        </div>
+    </div>
+    <div style="height: 200px"></div>
+    <h4 class="web-title">多项级联选项</h4>
+    <div class="yu-cascader">
+        <div class="yu-input">
+            <input type="text" class="suffix" placeholder="请选择">
+            <span class="suffix icon">
+                <i class="iconfont icon-angle-down"></i>
+            </span>
+        </div>
+        <div class="yu-cascader-option">
+            <ul class="yu-option">
+                <li>猫 </li>
+                <li class="active">猫</li>
+                <li class="disabled">猫</li>
+                <li>猫</li>
+                <li>猫</li>
+                <li>猫</li>
+                <li>猫</li>
+            </ul>
+            <ul class="yu-option">
+                <li>猫</li>
+                <li class="active">猫</li>
+                <li>猫</li>
+                <li>猫</li>
+                <li>猫</li>
+                <li>猫</li>
+                <li>猫</li>
+            </ul>
+            <ul class="yu-option">
+                <li>猫</li>
+                <li class="active">猫</li>
+                <li>猫</li>
+                <li>猫</li>
+                <li>猫</li>
+                <li>猫</li>
+                <li>猫</li>
+            </ul>
+            <ul class="yu-option">
+                <li class="last">猫</li>
+                <li class="active last">猫</li>
+                <li class="last">猫</li>
+                <li class="last">猫</li>
+                <li class="last">猫</li>
+                <li class="last">猫</li>
+                <li class="last">猫</li>
+            </ul>
+        </div>
+    </div>
+    <div style="height: 200px"></div>
+
+    <h4 class="web-title">级联选项(溢出)</h4>
+    <div class="yu-cascader">
+        <div class="yu-input">
+            <input type="text" class="suffix" placeholder="请选择">
+            <span class="suffix icon">
+                <i class="iconfont icon-angle-down"></i>
+            </span>
+        </div>
+        <div class="yu-cascader-option">
+            <ul class="yu-option">
+                <li>猫</li>
+                <li class="active">猫</li>
+                <li>猫</li>
+                <li>猫</li>
+                <li>猫</li>
+                <li>猫</li>
+                <li>猫</li>
+                <li>猫</li>
+                <li>猫</li>
+                <li>猫</li>
+            </ul>
+            <ul class="yu-option">
+                <li class="last">猫</li>
+                <li class="active last">猫</li>
+                <li class="last">猫</li>
+                <li class="last">猫</li>
+                <li class="last">猫</li>
+                <li class="last">猫</li>
+                <li class="last">猫</li>
+                <li class="last">猫</li>
+                <li class="last">猫</li>
+                <li class="last">猫</li>
+            </ul>
+        </div>
+    </div>
+    <div style="height: 200px"></div>
+
+    <h4 class="web-title">禁用</h4>
+    <div class="yu-cascader">
+        <div class="yu-input disabled">
+            <input type="text" readonly class="suffix" placeholder="请选择">
+            <span class="suffix icon">
+                <i class="iconfont icon-angle-down"></i>
+            </span>
+        </div>
+        <div class="yu-cascader-option">
+        </div>
+    </div>
+
+</div>
+</body>
+<script src="../dist/index.bundle.js"></script>
+<script src="./provinceCascader.js"></script>
+<script>
+    YU.Data = {
+        option : provinceCascader,
+    }
+    var the = YU.Init('Cascader')
+</script>
+</html>

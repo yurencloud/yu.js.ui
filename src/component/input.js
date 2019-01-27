@@ -16,10 +16,12 @@ export default class YuInput extends YuComponent {
 
     this.inputNode.addEventListener('change', (e) => {
       this.states.value = e.target.value
+      this.emit('onChange', this.states.value)
     })
 
     this.inputNode.addEventListener('input', (e) => {
       this.states.value = e.target.value
+      this.emit('onInput', this.states.value)
       if (this.states.clear) {
         this.showClear(this.states.value.length > 0)
       }
@@ -57,6 +59,8 @@ export default class YuInput extends YuComponent {
           this.inputNode.value = ''
           this.states.value = ''
           const parent = e.target.parentNode
+          this.emit('onChange', this.states.value)
+          this.emit('onClear')
           parent.parentNode.removeChild(parent)
         })
 

@@ -21,6 +21,7 @@ export default class YuCheckbox extends YuComponent {
           e.currentTarget.classList.add('checked')
           this.states.value.push(selectValue)
         }
+        this.emit('onChange', this.states.value)
         this.control(this.states.value)
       })
     })
@@ -42,11 +43,10 @@ export default class YuCheckbox extends YuComponent {
         })
         this.controlNode.className = 'yu-checkbox control checked'
       }
+      this.emit('onChange', this.states.value)
     })
-
     this.initStates(states)
   }
-
 
     value = (value) => {
       value.forEach((item) => {

@@ -25,6 +25,7 @@ export default class YuRadio extends YuComponent {
     value = (value) => {
       if (value.length > 0) {
         this.node.querySelector(`input[value=${value}]`).parentNode.parentNode.classList.add('checked')
+        this.emit('onChange', value)
       }
     }
 
