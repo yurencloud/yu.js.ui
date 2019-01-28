@@ -20,6 +20,8 @@
         </div>
     </div>
 
+    <button class="yu-button" onclick="handleClick()">禁用</button>
+
     <h4 class="web-title">hover触发</h4>
     <div class="yu-cascader" :option="$option" :hover>
         <div class="yu-input">
@@ -100,17 +102,16 @@
 <script src="../dist/index.bundle.js"></script>
 <script src="./provinceCascader.js"></script>
 <script>
-    YU.Data = {
+    yu.data = {
         option: provinceCascader,
         value: ["330000", "330100", "330104"],
-        handleRemote: function (option) {
+        handleRemote: function (value) {
             return new Promise(function (resolve, reject) {
-                if(option){
-                    console.log(option)
-                    if(option.value === 'cats'){
+                if(value){
+                    if(value[value.length - 1] === 'animal'){
                         resolve([{value: 'cats', label: '猫科', children: []}]);
                     }else{
-                        resolve([{value: 'cat', label: '猫', children: []}]);
+                        resolve([{value: 'cat', label: '猫', children: null}]);
                     }
                 }else{
                     resolve([{value: 'animal', label: '动物', children: []}]);
@@ -118,7 +119,11 @@
             })
         }
     }
-    var the = YU.Init('Cascader')
+    var the = yu.init('Cascader')
+
+    function handleClick() {
+        the.Cascader[0].setState('disabled', true)
+    }
 
 </script>
 </html>

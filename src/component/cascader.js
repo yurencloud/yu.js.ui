@@ -1,7 +1,7 @@
 import YuComponent from '../util/component'
 
-export default class YuButton extends YuComponent {
-  // 如何初始化有状态先后顺序，则设置defaultStates, defaultStates的排序优先级最高
+export default class YuCascader extends YuComponent {
+  // 如果初始化有状态先后顺序，则设置defaultStates, defaultStates的排序优先级最高
   defaultStates = {
     'change-on-select': false,
     hover: false,
@@ -38,6 +38,16 @@ export default class YuButton extends YuComponent {
     this.initStates(states)
   }
 
+    visible = (value) => {
+      this.cascaderOptionNode.classList.toggle('transition-enter', value)
+      this.cascaderOptionNode.classList.toggle('transition-leave', !value)
+    }
+
+    disabled = (isDisabled) => {
+      this.inputNode.parentNode.classList.toggle('disabled', isDisabled)
+      this.inputNode.setAttribute('readonly', isDisabled)
+    }
+
     clear = (isClearable) => {
       if (isClearable) {
         this.inputIconNode.classList.remove('icon-angle-down')
@@ -48,18 +58,6 @@ export default class YuButton extends YuComponent {
         this.inputIconNode.classList.add('icon-angle-down')
         this.inputIconNode.removeEventListener('click', this.clearEvent)
       }
-    }
-
-    clearEvent = (e) => {
-      e.target.classList.remove('icon-close-circle')
-      e.target.classList.add('icon-angle-down')
-      // 重置option
-      this.states.value = []
-      this.states.text = []
-      this.inputNode.value = ''
-      this.cascaderOptionNode.innerHTML = ''
-      this.setState('option', this.states.option)
-      this.emit('onChange', this.states.value)
     }
 
     overflow = (isOverflow) => {
@@ -76,28 +74,10 @@ export default class YuButton extends YuComponent {
       }
     }
 
-    // 生成新选项
-    // @param {Array} multiIndex - 多级索引，[2,3,1,...]，可定位到每一个选项
-    createOption = (multiIndex) => {
-      this.removeChildOption(multiIndex.length - 1)
-      let option = []
-      if (this.states.remote) {
-        this.states.value = []
-        Array.from(this.cascaderOptionNode.querySelectorAll('.active')).forEach((item) => {
-          this.states.value.push(item.getAttribute('data-value'))
-        })
-        this.states.remote(this.states.value).then((data) => {
-          this.insertOption(multiIndex, data)
-        })
-      } else {
-        option = this.getTargetOption(multiIndex)
-        this.insertOption(multiIndex, option)
-      }
-    }
-
     value = (value) => {
+      if (value.length === 0) return
       const multiIndex = []
-      let option = this.states.option
+      let { option } = this.states
       const text = []
       value.forEach((item) => {
         for (let i = 0; i < option.length; i++) {
@@ -114,6 +94,36 @@ export default class YuButton extends YuComponent {
       })
       this.onSelect({ value, text })
     }
+
+    clearEvent = (e) => {
+      e.target.classList.remove('icon-close-circle')
+      e.target.classList.add('icon-angle-down')
+      // 重置option
+      this.states.value = []
+      this.states.text = []
+      this.inputNode.value = ''
+      this.cascaderOptionNode.innerHTML = ''
+      this.setState('option', this.states.option)
+      this.emit('onChange', this.states.value)
+    }
+
+
+    // 生成新选项
+    // @param {Array} multiIndex - 多级索引，[2,3,1,...]，可定位到每一个选项
+    createOption = (multiIndex) => {
+      this.removeChildOption(multiIndex.length - 1)
+      let option = []
+      if (this.states.remote) {
+        this.states.value = this.getValueAndText().value
+        this.states.remote(this.states.value).then((data) => {
+          this.insertOption(multiIndex, data)
+        })
+      } else {
+        option = this.getTargetOption(multiIndex)
+        this.insertOption(multiIndex, option)
+      }
+    }
+
 
     // 插入新选项
     insertOption = (multiIndex, option) => {
@@ -139,7 +149,7 @@ export default class YuButton extends YuComponent {
           if (this.states.hover) {
             li.addEventListener('click', (e) => {
               this.setState('visible', false)
-              this.onSelect(this.getTargetOptionValueAndText(e.currentTarget.getAttribute('data-index').split(',')))
+              this.onSelect(this.getValueAndText(e.currentTarget.getAttribute('data-index').split(',')))
             })
           }
         }
@@ -162,6 +172,7 @@ export default class YuButton extends YuComponent {
         })
       } else {
         ul.addEventListener('mousedown', (e) => {
+          if (e.target.tagName !== 'LI') return
           if (e.target.classList.contains('disabled')) return
           Array.from(e.currentTarget.children).forEach((item) => {
             item.classList.remove('active')
@@ -171,12 +182,12 @@ export default class YuButton extends YuComponent {
 
           if (e.target.classList.contains('last')) {
             this.setState('visible', false)
-            this.onSelect(this.getTargetOptionValueAndText(dataIndex))
+            this.onSelect(this.getValueAndText())
             return
           }
 
           if (this.states['change-on-select']) {
-            this.onSelect(this.getTargetOptionValueAndText(dataIndex))
+            this.onSelect(this.getValueAndText())
           }
 
           this.createOption(dataIndex)
@@ -204,31 +215,13 @@ export default class YuButton extends YuComponent {
       return option
     }
 
-    getRemoteOptionItem(multiIndex) {
-      const { remoteOption } = this.states
-      return remoteOption[multiIndex[multiIndex.length - 1]]
-    }
-
-    getTargetOptionValueAndText(multiIndex) {
-      let { option } = this.states
+    getValueAndText() {
       const result = { value: [], text: [] }
-      for (let i = 0; i < multiIndex.length; i++) {
-        const opt = option[multiIndex[i]]
-        option = opt.children
-        result.value.push(opt.value)
-        result.text.push(opt.label)
-      }
+      Array.from(this.cascaderOptionNode.querySelectorAll('.active')).forEach((item) => {
+        result.value.push(item.getAttribute('data-value'))
+        result.text.push(item.innerText)
+      })
       return result
-    }
-
-    visible = (value) => {
-      this.cascaderOptionNode.classList.toggle('transition-enter', value)
-      this.cascaderOptionNode.classList.toggle('transition-leave', !value)
-    }
-
-    disabled = (isDisabled) => {
-      this.inputNode.parentNode.classList.toggle('disabled', isDisabled)
-      this.inputNode.setAttribute('readonly', isDisabled)
     }
 
     onSelect = (result) => {

@@ -9,8 +9,9 @@ import YuCounter from './component/counter'
 import YuCounterSide from './component/counter-side'
 import YuSelect from './component/select'
 import YuCascader from './component/cascader'
+import YuSwitch from './component/switch'
 
-const YU = {
+const yu = {
   Button: YuButton,
   Radio: YuRadio,
   Checkbox: YuCheckbox,
@@ -19,11 +20,13 @@ const YU = {
   CounterSide: YuCounterSide,
   Select: YuSelect,
   Cascader: YuCascader,
+  Switch: YuSwitch,
 
   // 非组件
   Component: YuComponent,
-  Init: YuInit,
-  Data: {},
+
+  init: YuInit,
+  data: {},
 }
 
-export default YU
+export default yu

@@ -155,7 +155,7 @@
 </body>
 <script src="../dist/index.bundle.js"></script>
 <script>
-    var yuCounter = new YU.Counter('.yu-counter', {
+    var yuCounter = new yu.Counter('.yu-counter', {
         step: '5',
         min: -10,
         max: 10,
@@ -163,7 +163,7 @@
     yuCounter.onChange = (value) => {
         console.log(value)
     }
-    var yuCounterSide = new YU.Counter('.yu-counter-side', {
+    var yuCounterSide = new yu.Counter('.yu-counter-side', {
         step: '5',
         min: -10,
         max: 10,

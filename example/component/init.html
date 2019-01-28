@@ -58,32 +58,32 @@
             <li>4. 布尔值, 例 :type，:type="true", :type="false", </li>
             <li>5. JSON数组, 例 :type='["hello","world"]'</li>
             <li>6. JSON对象, 例 :type='{"type":"primary"}'</li>
-            <li>7. 变量, 在YU.Data = {type: 'primary'}中定义的变量，都可以被使用，例 :type="$type"</li>
+            <li>7. 变量, 在yu.data = {type: 'primary'}中定义的变量，都可以被使用，例 :type="$type"</li>
         </ul>
     </div>
 
     <h4 class="web-title">属性状态ref</h4>
-    <div class="web-description">不加ref，在用YU.Init()初始化时是无名组件，只能通过类型数组访问the.Button[1], 而加了ref的，则是有名组件, 可以直接通过the.tomButton访问。ref也是一个YU属性状态。</div>
+    <div class="web-description">不加ref，在用yu.init()初始化时是无名组件，只能通过类型数组访问the.Button[1], 而加了ref的，则是有名组件, 可以直接通过the.tomButton访问。ref也是一个yu属性状态。</div>
     <button class="yu-button" :type="danger" :plain="true" :ref="tomButton">button</button>
 
     <h4 class="web-title">最佳建议</h4>
     <div class="web-description">建议均采用多个类型的所有组件初始化，在需要操作状态的组件加上:ref属性, 这样则一行就可以初始化所有组件</div>
-    <div class="web-description">var the = YU.Init('Button','Radio')</div>
+    <div class="web-description">var the = yu.init('Button','Radio')</div>
 
 </div>
 </body>
 <script src="../dist/index.bundle.js"></script>
 <script>
-    YU.Data = {
+    yu.data = {
         isDisabled: true,
     }
-    var buttonOne = new YU.Button('.one')
-    var buttonTwo = new YU.Button('.two', {type: 'primary'})
+    var buttonOne = new yu.Button('.one')
+    var buttonTwo = new yu.Button('.two', {type: 'primary'})
 
-    var theOne = YU.Init('Button')
+    var theOne = yu.init('Button')
     theOne.Button[3].setState('type', 'warning')
 
-    var theTwo = YU.Init('Input','Radio')
+    var theTwo = yu.init('Input','Radio')
 
     theOne.tomButton.setState('size', 'large')
 

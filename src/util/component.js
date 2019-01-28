@@ -58,7 +58,7 @@ export default class YuComponent {
           }
 
           if (start === '$') {
-            states[name] = YU.Data[item.value.substr(1)]
+            states[name] = yu.data[item.value.substr(1)]
             return
           }
 
@@ -68,7 +68,7 @@ export default class YuComponent {
         // 绑定事件
         if (item.name.indexOf('@') === 0) {
           const eventName = `on${item.name[1].toLocaleUpperCase()}${item.name.substr(2)}`
-          this[eventName] = YU.Data[item.value]
+          this[eventName] = yu.data[item.value]
         }
       })
       return states
