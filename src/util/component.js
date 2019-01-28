@@ -11,7 +11,7 @@ export default class YuComponent {
 
     initStates(statesValue) {
       // states优先于attributes
-      Object.assign(this.states, statesValue || {})
+      this.states = Object.assign(this.defaultStates || {}, this.states, statesValue || {})
       this.setStates(this.states)
       this.node.setAttribute(':mounted', true)
     }
