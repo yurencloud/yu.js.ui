@@ -3,7 +3,9 @@ import YuComponent from './util/component'
 
 import YuButton from './component/button'
 import YuRadio from './component/radio'
+import YuRadioGroup from './component/radio-group'
 import YuCheckbox from './component/checkbox'
+import YuCheckboxGroup from './component/checkbox-group'
 import YuInput from './component/input'
 import YuCounter from './component/counter'
 import YuCounterSide from './component/counter-side'
@@ -14,7 +16,9 @@ import YuSwitch from './component/switch'
 const yu = {
   Button: YuButton,
   Radio: YuRadio,
+  RadioGroup: YuRadioGroup,
   Checkbox: YuCheckbox,
+  CheckboxGroup: YuCheckboxGroup,
   Input: YuInput,
   Counter: YuCounter,
   CounterSide: YuCounterSide,

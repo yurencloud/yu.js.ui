@@ -1,20 +1,28 @@
 import YuComponent from '../util/component'
 
 export default class YuSwitch extends YuComponent {
-  constructor(component, states) {
-    super()
-    this.initNode(component)
-    this.initStates(states)
-  }
+    defaultStates = {
+      type: 'primary',
+    }
+
+    constructor(component, states) {
+      super()
+      this.init(component, states)
+      this.inputNode = this.node.querySelector('input')
+      this.switchNode = this.node.querySelector('.switch')
+    }
 
     type = (type) => {
       this.node.classList.remove('primary', 'danger', 'warning', 'info', 'success')
       this.node.classList.add(type)
     }
 
-    text = (text) => {
-      this.node.innerText = text
+    on = (isOn) => {
+      this.switchNode.classList.toggle('on', isOn)
+      this.switchNode.classList.toggle(this.states.type, isOn)
     }
+
+    label
 
     disabled = (isDisabled) => {
       this.node.classList.toggle('disabled', isDisabled)

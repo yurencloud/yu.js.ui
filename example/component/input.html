@@ -10,12 +10,12 @@
 <div class="web-container">
     <h4 class="web-title">输入框</h4>
     <div class="yu-input">
-        <input type="text" placeholder="用户名">
+        <input type="text">
     </div>
 
     <h4 class="web-title">禁用</h4>
-    <div class="yu-input disabled">
-        <input type="text" disabled placeholder="用户名">
+    <div class="yu-input" :disabled>
+        <input type="text" placeholder="用户名">
     </div>
 
     <h4 class="web-title">可清空</h4>
@@ -74,15 +74,6 @@
 </body>
 <script src="../dist/index.bundle.js"></script>
 <script>
-    var yuInput = new yu.Input('.yu-input', {
-        value: 'apple',
-        clearable: true,
-        prefix: 'icon-user',
-        size: 'small',
-        full: false,
-        // suffix: 'icon-user',
-    })
-
-    var yuTextarea = new yu.Input('.yu-input.textarea')
+    var the = yu.init('Input')
 </script>
 </html>

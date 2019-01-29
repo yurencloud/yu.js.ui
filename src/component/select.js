@@ -3,7 +3,7 @@ import YuComponent from '../util/component'
 export default class YuSelect extends YuComponent {
   constructor(component, states) {
     super()
-    this.initNode(component)
+    this.init(component, states)
     this.inputNode = this.node.querySelector('input')
     this.inputIconNode = this.node.querySelector('.suffix>i')
     this.optionNode = this.node.querySelector('.yu-option')
@@ -37,8 +37,6 @@ export default class YuSelect extends YuComponent {
         e.target.classList.add('active')
       }
     })
-
-    this.initStates(states)
   }
 
     clear = (isClearable) => {

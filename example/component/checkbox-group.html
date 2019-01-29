@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>yu.js.ui</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../dist/styles.css">
+</head>
+<body>
+<div class="web-container">
+    <h4>多选框</h4>
+    <p>直接写选项</p>
+    <div class="yu-checkbox-group">
+        <label class="yu-checkbox control">
+            <span class="checkbox"><input type="checkbox"></span>
+            <span>全部</span>
+        </label>
+        <label class="yu-checkbox">
+            <span class="checkbox"><input type="checkbox" value="apple"></span>
+            <span>苹果</span>
+        </label>
+        <label class="yu-checkbox">
+            <span class="checkbox"><input type="checkbox" value="banana"></span>
+            <span>香蕉</span>
+        </label>
+        <label class="yu-checkbox">
+            <span class="checkbox"><input type="checkbox" value="peach"></span>
+            <span>桃子</span>
+        </label>
+    </div>
+    <p>使用子组件选项</p>
+    <div class="yu-checkbox-group" id="child">
+        <label class="yu-checkbox control" :option='{"label":"全部","value":""}'></label>
+        <label class="yu-checkbox" :option='{"label":"苹果","value":"apple"}'></label>
+        <label class="yu-checkbox" :option='{"label":"香蕉","value":"banana"}'></label>
+        <label class="yu-checkbox" :option='{"label":"桃子","value":"peach"}'></label>
+    </div>
+    <p>变量生成选项</p>
+    <div class="yu-checkbox-group" :option="$option" :value='["apple"]'></div>
+
+
+    <h4 class="web-title">禁用</h4>
+    <div class="yu-checkbox-group" :option="$option" :disabled></div>
+
+    <label class="yu-checkbox checked disabled">
+        <span class="checkbox"><input type="checkbox"></span>
+        <span>苹果</span>
+    </label>
+
+
+
+    <h4 class="web-title">多选框组(垂直)</h4>
+    <div class="yu-checkbox-group" :vertical>
+        <label class="yu-checkbox">
+            <span class="checkbox"><input type="checkbox"></span>
+            <span>苹果</span>
+        </label>
+        <label class="yu-checkbox">
+            <span class="checkbox"><input type="checkbox"></span>
+            <span>香蕉</span>
+        </label>
+        <label class="yu-checkbox">
+            <span class="checkbox"><input type="checkbox"></span>
+            <span>桃子</span>
+        </label>
+    </div>
+
+    <h4 class="web-title">多选框组控制器</h4>
+    <div class="yu-checkbox-group">
+        <label class="yu-checkbox control">
+            <span class="checkbox"><input type="checkbox"></span>
+            <span>全部</span>
+        </label>
+        <label class="yu-checkbox">
+            <span class="checkbox"><input type="checkbox"></span>
+            <span>苹果</span>
+        </label>
+        <label class="yu-checkbox">
+            <span class="checkbox"><input type="checkbox"></span>
+            <span>香蕉</span>
+        </label>
+        <label class="yu-checkbox">
+            <span class="checkbox"><input type="checkbox"></span>
+            <span>桃子</span>
+        </label>
+    </div>
+    <hr>
+    <div class="yu-checkbox-group">
+        <label class="yu-checkbox control part">
+            <span class="checkbox"><input type="checkbox"></span>
+            <span>部分</span>
+        </label>
+        <label class="yu-checkbox checked">
+            <span class="checkbox"><input type="checkbox"></span>
+            <span>苹果</span>
+        </label>
+        <label class="yu-checkbox checked">
+            <span class="checkbox"><input type="checkbox"></span>
+            <span>香蕉</span>
+        </label>
+        <label class="yu-checkbox">
+            <span class="checkbox"><input type="checkbox"></span>
+            <span>桃子</span>
+        </label>
+    </div>
+    <hr>
+    <div class="yu-checkbox-group">
+        <label class="yu-checkbox control checked">
+            <span class="checkbox"><input type="checkbox"></span>
+            <span>全部</span>
+        </label>
+        <label class="yu-checkbox checked">
+            <span class="checkbox"><input type="checkbox"></span>
+            <span>苹果</span>
+        </label>
+        <label class="yu-checkbox checked">
+            <span class="checkbox"><input type="checkbox"></span>
+            <span>香蕉</span>
+        </label>
+        <label class="yu-checkbox checked">
+            <span class="checkbox"><input type="checkbox"></span>
+            <span>桃子</span>
+        </label>
+    </div>
+    <hr>
+    <div class="yu-checkbox-group vertical">
+        <label class="yu-checkbox control">
+            <span class="checkbox"><input type="checkbox"></span>
+            <span>全部</span>
+        </label>
+        <label class="yu-checkbox">
+            <span class="checkbox"><input type="checkbox"></span>
+            <span>苹果</span>
+        </label>
+        <label class="yu-checkbox">
+            <span class="checkbox"><input type="checkbox"></span>
+            <span>香蕉</span>
+        </label>
+        <label class="yu-checkbox">
+            <span class="checkbox"><input type="checkbox"></span>
+            <span>桃子</span>
+        </label>
+    </div>
+    <h4 class="web-title">获取值</h4>
+    <div class="yu-checkbox-group" :option="$option2" :ref="target"></div>
+    <button class="yu-button" onclick="handleClick()">点击获取states.value</button>
+
+    <div class="yu-checkbox-group" :option="$option2" @change="$handleChange"></div>
+    <button class="yu-button">监听onChange事件</button>
+</div>
+</body>
+<script src="../dist/index.bundle.js"></script>
+<script>
+    Array.from(document.getElementById('child').children).forEach(function (item) {
+        new yu.Checkbox(item)
+    })
+
+    yu.data = {
+        option: [
+            {label: '全部', value: '', control: true, part: true},
+            {label: '苹果', value: 'apple', checked: true},
+            {label: '香蕉', value: 'banana', disabled: true},
+            {label: '桃子', value: 'peach'},
+        ],
+        option2: [
+            {label: '全部', value: '', control: true},
+            {label: '苹果', value: 'apple'},
+            {label: '香蕉', value: 'banana'},
+            {label: '桃子', value: 'peach'},
+        ],
+        handleChange : function (value) {
+            console.log(value)
+        }
+    }
+    var the = yu.init('CheckboxGroup')
+    function handleClick() {
+        console.log(the.target.states.value)
+    }
+</script>
+</html>

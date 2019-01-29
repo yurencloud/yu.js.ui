@@ -3,15 +3,20 @@ export default class YuComponent {
 
     node = {}
 
-    initNode = (component) => {
+    init(component, states) {
+      this.initNode(component)
+      this.initStates(states)
+    }
+
+    initNode(component) {
       this.node = typeof component === 'string' ? document.querySelector(component) : component
       // attributes只是为了方便组件初始化，改变attributes不能改变state
       this.states = this.parseAttributesToStates(this.node.attributes)
     }
 
-    initStates(statesValue) {
+    initStates(states) {
       // states优先于attributes
-      this.states = Object.assign(this.defaultStates || {}, this.states, statesValue || {})
+      this.states = Object.assign(this.defaultStates || {}, this.states, states || {})
       this.setStates(this.states)
       this.node.setAttribute(':mounted', true)
     }
@@ -34,7 +39,6 @@ export default class YuComponent {
 
       Array.from(attributes).forEach((item) => {
         if (item.name.indexOf(':') === 0) {
-          // 空value为true '开头为字符串，1开头为数字, { [ 开头为json对象
           const name = item.name.substr(1)
           const start = item.value[0]
           if (item.value === '') {
@@ -68,7 +72,7 @@ export default class YuComponent {
         // 绑定事件
         if (item.name.indexOf('@') === 0) {
           const eventName = `on${item.name[1].toLocaleUpperCase()}${item.name.substr(2)}`
-          this[eventName] = yu.data[item.value]
+          this[eventName] = yu.data[item.value.substr(1)]
         }
       })
       return states

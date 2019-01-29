@@ -9,79 +9,59 @@
 <body>
 <div class="web-container">
     <h4 class="web-title">单选框</h4>
-    <div class="yu-radio-group" @change="handleChange">
-        <label class="yu-radio">
-            <span class="radio"><input type="radio" value="apple"></span>
-            <span>苹果</span>
-        </label>
-        <label class="yu-radio">
-            <span class="radio"><input type="radio" value="banana"></span>
-            <span>香蕉</span>
-        </label>
-        <label class="yu-radio">
-            <span class="radio"><input type="radio" value="peach"></span>
-            <span>桃子</span>
-        </label>
-    </div>
-
-    <h4 class="web-title">激活</h4>
-    <label class="yu-radio checked">
-        <span class="radio"><input type="radio"></span>
+    <p class="web-description">直接写选项</p>
+    <label class="yu-radio">
+        <span class="radio"><input type="radio" value="apple"></span>
         <span>苹果</span>
     </label>
+
+    <p class="web-description">变量生成选项</p>
+    <label class="yu-radio" :option="$option"></label>
+
+    <h4 class="web-title">激活状态</h4>
+    <label class="yu-radio checked" :option="$option" :checked></label>
+
+    <h4 class="web-title">默认值</h4>
+    <p class="web-description">激活仅控制样式，默认值需要单独设置</p>
+    <label class="yu-radio" :checked :value="apple">
+        <span class="radio"><input type="radio" value="apple"></span>
+        <span>苹果</span>
+    </label>
+
     <h4 class="web-title">禁用</h4>
-    <label class="yu-radio disabled">
-        <span class="radio"><input type="radio"></span>
+    <label class="yu-radio"  :disabled>
+        <span class="radio"><input type="radio" value="apple"></span>
         <span>苹果</span>
     </label>
-    <label class="yu-radio checked disabled">
-        <span class="radio"><input type="radio"></span>
-        <span>香蕉</span>
+
+    <label class="yu-radio"  :disabled :checked>
+        <span class="radio"><input type="radio" value="apple"></span>
+        <span>苹果</span>
     </label>
 
-    <h4 class="web-title">单选框组（水平）</h4>
-    <div class="yu-radio-group">
-        <label class="yu-radio">
-            <span class="radio"><input type="radio" value="apple"></span>
-            <span>苹果</span>
-        </label>
-        <label class="yu-radio">
-            <span class="radio"><input type="radio" value="banana"></span>
-            <span>香蕉</span>
-        </label>
-        <label class="yu-radio">
-            <span class="radio"><input type="radio" value="peach"></span>
-            <span>桃子</span>
-        </label>
-    </div>
-
-    <h4 class="web-title">单选框组（垂直）</h4>
-    <div class="yu-radio-group vertical">
-        <label class="yu-radio">
-            <span class="radio"><input type="radio" value="apple"></span>
-            <span>苹果</span>
-        </label>
-        <label class="yu-radio">
-            <span class="radio"><input type="radio" value="banana"></span>
-            <span>香蕉</span>
-        </label>
-        <label class="yu-radio">
-            <span class="radio"><input type="radio" value="peach"></span>
-            <span>桃子</span>
-        </label>
-    </div>
+    <h4 class="web-title">获取值</h4>
+    <label class="yu-radio" :option="$option" :ref="target"></label>
+    <button class="yu-button" onclick="handleClick()">点击获取states.value</button>
+    <label class="yu-radio" :option="$option" :ref="target2"></label>
+    <button class="yu-button">监听onChange事件</button>
 </div>
 </body>
 <script src="../dist/index.bundle.js"></script>
 <script>
     yu.data = {
+        option: {label: '苹果', value: 'apple', checked: true},
         handleChange : function (value) {
-            console.log('bind event: '+value)
+            console.log(value)
         }
     }
     var the = new yu.init('Radio')
-    // the.Radio[0].onChange = (value) => {
-    //     console.log(value)
-    // }
+
+    function handleClick() {
+        console.log(the.target.states.value)
+    }
+
+    the.target2.onChange = function (value) {
+        console.log(value)
+    }
 </script>
 </html>

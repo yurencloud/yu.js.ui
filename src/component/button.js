@@ -3,8 +3,7 @@ import YuComponent from '../util/component'
 export default class YuButton extends YuComponent {
   constructor(component, states) {
     super()
-    this.initNode(component)
-    this.initStates(states)
+    this.init(component, states)
   }
 
     type = (type) => {
@@ -31,5 +30,11 @@ export default class YuButton extends YuComponent {
 
     circle = (isCircle) => {
       this.node.classList.toggle('circle', isCircle)
+    }
+
+    icon = (iconfontName) => {
+      const i = document.createElement('I')
+      i.className = `iconfont ${iconfontName}`
+      this.node.insertBefore(i, this.node.firstChild)
     }
 }
