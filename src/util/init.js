@@ -18,10 +18,10 @@ function getSingleComponent(componentType) {
   const nodes = document.querySelectorAll(NODE_CLASSNAME[componentType])
   Array.from(nodes).forEach((item) => {
     // js优先
-    const mounted = item.getAttribute(':mounted') === 'true'
+    const notMount = item.getAttribute('mounted') === '' || item.getAttribute('unmount') === ''
     const ref = getAttributeRefValue(item)
     // 如果已经初始化过的，则不再重复初始化
-    if (!mounted) {
+    if (!notMount) {
       if (ref) {
         component[ref] = new yu[componentType](item)
       } else if (Array.isArray(component[componentType])) {

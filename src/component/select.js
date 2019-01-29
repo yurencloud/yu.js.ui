@@ -1,20 +1,23 @@
 import YuComponent from '../util/component'
 
 export default class YuSelect extends YuComponent {
+  defaultStates = {
+    option: [],
+    value: '',
+    text: '',
+  }
+
   constructor(component, states) {
     super()
-    this.init(component, states)
+    this.initNode(component)
     this.inputNode = this.node.querySelector('input')
-    this.inputIconNode = this.node.querySelector('.suffix>i')
     this.optionNode = this.node.querySelector('.yu-option')
-
-    this.states.value = ''
-    this.states.text = ''
-
     if (this.states.multi) {
       this.states.value = []
       this.states.text = []
     }
+    this.inputIconNode = this.node.querySelector('.suffix>i')
+    this.initStates(states)
 
     this.inputNode.addEventListener('focus', () => {
       this.setState('visible', !this.states.disabled)
@@ -31,7 +34,7 @@ export default class YuSelect extends YuComponent {
       if (this.states.multi) {
         e.target.classList.add('hide')
       } else {
-        Array.from(e.target.parentNode.children).forEach((item) => {
+        Array.from(this.optionNode.querySelectorAll('.active')).forEach((item) => {
           item.classList.remove('active')
         })
         e.target.classList.add('active')

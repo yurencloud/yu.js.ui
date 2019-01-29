@@ -26,18 +26,20 @@
         </span>
     </div>
 
-    <h4 class="web-title">图标</h4>
     <div class="yu-input">
-        <span class="prefix icon">
-          <i class="iconfont icon-user"></i>
-        </span>
+        <input type="text" placeholder="用户名">
+    </div>
+
+    <div class="yu-input" :clearable="false">
+        <input type="text" placeholder="用户名">
+    </div>
+
+    <h4 class="web-title">图标</h4>
+    <div class="yu-input" :prefix="icon-user">
         <input type="text" class="prefix" placeholder="用户名">
     </div>
-    <div class="yu-input">
+    <div class="yu-input" :suffix="icon-heart">
         <input type="text" class="suffix" placeholder="用户名">
-        <span class="suffix icon">
-          <i class="iconfont icon-user"></i>
-        </span>
     </div>
 
     <h4 class="web-title">长文本输入</h4>
@@ -46,6 +48,7 @@
     </div>
 
     <h4 class="web-title">组合</h4>
+    <p>这种不适合插入，组合应该手写代码</p>
     <div class="yu-input">
         <div class="yu-button prepend">确认</div>
         <input type="text" class="prepend" placeholder="用户名">
@@ -56,24 +59,37 @@
     </div>
 
     <h4 class="web-title">大小</h4>
-    <div class="yu-input">
-        <input type="text" class="large" placeholder="用户名">
+    <div class="yu-input" :size="large">
+        <input type="text" placeholder="用户名">
     </div>
     <div class="yu-input">
         <input type="text" placeholder="用户名">
     </div>
-    <div class="yu-input">
-        <input type="text" class="small" placeholder="用户名">
+    <div class="yu-input" :size="small">
+        <input type="text" placeholder="用户名">
     </div>
 
     <h4 class="web-title">100%宽</h4>
-    <div class="yu-input">
-        <input type="text" class="full" placeholder="用户名">
+    <div class="yu-input" :full>
+        <input type="text" placeholder="用户名">
+    </div>
+
+    <h4 class="web-title">获取值</h4>
+    <div class="yu-input" @change="$handleChange" @input="$handleInput">
+        <input type="text" placeholder="用户名">
     </div>
 </div>
 </body>
 <script src="../dist/index.bundle.js"></script>
 <script>
+    yu.data = {
+        handleChange: function (value) {
+            console.log('change', value)
+        },
+        handleInput: function (value) {
+            console.log('input', value)
+        },
+    }
     var the = yu.init('Input')
 </script>
 </html>

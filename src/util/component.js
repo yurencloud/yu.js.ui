@@ -18,7 +18,7 @@ export default class YuComponent {
       // states优先于attributes
       this.states = Object.assign(this.defaultStates || {}, this.states, states || {})
       this.setStates(this.states)
-      this.node.setAttribute(':mounted', true)
+      this.node.setAttribute('mounted', '')
     }
 
     setState(stateName, value) {
@@ -34,11 +34,12 @@ export default class YuComponent {
       }
     }
 
-    parseAttributesToStates(attributes) {
+    parseAttributesToStates = (attributes) => {
       const states = {}
 
       Array.from(attributes).forEach((item) => {
         if (item.name.indexOf(':') === 0) {
+          this.node.removeAttribute(item.name)
           const name = item.name.substr(1)
           const start = item.value[0]
           if (item.value === '') {
@@ -71,6 +72,7 @@ export default class YuComponent {
 
         // 绑定事件
         if (item.name.indexOf('@') === 0) {
+          this.node.removeAttribute(item.name)
           const eventName = `on${item.name[1].toLocaleUpperCase()}${item.name.substr(2)}`
           this[eventName] = yu.data[item.value.substr(1)]
         }

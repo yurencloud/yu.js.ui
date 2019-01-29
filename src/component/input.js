@@ -31,51 +31,6 @@ export default class YuInput extends YuComponent {
       })
     }
 
-    value = (value) => {
-      this.inputNode.value = value
-      this.states.value = value
-    }
-
-    disabled = (isDisabled) => {
-      this.node.classList.toggle('disabled', isDisabled)
-      this.inputNode.setAttribute('disabled', isDisabled)
-    }
-
-    clearable = (clearable) => {
-      this.states.clear = clearable
-      let clearNode = this.node.querySelector('span.clearable')
-      if (!clearNode) {
-
-      } else {
-
-        clearNode.firstElementChild.addEventListener('click', this.clearEvent)
-
-      clearNode.style.display = this.states.value.length > 0 ? 'inline-block' : 'none'
-    }
-
-    static createClearNode(){
-            const span = document.createElement('SPAN')
-            span.className = 'clearable'
-            const i = document.createElement('I')
-            i.className = 'iconfont icon-close-circle'
-            span.appendChild(i)
-            this.node.appendChild(span)
-            i.addEventListener('click', this.clearEvent)
-            return span
-    }
-
-    clearEvent = () => {
-      this.inputNode.value = ''
-      this.states.value = ''
-      this.emit('onChange', this.states.value)
-      this.emit('onClear')
-      this.showClear(false)
-    }
-
-    showClear = (isShowClear) => {
-      this.clearNode.style.display = isShowClear ? 'inline-block' : 'none'
-    }
-
     prefix = (prefixIcon) => {
       const span = document.createElement('SPAN')
       span.className = 'prefix icon'
@@ -103,5 +58,47 @@ export default class YuInput extends YuComponent {
 
     full = (isFullWidth) => {
       this.inputNode.classList.toggle('full', isFullWidth)
+    }
+
+    value = (value) => {
+      this.inputNode.value = value
+      this.states.value = value
+    }
+
+    disabled = (isDisabled) => {
+      this.node.classList.toggle('disabled', isDisabled)
+      this.inputNode.setAttribute('disabled', isDisabled)
+    }
+
+    clearable = (clearable) => {
+      this.states.clear = clearable
+      let clearNode = this.node.querySelector('span.clearable')
+      if (!clearNode) {
+        clearNode = YuInput.createClearNode()
+        this.node.appendChild(clearNode)
+      }
+      clearNode.firstElementChild.addEventListener('click', this.clearEvent)
+      clearNode.style.display = this.states.value.length > 0 ? 'inline-block' : 'none'
+    }
+
+    clearEvent = () => {
+      this.inputNode.value = ''
+      this.states.value = ''
+      this.emit('onChange', this.states.value)
+      this.emit('onClear')
+      this.showClear(false)
+    }
+
+    showClear = (isShowClear) => {
+      this.clearNode.style.display = isShowClear ? 'inline-block' : 'none'
+    }
+
+    static createClearNode() {
+      const span = document.createElement('SPAN')
+      span.className = 'clearable'
+      const i = document.createElement('I')
+      i.className = 'iconfont icon-close-circle'
+      span.appendChild(i)
+      return span
     }
 }
