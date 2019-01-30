@@ -16,7 +16,8 @@
     </label>
 
     <p class="web-description">变量生成选项</p>
-    <label class="yu-radio" :option="$option"></label>
+    <label class="yu-radio" :option="$option" :ref="example3" @change="$handleChange"></label>
+    <button class="yu-button" onclick="resetOption()">重置</button>
 
     <h4 class="web-title">激活状态</h4>
     <label class="yu-radio checked" :option="$option" :checked></label>
@@ -49,7 +50,7 @@
 <script src="../dist/index.bundle.js"></script>
 <script>
     yu.data = {
-        option: {label: '苹果', value: 'apple', checked: true},
+        option: {label: '苹果', value: 'apple'},
         handleChange : function (value) {
             console.log(value)
         }
@@ -58,6 +59,10 @@
 
     function handleClick() {
         console.log(the.target.states.value)
+    }
+
+    function resetOption() {
+        the.example3.setState('option', {label: '香蕉', value: 'banana'})
     }
 
     the.target2.onChange = function (value) {

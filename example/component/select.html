@@ -33,25 +33,24 @@
     </div>
 
     <h4 class="web-title">自定义选项</h4>
-    <p>自定义选项需要添加.active,.hide样式，data-value属性</p>
     <p>自定义选项只能手动写选项</p>
-    <div class="yu-select" :multi>
+    <div class="yu-select">
         <div class="yu-input" :suffix="icon-angle-down">
             <input type="text" placeholder="请选择">
         </div>
         <ul class="yu-option transition">
-            <li>
+            <li data-value="hello">
                 <div>
                     <div>
                         <div>
-                            <h2>hello</h2>
+                            <h2 >hello</h2>
                         </div>
                     </div>
                 </div>
             </li>
-            <li>猫</li>
-            <li>猫</li>
-            <li>猫</li>
+            <li data-value="cat">猫</li>
+            <li data-value="cat">猫</li>
+            <li data-value="cat">猫</li>
         </ul>
     </div>
 

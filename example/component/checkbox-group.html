@@ -36,8 +36,8 @@
         <label class="yu-checkbox" :option='{"label":"桃子","value":"peach"}'></label>
     </div>
     <p>变量生成选项</p>
-    <div class="yu-checkbox-group" :option="$option" :value='["apple"]'></div>
-
+    <div class="yu-checkbox-group" :option="$option" :value='["apple"]' :ref="example3"></div>
+    <button class="yu-button" onclick="resetOption()">重置选项</button>
 
     <h4 class="web-title">禁用</h4>
     <div class="yu-checkbox-group" :option="$option" :disabled></div>
@@ -175,6 +175,9 @@
     var the = yu.init('CheckboxGroup')
     function handleClick() {
         console.log(the.target.states.value)
+    }
+    function resetOption() {
+        the.example3.setState('option', yu.data.option2)
     }
 </script>
 </html>

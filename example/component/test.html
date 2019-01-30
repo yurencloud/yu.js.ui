@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>yu.js.ui</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../dist/styles.css">
+</head>
+<body>
+<div class="web-container">
+    <ul>
+        <li>helle<div>123</div></li>
+        <li>hello</li>
+        <li>hello</li>
+        <li>hello</li>
+        <li>hello</li>
+        <li>hello</li>
+        <li>hello</li>
+        <li>hello</li>
+        <li>hello</li>
+        <li>hello</li>
+        <li>hello</li>
+        <li>hello</li>
+        <li>hello</li>
+        <li>hello</li>
+        <li>hello</li>
+        <li>hello</li>
+        <li>hello</li>
+        <li>hello</li>
+        <li>hello</li>
+        <li>hello</li>
+        <li>hello</li>
+        <li>hello</li>
+        <li>hello</li>
+        <li>hello</li>
+        <li>hello</li>
+        <li>hello</li>
+        <li>hello</li>
+        <li>hello</li>
+        <li>hello</li>
+    </ul>
+</body>
+<script>
+    Array.from(document.getElementsByTagName('LI')).forEach(function (item) {
+        item.addEventListener('click', function (e) {
+            e.target.style.color = 'red'
+            console.log(e.target.innerText);
+        })
+        item.addEventListener('click', function (e) {
+            e.target.style.padding = '10px'
+        })
+        item.addEventListener('mousedown', function (e) {
+            e.target.style.backgroundColor = 'green'
+        })
+    })
+</script>
+</html>

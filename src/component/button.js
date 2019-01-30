@@ -33,8 +33,12 @@ export default class YuButton extends YuComponent {
     }
 
     icon = (iconfontName) => {
-      const i = document.createElement('I')
-      i.className = `iconfont ${iconfontName}`
-      this.node.insertBefore(i, this.node.firstChild)
+      if (this.node.firstElementChild && this.node.firstElementChild.classList.contains('iconfont')) {
+        this.node.firstElementChild.className = `iconfont ${iconfontName}`
+      } else {
+        const i = document.createElement('I')
+        i.className = `iconfont ${iconfontName}`
+        this.node.insertBefore(i, this.node.firstChild)
+      }
     }
 }

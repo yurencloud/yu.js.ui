@@ -9,7 +9,10 @@ export default class YuCheckboxGroup extends YuComponent {
     constructor(component, states) {
       super()
       this.init(component, states)
+      this.checkboxNodesBindEvent()
+    }
 
+    checkboxNodesBindEvent() {
       this.checkboxNodes = this.node.querySelectorAll('label:not(.control)')
       this.controlNode = this.node.querySelector('.control')
 
@@ -55,9 +58,16 @@ export default class YuCheckboxGroup extends YuComponent {
     }
 
     option = (option) => {
-      option.forEach((item) => {
-        this.node.appendChild(YuCheckboxGroup.createCheckbox(item))
-      })
+      if (option.length > 0) {
+        // 先清空，再设置
+        this.node.innerHTML = ''
+        option.forEach((item) => {
+          this.node.appendChild(YuCheckboxGroup.createCheckbox(item))
+        })
+        if (this.mounted) {
+          this.checkboxNodesBindEvent()
+        }
+      }
     }
 
     value = (value) => {

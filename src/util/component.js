@@ -3,6 +3,8 @@ export default class YuComponent {
 
     node = {}
 
+    mounted = false
+
     init(component, states) {
       this.initNode(component)
       this.initStates(states)
@@ -19,6 +21,7 @@ export default class YuComponent {
       this.states = Object.assign(this.defaultStates || {}, this.states, states || {})
       this.setStates(this.states)
       this.node.setAttribute('mounted', '')
+      this.mounted = true
     }
 
     setState(stateName, value) {
@@ -52,8 +55,14 @@ export default class YuComponent {
             return
           }
 
-          if (/[0-9]/.test(start)) {
-            states[name] = Number(start)
+          // 可以有负号，可以是整数，可以是小数, 如果带有其他字符，则按字符串处理
+          if (/[-?0-9]/.test(start)) {
+            const num = Number(item.value)
+            if (isNaN(num)) {
+              states[name] = item.value
+            } else {
+              states[name] = num
+            }
             return
           }
 

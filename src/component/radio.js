@@ -22,6 +22,8 @@ export default class YuRadio extends YuComponent {
     }
 
     option = (option) => {
+      // 先重置
+      this.node.innerHTML = ''
       const span = document.createElement('SPAN')
       span.className = 'radio'
       const input = document.createElement('INPUT')
@@ -32,6 +34,8 @@ export default class YuRadio extends YuComponent {
       span2.innerText = option.label
       this.node.appendChild(span)
       this.node.appendChild(span2)
+      // 每次修改inputNode都会重置
+      this.inputNode = input
     }
 
     // 设置默认值使用

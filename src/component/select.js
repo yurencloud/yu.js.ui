@@ -29,16 +29,20 @@ export default class YuSelect extends YuComponent {
     this.inputNode.addEventListener('input', (e) => {
       this.setState('clear', e.target.value.length > 0)
     })
-    this.optionNode.addEventListener('mousedown', (e) => {
-      this.onSelect(e.target.getAttribute('data-value'), e.target.innerText)
-      if (this.states.multi) {
-        e.target.classList.add('hide')
-      } else {
-        Array.from(this.optionNode.querySelectorAll('.active')).forEach((item) => {
-          item.classList.remove('active')
-        })
-        e.target.classList.add('active')
-      }
+    Array.from(this.optionNode.children).forEach((item) => {
+      item.addEventListener('mousedown', (e) => {
+        // 如果选项无值，则不允许选择，那么此项就可以做为标题之类的
+        if (!e.currentTarget.getAttribute('data-value')) return
+        this.onSelect(e.currentTarget.getAttribute('data-value'), e.target.innerText)
+        if (this.states.multi) {
+          e.currentTarget.classList.add('hide')
+        } else {
+          Array.from(this.optionNode.querySelectorAll('.active')).forEach((activeItem) => {
+            activeItem.classList.remove('active')
+          })
+          e.currentTarget.classList.add('active')
+        }
+      })
     })
   }
 
@@ -80,8 +84,8 @@ export default class YuSelect extends YuComponent {
       this.optionNode.classList.toggle('overflow', isOverflow)
     }
 
-    option = (value) => {
-      value.forEach((item) => {
+    option = (option) => {
+      option.forEach((item) => {
         const li = document.createElement('LI')
         li.innerText = item.label
         li.setAttribute('data-value', item.value)

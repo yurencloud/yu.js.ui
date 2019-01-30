@@ -15,7 +15,8 @@
         <span>苹果</span>
     </label>
     <p>变量生成选项</p>
-    <label class="yu-checkbox" :option="$option"></label>
+    <label class="yu-checkbox" :option="$option" :ref="example3" @change="$handleChange"></label>
+    <button class="yu-button" onclick="resetOption()">重置</button>
 
     <h4>激活状态</h4>
     <label class="yu-checkbox" :option="$option" :checked></label>
@@ -46,6 +47,10 @@
     var the = yu.init('Checkbox')
     function handleClick() {
         console.log(the.target.states.value)
+    }
+
+    function resetOption() {
+        the.example3.setState('option', {label: '香蕉', value: 'banana'})
     }
 </script>
 </html>

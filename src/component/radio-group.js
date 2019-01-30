@@ -9,13 +9,16 @@ export default class YuRadioGroup extends YuComponent {
     constructor(component, states) {
       super()
       this.init(component, states)
+      this.radioNodesBindEvent()
+    }
 
-      this.radioNodes = this.node.querySelectorAll('label')
+    radioNodesBindEvent() {
+      this.radioNodes = this.node.children
 
       Array.from(this.radioNodes).forEach((item) => {
         item.addEventListener('click', (e) => {
           e.preventDefault()
-          const value = e.currentTarget.querySelector('input').value
+          const { value } = e.currentTarget.querySelector('input')
           if (value === this.states.value) return
           if (e.currentTarget.classList.contains('disabled')) return
           Array.from(this.radioNodes).forEach((i) => {
@@ -29,9 +32,17 @@ export default class YuRadioGroup extends YuComponent {
     }
 
     option = (option) => {
-      option.forEach((item) => {
-        this.node.appendChild(YuRadioGroup.createRadio(item))
-      })
+      if (option.length > 0) {
+        // 先清空，再设置
+        this.node.innerHTML = ''
+        option.forEach((item) => {
+          this.node.appendChild(YuRadioGroup.createRadio(item))
+        })
+        // 避免重复绑定
+        if (this.mounted) {
+          this.radioNodesBindEvent()
+        }
+      }
     }
 
     value = (value) => {

@@ -19,14 +19,15 @@
     </div>
 
     <h4 class="web-title">可清空</h4>
-    <div class="yu-input">
-        <input type="text" placeholder="用户名">
-        <span class="clearable">
+    <p>可清空状态下，后置图标不可用</p>
+    <div class="yu-input" :clearable>
+        <input type="text" class="suffix" placeholder="用户名">
+        <span class="suffix clearable">
           <i class="iconfont icon-close-circle"></i>
         </span>
     </div>
 
-    <div class="yu-input">
+    <div class="yu-input" :clearable>
         <input type="text" placeholder="用户名">
     </div>
 
@@ -35,12 +36,14 @@
     </div>
 
     <h4 class="web-title">图标</h4>
-    <div class="yu-input" :prefix="icon-user">
+    <div class="yu-input" :prefix="icon-user" :ref="example4">
         <input type="text" class="prefix" placeholder="用户名">
     </div>
-    <div class="yu-input" :suffix="icon-heart">
+    <button class="yu-button" onclick="the.example4.setState('prefix', 'icon-trash')">重置前置图标</button>
+    <div class="yu-input" :suffix="icon-heart" :ref="example5">
         <input type="text" class="suffix" placeholder="用户名">
     </div>
+    <button class="yu-button" onclick="the.example5.setState('suffix', 'icon-home')">重置后置图标</button>
 
     <h4 class="web-title">长文本输入</h4>
     <div class="yu-input textarea">
@@ -74,21 +77,58 @@
         <input type="text" placeholder="用户名">
     </div>
 
+    <h4 class="web-title">设置宽</h4>
+    <div class="yu-input" :width="500px">
+        <input type="text" placeholder="用户名">
+    </div>
+    <div class="yu-input" :width="30%">
+        <input type="text" placeholder="用户名">
+    </div>
+
+    <h4 class="web-title">提示选项</h4>
+    <div class="yu-input" :option="$option" :ref="example6">
+        <input type="text" placeholder="用户名">
+        <ul class="yu-option transition"></ul>
+    </div>
+    <button class="yu-button" onclick="the.example6.setState('option', yu.data.option2)">重置选项</button>
+
+    <h4 class="web-title">动态或远程提示</h4>
+    <div class="yu-input" :option="$option" :ref="example7" @input="$handleInputForOption">
+        <input type="text" placeholder="用户名">
+        <ul class="yu-option transition"></ul>
+    </div>
+
     <h4 class="web-title">获取值</h4>
     <div class="yu-input" @change="$handleChange" @input="$handleInput">
         <input type="text" placeholder="用户名">
     </div>
+
+    <div style="height: 400px;"></div>
 </div>
 </body>
 <script src="../dist/index.bundle.js"></script>
 <script>
     yu.data = {
+        option: [
+            {label: '苹果'},
+            {label: '香蕉', disabled: true},
+            {label: '桃子'},
+        ],
+        option2: [
+            {label: '苹果2'},
+            {label: '香蕉2'},
+            {label: '桃子2'},
+        ],
         handleChange: function (value) {
             console.log('change', value)
         },
         handleInput: function (value) {
             console.log('input', value)
         },
+        handleInputForOption: function (value) {
+            yu.data.option.push({label: value})
+            the.example7.setState('option', yu.data.option)
+        }
     }
     var the = yu.init('Input')
 </script>

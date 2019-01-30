@@ -18,20 +18,32 @@
     </div>
 
     <h4 class="web-title">禁用</h4>
-    <div class="yu-counter">
-        <button class="yu-button disabled">-</button>
+    <div class="yu-counter" :disabled>
+        <button class="yu-button">-</button>
         <div class="yu-input">
             <input type="text">
         </div>
         <button class="yu-button">+</button>
     </div>
-    <div class="yu-counter">
-        <button class="yu-button disabled">-</button>
-        <div class="yu-input disabled">
+
+    <h4 class="web-title">最大值，最小值</h4>
+    <div class="yu-counter" :max="5" :min="-2">
+        <button class="yu-button">-</button>
+        <div class="yu-input">
             <input type="text">
         </div>
-        <button class="yu-button disabled">+</button>
+        <button class="yu-button">+</button>
     </div>
+
+    <h4 class="web-title">步数间隔(任意精度和浮点数计算)</h4>
+    <div class="yu-counter" :step="0.01">
+        <button class="yu-button">-</button>
+        <div class="yu-input">
+            <input type="text">
+        </div>
+        <button class="yu-button">+</button>
+    </div>
+
 
     <h4 class="web-title">单边控制计数器</h4>
     <div class="yu-counter-side right">
@@ -155,22 +167,6 @@
 </body>
 <script src="../dist/index.bundle.js"></script>
 <script>
-    var yuCounter = new yu.Counter('.yu-counter', {
-        step: '5',
-        min: -10,
-        max: 10,
-    })
-    yuCounter.onChange = (value) => {
-        console.log(value)
-    }
-    var yuCounterSide = new yu.Counter('.yu-counter-side', {
-        step: '5',
-        min: -10,
-        max: 10,
-    })
-
-    yuCounterSide.onChange = (value) => {
-        console.log(value)
-    }
+    var the = yu.init('Counter', 'CounterSide')
 </script>
 </html>
