@@ -24,10 +24,73 @@
         <ul class="yu-option transition"></ul>
     </div>
 
+    <h4 class="web-title">不限高</h4>
+    <div class="yu-select">
+        <div class="yu-input" :suffix="icon-angle-down">
+            <input type="text">
+        </div>
+        <ul class="yu-option transition">
+            <li data-value="cat">猫</li>
+            <li data-value="cat">猫</li>
+            <li data-value="cat">猫</li>
+            <li data-value="cat">猫</li>
+            <li data-value="cat">猫</li>
+            <li data-value="cat">猫</li>
+            <li data-value="cat">猫</li>
+            <li data-value="cat">猫</li>
+            <li data-value="cat">猫</li>
+            <li data-value="cat">猫</li>
+        </ul>
+    </div>
+
+    <h4 class="web-title">限高，溢出显示滚动条</h4>
+    <div class="yu-select" :overflow>
+        <div class="yu-input" :suffix="icon-angle-down">
+            <input type="text">
+        </div>
+        <ul class="yu-option transition">
+            <li data-value="cat">猫</li>
+            <li data-value="cat">猫</li>
+            <li data-value="cat">猫</li>
+            <li data-value="cat">猫</li>
+            <li data-value="cat">猫</li>
+            <li data-value="cat">猫</li>
+            <li data-value="cat">猫</li>
+            <li data-value="cat">猫</li>
+            <li data-value="cat">猫</li>
+            <li data-value="cat">猫</li>
+        </ul>
+    </div>
+
+    <h4 class="web-title">禁用选项</h4>
+    <p>选项option中添加disabled:true属性，或直接添加disabled类名</p>
+    <div class="yu-select" :option="$option">
+        <div class="yu-input" :suffix="icon-angle-down">
+            <input type="text">
+        </div>
+        <ul class="yu-option transition"></ul>
+    </div>
+
     <h4 class="web-title">禁用</h4>
     <div class="yu-select" :disabled>
         <div class="yu-input" :suffix="icon-angle-down">
             <input type="text" placeholder="请选择">
+        </div>
+        <ul class="yu-option transition"></ul>
+    </div>
+
+    <h4 class="web-title">多选</h4>
+    <div class="yu-select" :option="$option" :multi>
+        <div class="yu-input" :suffix="icon-angle-down">
+            <input type="text">
+        </div>
+        <ul class="yu-option transition"></ul>
+    </div>
+
+    <h4 class="web-title">显示多选项</h4>
+    <div class="yu-select" :option="$option" :multi :show-select :ref="example10">
+        <div class="yu-input" :suffix="icon-angle-down">
+            <input type="text">
         </div>
         <ul class="yu-option transition"></ul>
     </div>
@@ -60,6 +123,8 @@
             <input type="text">
         </div>
         <ul class="yu-option transition"></ul>
+        <!--<div class="yu-tag small">内容内容内容<i class="iconfont icon-close"></i></div>-->
+        <!--<div class="yu-tag small">内容<i class="iconfont icon-close"></i></div>-->
     </div>
 </div>
 </body>
@@ -76,5 +141,6 @@
         }
     }
     var the = yu.init('Input', 'Select')
+    console.log(the.example10);
 </script>
 </html>

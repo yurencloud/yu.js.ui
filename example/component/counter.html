@@ -44,71 +44,15 @@
         <button class="yu-button">+</button>
     </div>
 
-
-    <h4 class="web-title">单边控制计数器</h4>
-    <div class="yu-counter-side right">
-        <div class="yu-input">
-            <input type="text">
-        </div>
-        <div class="button">
-            <button>
-                <i class="iconfont icon-angle-up"></i>
-            </button>
-            <button>
-                <i class="iconfont icon-angle-down"></i>
-            </button>
-        </div>
-    </div>
-    <div class="yu-counter-side left">
-        <div class="button">
-            <button>
-                <i class="iconfont icon-angle-up"></i>
-            </button>
-            <button>
-                <i class="iconfont icon-angle-down"></i>
-            </button>
-        </div>
-        <div class="yu-input">
-            <input type="text">
-        </div>
-    </div>
-
-    <h4 class="web-title">禁用</h4>
-    <div class="yu-counter-side right">
-        <div class="yu-input">
-            <input type="text">
-        </div>
-        <div class="button">
-            <button class="disabled">
-                <i class="iconfont icon-angle-up"></i>
-            </button>
-            <button>
-                <i class="iconfont icon-angle-down"></i>
-            </button>
-        </div>
-    </div>
-    <div class="yu-counter-side right">
-        <div class="yu-input disabled">
-            <input type="text">
-        </div>
-        <div class="button">
-            <button class="disabled">
-                <i class="iconfont icon-angle-up"></i>
-            </button>
-            <button class="disabled">
-                <i class="iconfont icon-angle-down"></i>
-            </button>
-        </div>
-    </div>
-
     <h4 class="web-title">尺寸</h4>
-    <div class="yu-counter">
-        <button class="yu-button large">-</button>
+    <div class="yu-counter" :size="large">
+        <button class="yu-button">-</button>
         <div class="yu-input">
-            <input type="text" class="large">
+            <input type="text">
         </div>
-        <button class="yu-button large">+</button>
+        <button class="yu-button">+</button>
     </div>
+
     <div class="yu-counter">
         <button class="yu-button">-</button>
         <div class="yu-input">
@@ -116,19 +60,20 @@
         </div>
         <button class="yu-button">+</button>
     </div>
-    <div class="yu-counter">
-        <button class="yu-button small">-</button>
+
+    <div class="yu-counter" :size="small">
+        <button class="yu-button">-</button>
         <div class="yu-input">
-            <input type="text" class="small">
+            <input type="text">
         </div>
-        <button class="yu-button small">+</button>
+        <button class="yu-button">+</button>
     </div>
 
-    <div class="yu-counter-side right">
+    <div class="yu-counter-side right" :size="large">
         <div class="yu-input">
-            <input type="text" class="large">
+            <input type="text">
         </div>
-        <div class="button large">
+        <div class="button">
             <button>
                 <i class="iconfont icon-angle-up"></i>
             </button>
@@ -137,6 +82,7 @@
             </button>
         </div>
     </div>
+
     <div class="yu-counter-side right">
         <div class="yu-input">
             <input type="text">
@@ -150,11 +96,12 @@
             </button>
         </div>
     </div>
-    <div class="yu-counter-side right">
+
+    <div class="yu-counter-side right" :size="small">
         <div class="yu-input">
-            <input type="text" class="small">
+            <input type="text">
         </div>
-        <div class="button small">
+        <div class="button">
             <button>
                 <i class="iconfont icon-angle-up"></i>
             </button>
@@ -163,10 +110,25 @@
             </button>
         </div>
     </div>
+
+    <h4 class="web-title">获取值</h4>
+    <div class="yu-counter" :size="large" @change="$handleChange">
+        <button class="yu-button">-</button>
+        <div class="yu-input">
+            <input type="text">
+        </div>
+        <button class="yu-button">+</button>
+    </div>
+
 </div>
 </body>
 <script src="../dist/index.bundle.js"></script>
 <script>
+    yu.data = {
+        handleChange: function (value) {
+            console.log(value)
+        }
+    }
     var the = yu.init('Counter', 'CounterSide')
 </script>
 </html>

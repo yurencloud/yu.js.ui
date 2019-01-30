@@ -1,3 +1,5 @@
+import convertToCamelCase from '../common/tool'
+
 export default class YuComponent {
     states = {}
 
@@ -43,7 +45,7 @@ export default class YuComponent {
       Array.from(attributes).forEach((item) => {
         if (item.name.indexOf(':') === 0) {
           this.node.removeAttribute(item.name)
-          const name = item.name.substr(1)
+          const name = convertToCamelCase(item.name.substr(1))
           const start = item.value[0]
           if (item.value === '') {
             states[name] = true

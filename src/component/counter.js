@@ -12,10 +12,10 @@ export default class YuCounter extends YuComponent {
       super()
       this.initNode(component)
 
-      const isCounterSide = this.node.classList.contains('yu-counter-side')
+      this.isCounterSide = this.node.classList.contains('yu-counter-side')
       this.inputNode = this.node.getElementsByTagName('INPUT')[0]
       const buttons = this.node.getElementsByTagName('BUTTON')
-      if (isCounterSide) {
+      if (this.isCounterSide) {
         this.addNode = buttons[0]
         this.subNode = buttons[1]
       } else {
@@ -26,7 +26,6 @@ export default class YuCounter extends YuComponent {
       this.addNode.addEventListener('click', (e) => {
         if (e.currentTarget.classList.contains('disabled')) return
         const sum = calculator.add(this.states.value, this.states.step)
-        console.log(this.states.value, this.states.step, sum)
 
         if (this.states.max <= sum) {
           this.states.value = this.states.max
@@ -97,6 +96,22 @@ export default class YuCounter extends YuComponent {
     }
 
     step = () => {
+    }
+
+    size = (size) => {
+      if (this.isCounterSide) {
+        this.inputNode.classList.remove('large', 'small')
+        this.addNode.parentNode.classList.remove('large', 'small')
+        this.inputNode.classList.add(size)
+        this.addNode.parentNode.classList.add(size)
+      } else {
+        this.inputNode.classList.remove('large', 'small')
+        this.addNode.classList.remove('large', 'small')
+        this.subNode.classList.remove('large', 'small')
+        this.inputNode.classList.add(size)
+        this.addNode.classList.add(size)
+        this.subNode.classList.add(size)
+      }
     }
 
     disabled = (value) => {

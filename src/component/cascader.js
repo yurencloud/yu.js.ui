@@ -93,6 +93,8 @@ export default class YuCascader extends YuComponent {
       this.onSelect({ value, text })
     }
 
+    changeOnSelect = () => {}
+
     clearEvent = (e) => {
       e.target.classList.remove('icon-close-circle')
       e.target.classList.add('icon-angle-down')
@@ -212,6 +214,7 @@ export default class YuCascader extends YuComponent {
       }
       return option
     }
+
 
     getValueAndText() {
       const result = { value: [], text: [] }

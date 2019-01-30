@@ -111,11 +111,20 @@ export default class YuSelect extends YuComponent {
       this.node.classList.add(size)
     }
 
+    showSelect = (isShowSelect) => {
+      if(isShowSelect){
+
+      }else{
+
+      }
+    }
+
     onSelect = (value, text) => {
       if (this.states.multi) {
         this.states.value.push(value)
         this.states.text.push(text)
         this.inputNode.value = this.states.text.join(',')
+        this.showSelect(this.states.showSelect)
       } else {
         this.states.value = value
         this.states.text = text
