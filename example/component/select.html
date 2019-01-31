@@ -17,12 +17,14 @@
 <body>
 <div class="web-container">
     <h4 class="web-title">下拉选择</h4>
-    <div class="yu-select" :option="$option">
+    <div class="yu-select" :option="$option" :ref="example3">
         <div class="yu-input" :suffix="icon-angle-down">
             <input type="text">
         </div>
         <ul class="yu-option transition"></ul>
     </div>
+
+    <button class="yu-button" onclick="the.example3.setState('option', yu.data.option2)">重置选项</button>
 
     <h4 class="web-title">不限高</h4>
     <div class="yu-select">
@@ -88,11 +90,12 @@
     </div>
 
     <h4 class="web-title">显示多选项</h4>
-    <div class="yu-select" :option="$option" :multi :show-select :ref="example10">
+    <div class="yu-select" :option="$option" :multi :show-select :ref="example10" @change="$handleChange">
         <div class="yu-input" :suffix="icon-angle-down">
             <input type="text">
         </div>
         <ul class="yu-option transition"></ul>
+        <div class="yu-tags"></div>
     </div>
 
     <h4 class="web-title">自定义选项</h4>
@@ -123,9 +126,9 @@
             <input type="text">
         </div>
         <ul class="yu-option transition"></ul>
-        <!--<div class="yu-tag small">内容内容内容<i class="iconfont icon-close"></i></div>-->
-        <!--<div class="yu-tag small">内容<i class="iconfont icon-close"></i></div>-->
     </div>
+
+    <div style="height: 400px;"></div>
 </div>
 </body>
 <script src="../dist/index.bundle.js"></script>
@@ -135,6 +138,11 @@
             {label: '苹果', value: 'apple'},
             {label: '香蕉', value: 'banana'},
             {label: '桃子', value: 'peach'},
+        ],
+        option2: [
+            {label: '苹果2', value: 'apple'},
+            {label: '香蕉2', value: 'banana'},
+            {label: '桃子2', value: 'peach'},
         ],
         handleChange: function (value) {
             console.log(value)

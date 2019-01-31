@@ -8,8 +8,9 @@ export default class YuSwitch extends YuComponent {
     constructor(component, states) {
       super()
       this.init(component, states)
-      this.inputNode = this.node.querySelector('input')
+      this.inputNode = this.node.getElementsByTagName('INPUT')[0]
       this.switchNode = this.node.querySelector('.switch')
+      this.labelNode = this.node.getElementsByTagName('LABEL')[0]
     }
 
     type = (type) => {
@@ -22,7 +23,9 @@ export default class YuSwitch extends YuComponent {
       this.switchNode.classList.toggle(this.states.type, isOn)
     }
 
-    label
+    label = (label) => {
+        this.label
+    }
 
     disabled = (isDisabled) => {
       this.node.classList.toggle('disabled', isDisabled)

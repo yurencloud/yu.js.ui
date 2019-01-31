@@ -9,7 +9,14 @@
 <body>
 <div class="web-container">
     <h4 class="web-title">开关</h4>
+    <p>直接写</p>
     <div class="yu-switch">
+        <input type="checkbox">
+        <span class="switch"><span class="circle"></span></span>
+        <label>开关</label>
+    </div>
+    <p>变量生成</p>
+    <div class="yu-switch" :option="$option">
         <input type="checkbox">
         <span class="switch"><span class="circle"></span></span>
         <label>开关</label>
@@ -99,6 +106,9 @@
 </body>
 <script src="../dist/index.bundle.js"></script>
 <script>
+    yu.data = {
+        option: {label: '开关', value: 'on'}
+    }
     var the = yu.init('Switch')
 </script>
 </html>

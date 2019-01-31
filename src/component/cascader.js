@@ -3,7 +3,7 @@ import YuComponent from '../util/component'
 export default class YuCascader extends YuComponent {
   // 如果初始化有状态先后顺序，则设置defaultStates, defaultStates的排序优先级最高
   defaultStates = {
-    'change-on-select': false,
+    changeOnSelect: false,
     hover: false,
     remote: null,
     option: [],
@@ -12,10 +12,12 @@ export default class YuCascader extends YuComponent {
 
   constructor(component, states) {
     super()
-    this.init(component, states)
+    this.initNode(component)
     this.inputNode = this.node.querySelector('input')
     this.inputIconNode = this.node.querySelector('.suffix>i')
     this.cascaderOptionNode = this.node.querySelector('.yu-cascader-option')
+
+    this.initStates(states)
 
     this.inputNode.addEventListener('focus', () => {
       this.setState('visible', !this.states.disabled)
@@ -67,7 +69,9 @@ export default class YuCascader extends YuComponent {
         this.states.remote().then((data) => {
           this.insertOption([], data)
         })
-      } else {
+      } else if (option.length > 0) {
+        // 先清空，再设置
+        this.cascaderOptionNode.innerHTML = ''
         this.insertOption([], option)
       }
     }
@@ -186,7 +190,7 @@ export default class YuCascader extends YuComponent {
             return
           }
 
-          if (this.states['change-on-select']) {
+          if (this.states.changeOnSelect) {
             this.onSelect(this.getValueAndText())
           }
 
