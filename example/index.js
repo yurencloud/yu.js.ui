@@ -1,7 +1,5 @@
+/* eslint-disable indent,no-unused-vars,wrap-iife,no-param-reassign,eol-last,func-names */
 import 'yu.css.ui/dist/index.css'
-import './app.css'
 import yu from '../src/index'
-
-window.ajax = require('yu.ajax')
 
 window.yu = yu
