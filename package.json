@@ -1,9 +1,10 @@
 {
-  "name": "yurencloud",
-  "version": "1.0.0",
-  "description": "new yurencloud project",
+  "name": "yu.js.ui",
+  "version": "1.0.1",
+  "description": "基于原生JavaScript组件库",
   "main": "index.js",
   "scripts": {
+    "watch": "webpack -w",
     "start": "live-server ./example --port=9001 --watch=."
   },
   "keywords": [
