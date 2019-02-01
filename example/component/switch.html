@@ -12,78 +12,30 @@
     <h4 class="web-title">开关</h4>
     <p>直接写</p>
     <div class="yu-switch">
-        <input type="checkbox">
+        <input type="checkbox" value="apple">
         <span class="switch"><span class="circle"></span></span>
-        <label>开关</label>
+        <label>苹果</label>
     </div>
     <p>变量生成</p>
-    <div class="yu-switch" :option="$option">
-        <input type="checkbox">
-        <span class="switch"><span class="circle"></span></span>
-        <label>开关</label>
-    </div>
+    <div class="yu-switch" :option="$option"></div>
 
-    <div class="yu-switch" :on>
-        <input type="checkbox">
-        <span class="switch"><span class="circle"></span></span>
-        <label>开关</label>
-    </div>
+    <h4 class="web-title">开关激活状态</h4>
+    <div class="yu-switch" :option="$option" :on></div>
 
     <h4 class="web-title">颜色类型</h4>
-    <div class="yu-switch">
-        <input type="checkbox">
-        <span class="switch on primary"><span class="circle"></span></span>
-        <label>开关</label>
-    </div>
-
-    <div class="yu-switch">
-        <input type="checkbox">
-        <span class="switch on danger"><span class="circle"></span></span>
-        <label>开关</label>
-    </div>
-
-    <div class="yu-switch">
-        <input type="checkbox">
-        <span class="switch on info"><span class="circle"></span></span>
-        <label>开关</label>
-    </div>
-
-    <div class="yu-switch">
-        <input type="checkbox">
-        <span class="switch on warning"><span class="circle"></span></span>
-        <label>开关</label>
-    </div>
+    <div class="yu-switch" :option="$option" :on :type="primary"></div>
+    <div class="yu-switch" :option="$option" :on :type="success"></div>
+    <div class="yu-switch" :option="$option" :on :type="danger"></div>
+    <div class="yu-switch" :option="$option" :on :type="warning"></div>
+    <div class="yu-switch" :option="$option" :on :type="info"></div>
 
     <h4 class="web-title">禁用</h4>
-    <div class="yu-switch disabled">
-        <input type="checkbox">
-        <label>开关</label>
-        <span class="switch disabled"><span class="circle"></span></span>
-    </div>
-
-    <div class="yu-switch disabled">
-        <input type="checkbox">
-        <span class="switch on primary disabled"><span class="circle"></span></span>
-        <label>开关</label>
-    </div>
-
-    <div class="yu-switch disabled">
-        <input type="checkbox">
-        <span class="switch on danger disabled"><span class="circle"></span></span>
-        <label>开关</label>
-    </div>
-
-    <div class="yu-switch disabled">
-        <input type="checkbox">
-        <span class="switch on info disabled"><span class="circle"></span></span>
-        <label>开关</label>
-    </div>
-
-    <div class="yu-switch disabled">
-        <input type="checkbox">
-        <span class="switch on warning disabled"><span class="circle"></span></span>
-        <label>开关</label>
-    </div>
+    <div class="yu-switch" :option="$option"  :type="primary" :disabled></div>
+    <div class="yu-switch" :option="$option" :on :type="primary" :disabled></div>
+    <div class="yu-switch" :option="$option" :on :type="success" :disabled></div>
+    <div class="yu-switch" :option="$option" :on :type="danger" :disabled></div>
+    <div class="yu-switch" :option="$option" :on :type="warning" :disabled></div>
+    <div class="yu-switch" :option="$option" :on :type="info" :disabled></div>
 
     <h4 class="web-title">左右文本</h4>
     <div class="yu-switch">
@@ -98,6 +50,11 @@
         <label>开关</label>
     </div>
 
+    <p>如果是变量生成的话，则option添加after属性</p>
+
+    <h4>标签文字</h4>
+    <div class="yu-switch" :option="$option" :active-label="开灯" :inactive-label="关灯"></div>
+
     <h4 class="web-title">动态效果</h4>
     <div class="yu-switch">
         <input type="checkbox">
@@ -108,7 +65,7 @@
 <script src="../dist/index.bundle.js"></script>
 <script>
     yu.data = {
-        option: {label: '开关', value: 'on'}
+        option: {label: '苹果', value: 'apple'}
     }
     var the = yu.init('Switch')
 </script>
