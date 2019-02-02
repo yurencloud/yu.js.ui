@@ -52,20 +52,25 @@
 
     <p>如果是变量生成的话，则option添加after属性</p>
 
-    <h4>标签文字</h4>
-    <div class="yu-switch" :option="$option" :active-label="开灯" :inactive-label="关灯"></div>
+    <h4>激活和非激活时标签文字不同</h4>
+    <div class="yu-switch" :option="$option" :active-label="开灯" :inactive-label="关灯" @change="$handleChange"></div>
 
-    <h4 class="web-title">动态效果</h4>
-    <div class="yu-switch">
-        <input type="checkbox">
-        <span class="switch on primary" id="yu-switch"><span class="circle"></span></span>
-        <label>开关</label>
+    <h4>激活和非激活时值不同</h4>
+    <div class="yu-switch" :option="$option" :active-value="turnOn" :inactive-value="turnOff" :active-label="开灯" :inactive-label="关灯" @change="$handleChange"></div>
+
+    <h4 class="web-title">无标签</h4>
+    <div class="yu-switch" @change="$handleChange">
+        <input type="checkbox" value="apple">
+        <span class="switch"><span class="circle"></span></span>
     </div>
 </body>
 <script src="../dist/index.bundle.js"></script>
 <script>
     yu.data = {
-        option: {label: '苹果', value: 'apple'}
+        option: {label: '苹果', value: 'apple'},
+        handleChange: function (value) {
+            console.log(value)
+        }
     }
     var the = yu.init('Switch')
 </script>

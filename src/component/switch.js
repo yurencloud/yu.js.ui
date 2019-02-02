@@ -3,7 +3,9 @@ import YuComponent from '../util/component'
 export default class YuSwitch extends YuComponent {
     defaultStates = {
       type: 'primary',
+      value: 'on',
       option: null,
+      on: false,
     }
 
     constructor(component, states) {
@@ -13,6 +15,7 @@ export default class YuSwitch extends YuComponent {
       this.switchNode = this.node.querySelector('.switch')
       this.labelNode = this.node.getElementsByTagName('LABEL')[0]
       this.initStates(states)
+      this.states.value = this.inputNode.value
       this.switchNode.addEventListener('click', () => {
         this.setState('on', !this.states.on)
         let value = ''
@@ -20,6 +23,9 @@ export default class YuSwitch extends YuComponent {
           value = this.states.on ? this.states.activeValue : this.states.inactiveValue
         } else {
           value = this.states.on ? this.states.value : ''
+        }
+        if (this.states.activeLabel) {
+          this.labelNode.innerText = this.states.on ? this.states.activeLabel : this.states.inactiveLabel
         }
         this.emit('onChange', value)
         this.inputNode.value = value
@@ -58,37 +64,28 @@ export default class YuSwitch extends YuComponent {
       this.node.classList.toggle('disabled', isDisabled)
     }
 
-    plain = (isPlain) => {
-      this.node.classList.toggle('plain', isPlain)
-    }
-
-    size = (size) => {
-      this.node.classList.remove('small', 'large')
-      this.node.classList.add(size)
-    }
-
-    circle = (isCircle) => {
-      this.node.classList.toggle('circle', isCircle)
-    }
-
     option = (option) => {
       if (option) {
         this.node.innerHTML = ''
         const input = document.createElement('INPUT')
         input.type = 'checkbox'
-        input.value = option.value
+        if (option.value) {
+          input.value = option.value
+          if (this.mounted) {
+            this.states.value = option.value
+          }
+        }
         if (option.checked) {
           input.checked = 'checked'
         }
-
         this.node.appendChild(input)
+
         const span = document.createElement('SPAN')
         const span2 = document.createElement('SPAN')
         span.className = 'switch'
         span2.className = 'circle'
         span.appendChild(span2)
         this.node.appendChild(span)
-
         if (option.label) {
           const label = document.createElement('LABEL')
           label.innerText = option.label
@@ -97,14 +94,14 @@ export default class YuSwitch extends YuComponent {
           } else {
             this.node.insertBefore(label, span)
           }
+          this.labelNode = label
         }
-
         if (this.mounted) {
           span.addEventListener('click', (e) => {
             e.currentTarget.classList.toggle('on')
           })
         }
-
+        this.inputNode = input
         this.switchNode = span
       }
     }
