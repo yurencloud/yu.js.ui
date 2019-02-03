@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="../dist/styles.css">
 </head>
 <body>
+<div class="web-outer">
+    <ul class="web-index" :option="$menuOption"></ul>
 <div class="web-container">
     <h4 class="web-title">计数器</h4>
     <div class="yu-counter">
@@ -122,14 +124,17 @@
     </div>
 
 </div>
+</div>
 </body>
 <script src="../dist/index.bundle.js"></script>
+<script src="../main.js"></script>
 <script>
-    yu.data = {
+    new WebIndex('.web-index')
+    yu.setData({
         handleChange: function (value) {
             console.log(value)
         }
-    }
+    })
     var the = yu.init('Counter', 'CounterSide')
 </script>
 </html>

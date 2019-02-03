@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../app.css">
 </head>
 <style>
-    .yu-card-list{
+    .yu-card-list {
         width: 200px;
         height: 250px;
         border: 1px solid #eee;
@@ -15,7 +15,8 @@
         font-size: 14px;
         font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, SimSun, sans-serif;
     }
-    .yu-card-list>.title{
+
+    .yu-card-list > .title {
         font-weight: bold;
         color: #333;
         border-bottom: 1px solid #eee;
@@ -23,34 +24,40 @@
         padding: 14px;
         box-sizing: border-box;
     }
-    .yu-card-list>ul.body>li.active{
+
+    .yu-card-list > ul.body > li.active {
         color: blue;
     }
 </style>
 <body>
-<div class="web-container">
-    <h4 class="web-title">自定义组件：卡片清单 CardList</h4>
-    <h4 class="web-title">步骤一、完成样式</h4>
-    <div class="yu-card-list">
-        <div class="title">待完成事项</div>
-        <ul class="body">
-            <li class="active">清单一</li>
-            <li>清单二</li>
-            <li>清单三</li>
-            <li>清单四</li>
-        </ul>
-    </div>
-    <h4 class="web-title">步骤二、完成组件行为</h4>
-    <div class="yu-card-list target" :title="我是新标题" :option="$option" @change="$handleChange">
-        <div class="title"></div>
-        <ul class="body"></ul>
+<div class="web-outer">
+    <ul class="web-index" :option="$menuOption"></ul>
+    <div class="web-container">
+        <h4 class="web-title">自定义组件：卡片清单 CardList</h4>
+        <h4 class="web-title">步骤一、完成样式</h4>
+        <div class="yu-card-list">
+            <div class="title">待完成事项</div>
+            <ul class="body">
+                <li class="active">清单一</li>
+                <li>清单二</li>
+                <li>清单三</li>
+                <li>清单四</li>
+            </ul>
+        </div>
+        <h4 class="web-title">步骤二、完成组件行为</h4>
+        <div class="yu-card-list target" :title="我是新标题" :option="$option" @change="$handleChange">
+            <div class="title"></div>
+            <ul class="body"></ul>
+        </div>
     </div>
 </div>
 </body>
 <script src="../dist/index.bundle.js"></script>
+<script src="../main.js"></script>
 <script>
-    yu.data = {
-        option : [
+    new WebIndex('.web-index')
+    yu.setData({
+        option: [
             {label: '清单一', active: true},
             {label: '清单二'},
             {label: '清单三'},
@@ -58,17 +65,17 @@
         handleChange: function (value) {
             console.log(value)
         }
-    }
+    })
 
     function CardList(component, states) {
         // 创建组件实例
         var comp = new yu.Component()
         // 添加组件属性方法
-        comp.title = function(title){
+        comp.title = function (title) {
             this.titleNode.innerText = title
         }
-        comp.option = function(option){
-            if(option.length > 0){
+        comp.option = function (option) {
+            if (option.length > 0) {
                 this.bodyNode.innerHTML = ''
                 option.forEach(function (item) {
                     comp.bodyNode.appendChild(comp.createOption(item))
@@ -76,9 +83,9 @@
             }
         }
         // 添加组件静态方法
-        comp.createOption = function(option){
+        comp.createOption = function (option) {
             var li = document.createElement('LI')
-            if(option.active){
+            if (option.active) {
                 li.className = 'active'
             }
             li.innerText = option.label
@@ -99,7 +106,7 @@
     }
 
     var cardList = new CardList('.yu-card-list.target')
-    yu.data.option.push({label:'吃苹果'})
+    yu.data.option.push({label: '吃苹果'})
     cardList.setState('option', yu.data.option)
 </script>
 </html>

@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="../dist/styles.css">
 </head>
 <body>
+<div class="web-outer">
+    <ul class="web-index" :option="$menuOption"></ul>
 <div class="web-container">
     <h4 class="web-title">开关</h4>
     <p>直接写</p>
@@ -63,9 +65,12 @@
         <input type="checkbox" value="apple">
         <span class="switch"><span class="circle"></span></span>
     </div>
+    </div>
 </body>
 <script src="../dist/index.bundle.js"></script>
+<script src="../main.js"></script>
 <script>
+    new WebIndex('.web-index')
     yu.data = {
         option: {label: '苹果', value: 'apple'},
         handleChange: function (value) {

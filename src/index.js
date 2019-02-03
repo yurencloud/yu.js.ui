@@ -31,6 +31,11 @@ const yu = {
 
   init: YuInit,
   data: {},
+
+  // 用setData就不会覆盖data, 这样就可以设置一些全局的变量
+  setData: (data) => {
+    Object.assign(yu.data, data)
+  },
 }
 
 export default yu

@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="../dist/styles.css">
 </head>
 <body>
+<div class="web-outer">
+    <ul class="web-index" :option="$menuOption"></ul>
 <div class="web-container">
     <h4 class="web-title">组件的多种初始化方式</h4>
 
@@ -72,9 +74,12 @@
     <div class="web-description">var the = yu.init('Button','Radio')</div>
 
 </div>
+</div>
 </body>
 <script src="../dist/index.bundle.js"></script>
+<script src="../main.js"></script>
 <script>
+    new WebIndex('.web-index')
     yu.data = {
         isDisabled: true,
     }

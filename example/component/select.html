@@ -16,6 +16,8 @@
     }
 </style>
 <body>
+<div class="web-outer">
+    <ul class="web-index" :option="$menuOption"></ul>
 <div class="web-container">
     <h4 class="web-title">下拉选择</h4>
     <div class="yu-select" :option="$option" :ref="example3">
@@ -131,9 +133,12 @@
 
     <div style="height: 400px;"></div>
 </div>
+</div>
 </body>
 <script src="../dist/index.bundle.js"></script>
+<script src="../main.js"></script>
 <script>
+    new WebIndex('.web-index')
     yu.data = {
         option: [
             {label: '苹果', value: 'apple'},

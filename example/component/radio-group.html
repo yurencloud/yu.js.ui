@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="../dist/styles.css">
 </head>
 <body>
+<div class="web-outer">
+    <ul class="web-index" :option="$menuOption"></ul>
 <div class="web-container">
     <h4 class="web-title">单选框组</h4>
     <p class="web-description">直接写选项</p>
@@ -72,9 +74,12 @@
     <div class="yu-radio-group" :option="$option2" @change="$handleChange"></div>
     <button class="yu-button">监听onChange事件</button>
 </div>
+</div>
 </body>
 <script src="../dist/index.bundle.js"></script>
+<script src="../main.js"></script>
 <script>
+    new WebIndex('.web-index')
     yu.data = {
         option: [
             {label: '苹果', value: 'apple', checked: true},

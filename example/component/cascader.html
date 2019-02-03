@@ -8,114 +8,120 @@
     <link rel="stylesheet" href="../dist/styles.css">
 </head>
 <body>
-<div class="web-container">
-    <h4 class="web-title">普通用法</h4>
-    <p>因为是级联，是动态变化选项的，所以无法手写选项</p>
-    <div class="yu-cascader" :option="$option" :ref="example">
-        <div class="yu-input">
-            <input type="text" class="suffix" placeholder="请选择">
-            <span class="suffix icon">
+<div class="web-outer">
+    <ul class="web-index" :option="$menuOption"></ul>
+    <div class="web-container">
+        <h4 class="web-title">普通用法</h4>
+        <p>因为是级联，是动态变化选项的，所以无法手写选项</p>
+        <div class="yu-cascader" :option="$option" :ref="example">
+            <div class="yu-input">
+                <input type="text" class="suffix" placeholder="请选择">
+                <span class="suffix icon">
                 <i class="iconfont icon-angle-down"></i>
             </span>
+            </div>
+            <div class="yu-cascader-option transition"></div>
         </div>
-        <div class="yu-cascader-option transition"></div>
-    </div>
-    <button class="yu-button" onclick="the.example.setState('option', [{value: 'animal', label: '动物', children: []}])">重置选项</button>
+        <button class="yu-button"
+                onclick="the.example.setState('option', [{value: 'animal', label: '动物', children: []}])">重置选项
+        </button>
 
 
-    <button class="yu-button" onclick="handleClick()">禁用</button>
+        <button class="yu-button" onclick="handleClick()">禁用</button>
 
-    <h4 class="web-title">hover触发</h4>
-    <div class="yu-cascader" :option="$option" :hover>
-        <div class="yu-input">
-            <input type="text" class="suffix" placeholder="请选择">
-            <span class="suffix icon">
+        <h4 class="web-title">hover触发</h4>
+        <div class="yu-cascader" :option="$option" :hover>
+            <div class="yu-input">
+                <input type="text" class="suffix" placeholder="请选择">
+                <span class="suffix icon">
                 <i class="iconfont icon-angle-down"></i>
             </span>
+            </div>
+            <div class="yu-cascader-option transition"></div>
         </div>
-        <div class="yu-cascader-option transition"></div>
-    </div>
 
-    <h4 class="web-title">有禁用选项</h4>
-    <div class="description">选项中有 disabled: true 属性</div>
+        <h4 class="web-title">有禁用选项</h4>
+        <div class="description">选项中有 disabled: true 属性</div>
 
-    <h4 class="web-title">结果仅显示最后一项</h4>
-    <div class="yu-cascader" :option="$option" :short>
-        <div class="yu-input">
-            <input type="text" class="suffix" placeholder="请选择">
-            <span class="suffix icon">
+        <h4 class="web-title">结果仅显示最后一项</h4>
+        <div class="yu-cascader" :option="$option" :short>
+            <div class="yu-input">
+                <input type="text" class="suffix" placeholder="请选择">
+                <span class="suffix icon">
                 <i class="iconfont icon-angle-down"></i>
             </span>
+            </div>
+            <div class="yu-cascader-option transition"></div>
         </div>
-        <div class="yu-cascader-option transition"></div>
-    </div>
 
-    <h4 class="web-title">默认值</h4>
-    <div class="yu-cascader" :option="$option" :value="$value">
-        <div class="yu-input">
-            <input type="text" class="suffix" placeholder="请选择">
-            <span class="suffix icon">
+        <h4 class="web-title">默认值</h4>
+        <div class="yu-cascader" :option="$option" :value="$value">
+            <div class="yu-input">
+                <input type="text" class="suffix" placeholder="请选择">
+                <span class="suffix icon">
                 <i class="iconfont icon-angle-down"></i>
             </span>
+            </div>
+            <div class="yu-cascader-option transition"></div>
         </div>
-        <div class="yu-cascader-option transition"></div>
-    </div>
 
-    <h4 class="web-title">选择即改变</h4>
-    <div class="yu-cascader" :option="$option" :change-on-select>
-        <div class="yu-input">
-            <input type="text" class="suffix" placeholder="请选择">
-            <span class="suffix icon">
+        <h4 class="web-title">选择即改变</h4>
+        <div class="yu-cascader" :option="$option" :change-on-select>
+            <div class="yu-input">
+                <input type="text" class="suffix" placeholder="请选择">
+                <span class="suffix icon">
                 <i class="iconfont icon-angle-down"></i>
             </span>
+            </div>
+            <div class="yu-cascader-option transition"></div>
         </div>
-        <div class="yu-cascader-option transition"></div>
-    </div>
 
-    <h4 class="web-title">动态远程加载</h4>
-    <div class="yu-cascader" :ref="target" :remote="$handleRemote">
-        <div class="yu-input">
-            <input type="text" class="suffix" placeholder="请选择">
-            <span class="suffix icon">
+        <h4 class="web-title">动态远程加载</h4>
+        <div class="yu-cascader" :ref="target" :remote="$handleRemote">
+            <div class="yu-input">
+                <input type="text" class="suffix" placeholder="请选择">
+                <span class="suffix icon">
                 <i class="iconfont icon-angle-down"></i>
             </span>
+            </div>
+            <div class="yu-cascader-option transition"></div>
         </div>
-        <div class="yu-cascader-option transition"></div>
-    </div>
 
-    <h4 class="web-title">禁用</h4>
-    <div class="yu-cascader" :disabled>
-        <div class="yu-input">
-            <input type="text" class="suffix" placeholder="请选择">
-            <span class="suffix icon">
+        <h4 class="web-title">禁用</h4>
+        <div class="yu-cascader" :disabled>
+            <div class="yu-input">
+                <input type="text" class="suffix" placeholder="请选择">
+                <span class="suffix icon">
                 <i class="iconfont icon-angle-down"></i>
             </span>
+            </div>
+            <div class="yu-cascader-option transition"></div>
         </div>
-        <div class="yu-cascader-option transition"></div>
     </div>
-
 </div>
 </body>
 <script src="../dist/index.bundle.js"></script>
+<script src="../main.js"></script>
 <script src="./provinceCascader.js"></script>
 <script>
-    yu.data = {
+    new WebIndex('.web-index')
+    yu.setData({
         option: provinceCascader,
         value: ["330000", "330100", "330104"],
         handleRemote: function (value) {
             return new Promise(function (resolve, reject) {
-                if(value){
-                    if(value[value.length - 1] === 'animal'){
+                if (value) {
+                    if (value[value.length - 1] === 'animal') {
                         resolve([{value: 'cats', label: '猫科', children: []}]);
-                    }else{
+                    } else {
                         resolve([{value: 'cat', label: '猫', children: null}]);
                     }
-                }else{
+                } else {
                     resolve([{value: 'animal', label: '动物', children: []}]);
                 }
             })
         }
-    }
+    })
     var the = yu.init('Cascader')
 
     function handleClick() {

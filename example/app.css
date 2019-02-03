@@ -28,6 +28,11 @@ body {
     border-right: 2px solid #409EFF; }
 .web-index li:hover a {
     color: #409EFF; }
+.web-index li.active {
+    background-color: #f5f5f9;
+    border-right: 2px solid #409EFF; }
+.web-index li.active a {
+    color: #409EFF; }
 
 
 
@@ -69,3 +74,11 @@ body {
 hr {
     margin: 20px 0;
     border: 0.5px solid #E4E7ED; }
+
+.web-outer{
+    display: flex;
+}
+
+.web-outer>.web-index{
+    width: 200px;
+}
