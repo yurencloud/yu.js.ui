@@ -105,8 +105,11 @@
         return comp
     }
 
-    var cardList = new CardList('.yu-card-list.target')
-    yu.data.option.push({label: '吃苹果'})
-    cardList.setState('option', yu.data.option)
+    // var cardList = new CardList('.yu-card-list.target')
+    // yu.data.option.push({label: '吃苹果'})
+    // cardList.setState('option', yu.data.option)
+
+    yu.register(CardList, 'CardList', '.yu-card-list')
+    yu.init('CardList')
 </script>
 </html>

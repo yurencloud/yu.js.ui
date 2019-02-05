@@ -2,4 +2,4 @@
 import 'yu.css.ui/dist/index.css'
 import yu from '../src/index'
 
-window.yu = yu
+yu.install()

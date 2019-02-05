@@ -32,7 +32,7 @@ function WebIndex(component, states) {
     }
 
     comp.init(component, states)
-    var temp = window.location.pathname.substr(11)
+    var temp = window.location.pathname.split('/component/')[1]
     var currentKey = temp.substr(0, temp.length - 5)
     comp.node.querySelector('li[data-key=' + currentKey + ']').classList.add('active')
     return comp

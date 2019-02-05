@@ -1,8 +1,8 @@
 {
   "name": "yu.js.ui",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "基于原生JavaScript组件库",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "watch": "webpack -w",
     "start": "live-server ./example --port=9001 --watch=."
