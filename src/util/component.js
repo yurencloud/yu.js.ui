@@ -7,17 +7,31 @@ export default class YuComponent {
 
     mounted = false
 
+    /*
+    * 初始化组件
+    * @param {String | DOM} component - 组件选择器或DOM元素
+    * @param {Object} states - 参数状态
+    * */
     init(component, states) {
       this.initNode(component)
       this.initStates(states)
     }
 
+    /*
+    * 初始化组件DOM元素节点，并从节点上获取所有属性状态
+    * @param {String | DOM} component - 组件选择器或DOM元素
+    * */
     initNode(component) {
       this.node = typeof component === 'string' ? document.querySelector(component) : component
       // attributes只是为了方便组件初始化，改变attributes不能改变state
       this.states = this.parseAttributesToStates(this.node.attributes)
     }
 
+
+    /*
+    * 初始化组件状态，合并默认状态>属性状态>参数状态，并执行每个状态方法
+    * @param {Object} states - 参数状态
+    * */
     initStates(states) {
       // states优先于attributes
       this.states = Object.assign(this.defaultStates || {}, this.states, states || {})
@@ -26,6 +40,12 @@ export default class YuComponent {
       this.mounted = true
     }
 
+    /*
+    * 执行状态方法并更新状态
+    * @param {String} stateName - 状态名，也可称为状态方法名
+    * @param {Any} value - 状态值，传入状态方法的参数
+    * 判断状态方法是否存在，若存在则执行状态方法并更新状态
+    * */
     setState(stateName, value) {
       if (this[stateName]) {
         this[stateName](value)
@@ -33,12 +53,20 @@ export default class YuComponent {
       }
     }
 
+    /*
+    * 批量执行状态方法
+    * @param {Object} states - 状态集合对象
+    * */
     setStates(states) {
       for (const key of Object.keys(states)) {
         this.setState(key, states[key])
       }
     }
 
+    /*
+    * 转化组件DOM节点属性为组件状态，属性状态
+    * @param {Attributes} attributes - 组件DOM节点所有属性
+    * */
     parseAttributesToStates = (attributes) => {
       const states = {}
 
@@ -91,7 +119,11 @@ export default class YuComponent {
       return states
     }
 
-    // 触发事件
+    /*
+    * 触发组件事件
+    * @param {String} eventName - 组件事件名称， on开头，驼峰式命名，例如：onChange, onSelect, onWrite等
+    * @param {Arguments} args - 其他参数
+    * */
     emit(eventName, ...args) {
       if (this[eventName]) {
         this[eventName](...args)
