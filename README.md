@@ -27,7 +27,7 @@
 - yu.js.ui 源码总共只有几十KB，虽然打包后会大一些
 - yu.js.ui 基类核心代码只有30多行，仅让组件拥有状态，至于每个组件状态对应的DOM操作由组件自己实现
 
-## 什么时候适合引入yu.js.ui
+#### 什么时候适合引入yu.js.ui
 当你的项目未引入Vue, React, Angular，基本是直接操作DOM，此时你又怀念Vue, React的一些操作和用法，想念element-ui, ant-design 等库带来的便捷时，你就可以引入yu.js.ui
 
 #### 一、npm 引入 推荐
