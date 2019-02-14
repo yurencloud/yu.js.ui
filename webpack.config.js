@@ -1,7 +1,7 @@
-const webpack = require('webpack')
+require('webpack')
 const path = require('path')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const uglify = require('uglifyjs-webpack-plugin')
+const Uglify = require('uglifyjs-webpack-plugin')
 
 module.exports = {
   mode: 'development',
@@ -39,7 +39,7 @@ module.exports = {
   plugins: [
     new ExtractTextPlugin('styles.css'),
     // 压缩输出的 JS 代码
-    new uglify({
+    new Uglify({
       // 多嵌套了一层
       uglifyOptions: {
         compress: {
@@ -61,5 +61,5 @@ module.exports = {
       },
     }),
   ],
-
+  devtool: 'source-map',
 }
