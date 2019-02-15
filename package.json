@@ -9,11 +9,13 @@
     "start": "webpack-dev-server --inline"
   },
   "keywords": [
+    "yu.js.ui",
     "yurencloud",
     "yuren",
     "yu",
     "mackwang",
-    "yurencloud.com"
+    "yurencloud.com",
+    "JavaScript组件库"
   ],
   "author": {
     "name": "mackwang",
