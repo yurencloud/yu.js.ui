@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define,no-shadow */
 import Init from './util/init'
 import Component from './util/component'
 
@@ -13,8 +14,25 @@ import Select from './component/select'
 import Cascader from './component/cascader'
 import Switch from './component/switch'
 
+const NODE_CLASSNAME = {}
+const init = Init
+const data = {}
+
+function install() {
+  window.yu = yu
+}
+
+function register(component, componentType, selector) {
+  yu.NODE_CLASSNAME[componentType] = selector
+  yu[componentType] = component
+}
+
+function setData(data) {
+  Object.assign(yu.data, data)
+}
+
 const yu = {
-  NODE_CLASSNAME: {},
+  NODE_CLASSNAME,
   Button,
   Radio,
   RadioGroup,
@@ -30,25 +48,19 @@ const yu = {
   // 非组件
   Component,
 
-  init: Init,
-  install: () => {
-    window.yu = yu
-  },
-  register: (component, componentType, selector) => {
-    yu.NODE_CLASSNAME[componentType] = selector
-    yu[componentType] = component
-  },
-  data: {},
+  init,
+  install,
+  register,
+  data,
 
   // 用setData就不会覆盖data, 这样就可以设置一些全局的变量
-  setData: (data) => {
-    Object.assign(yu.data, data)
-  },
+  setData,
 }
 
 export default yu
 
 export {
+  NODE_CLASSNAME,
   Button,
   Radio,
   RadioGroup,
@@ -60,5 +72,15 @@ export {
   Select,
   Cascader,
   Switch,
+
+  // 非组件
   Component,
+
+  init,
+  install,
+  register,
+  data,
+
+  // 用setData就不会覆盖data, 这样就可以设置一些全局的变量
+  setData,
 }

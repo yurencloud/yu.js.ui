@@ -3,14 +3,14 @@ const path = require('path')
 const Uglify = require('uglifyjs-webpack-plugin')
 
 module.exports = [
-  // 生成es5的/dist/yu.js.ui.js，专门给浏览器端使用
+  // 生成es5的/dist/index.js，专门给浏览器端使用
   {
     mode: 'production',
 
     entry: './src/index.js',
 
     output: {
-      filename: 'yu.js.ui.js',
+      filename: 'index.js',
       library: 'yu',
       libraryTarget: 'window',
       path: path.resolve(__dirname, 'dist'),
