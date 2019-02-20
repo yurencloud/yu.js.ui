@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>yu.js.ui</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<div class="web-outer">
+  <ul class="web-index" :option="$menuOption"></ul>
+  <div class="web-container">
+    <h2>组件状态</h2>
+    <p>每个组件都会有个状态states，states中包含了组件的所有状态，通过setState方法可以改变组件的状态，进而可以控制组件的颜色，类型，样式，选项，值，名称，内容等等</p>
+
+    <h4 class="web-title">属性状态</h4>
+    <ul>
+      <li>1. 以冒号开头属性，则是属性状态, 例 :type="primary"</li>
+      <li>2. 字符串, 例 :type="primary"，:type='primary'</li>
+      <li>3. 数字，支持小数和负数, 例 :type="123", :type="-123"</li>
+      <li>4. 布尔值，无值时为true, 例 :type，:type="true", :type="false",</li>
+      <li>5. JSON数组(内容中必须为双引号), 例 :type='["hello","world"]'</li>
+      <li>6. JSON对象(内容中必须为双引号), 例 :type='{"type":"primary"}'</li>
+      <li>7. 变量,以$符号开头的字符串。在yu.setData({buttonType: 'primary'}) 中定义的变量，都可以被使用，例 :type="$buttonType"</li>
+    </ul>
+
+    <p>
+      属性状态变量：yu是window.yu，全局可用。yu.data则是挂载属性变量值的对象，yu.setData()则是以Object.assign合并的形式添加新的变量到yu.data，从而避免替换了yu.data。yu.data只有在组件初始化时起作用，如果组件已经初始化，改变yu.data不会改变组件状态。</p>
+    <button class="yu-button" :type="danger" :plain>button</button>
+    <button class="yu-button" :type="$buttonType" :plain>button</button>
+    <div class="yu-code"
+         :code='<button class="yu-button" :type="danger" :plain>button</button>
+<button class="yu-button" :type="$buttonType" :plain>button</button>
+
+<script>
+  yu.setData({
+    buttonType: "warning"
+  })
+  var the = yu.init("Button")
+</script>
+'></div>
+
+    <h4 class="web-title">属性状态:ref</h4>
+    <div class="web-description">不加:ref，在用yu.init()初始化时是无名组件，只能通过组件类型数组访问the.Button[1]实例, 而加了:ref的，则是有名组件,
+      可以直接通过the.myButton访问实例（依然还可以通过the.Button[1]实例，ref实例只是the.Button[1]的引用）。
+    </div>
+    <p>相当:ref只是增加了一个别名，方便访问。</p>
+    <button class="yu-button" :type="danger" :plain :ref="myButton" onclick="the.myButton.setState('size', 'large')">
+      点击变大
+    </button>
+    <div class="yu-code"
+         :code='<button class="yu-button" :type="danger" :plain :ref="myButton" onclick="the.myButton.setState(&apos;size&apos;, &apos;large&apos;)">点击变大</button>
+
+<script>
+  var the = yu.init("Button")
+</script>
+'></div>
+
+    <h4 class="web-title">改变组件状态</h4>
+    <div class="web-description">改变组件状态只有一个方法：.setState(stateName, stateValue)</div>
+    <p>当然还有一个批量改变组件状态的方法 .setStates(optionObject), 但此方法也仅仅只是把optionObject对象属性遍历循环调用.setState方法</p>
+    <button class="yu-button" :type="success" :ref="yourButton">button</button>
+    <button class="yu-button" onclick="changeType()">改变type</button>
+    <button class="yu-button" onclick="changeIcon()">改变icon</button>
+    <p>或者单个组件初始化,可直接获得实例： var yourButton = new yu.Button(".yu-button.yourButton")</p>
+    <div class="yu-code"
+         :code='<button class="yu-button" :type="success" :ref="yourButton">button</button>
+<button class="yu-button" onclick="changeType()">改变type</button>
+<button class="yu-button" onclick="changeIcon()">改变icon</button>
+<script>
+  var the = yu.init("Button")
+  function changeType() {
+    the.yourButton.setState("type", "danger")
+  }
+  function changeIcon() {
+    the.yourButton.setStates({
+      type: "warning",
+      icon: "icon-heart"
+    })
+  }
+</script>
+'></div>
+
+  </div>
+</div>
+</body>
+<script src="/index.bundle.js"></script>
+
+<script>
+  yu.setData({
+    buttonType: "warning",
+  })
+
+  var the = yu.init('Code', 'Button', 'WebIndex')
+
+  function changeType() {
+    the.yourButton.setState('type', 'danger')
+  }
+
+  function changeIcon() {
+    the.yourButton.setStates({
+      type: 'warning',
+      icon: 'icon-heart'
+    })
+  }
+</script>
+</html>

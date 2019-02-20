@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>yu.js.ui</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<div class="web-outer">
+  <ul class="web-index" :option="$menuOption"></ul>
+  <div class="web-container">
+    <h2>快速体验</h2>
+
+    <h4>直接新建一个index.html文件，内容如下</h4>
+
+    <div class="yu-code"
+         :active
+         :code='<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://unpkg.com/yu.css.ui/dist/index.css">
+</head>
+<body>
+<button class="yu-button" :type="success">Button</button>
+</body>
+<script src="https://unpkg.com/yu.js.ui/dist/index.js"></script>
+<script>
+var the = yu.init("Button")
+// 接着写代码
+
+</script>
+</html>'></div>
+      <p>直接使用浏览器打开上述文件</p>
+  </div>
+</div>
+</body>
+<script src="/index.bundle.js"></script>
+
+<script>
+</script>
+</html>

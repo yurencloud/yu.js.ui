@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>yu.js.ui</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<div class="web-outer">
+  <ul class="web-index" :option="$menuOption"></ul>
+  <div class="web-container">
+    <h2>安装</h2>
+
+    <h4>yu.js.ui 基于原生JavaScript组件库</h4>
+    <img src="https://img.shields.io/npm/v/yu.js.ui.svg" alt="">
+    <img src="https://img.shields.io/github/stars/yurencloud/yu.js.ui.svg" alt="">
+    <img src="https://img.shields.io/github/issues/yurencloud/yu.js.ui.svg" alt="">
+    <img src="https://img.shields.io/github/forks/yurencloud/yu.js.ui.svg" alt="">
+    <img src="https://img.shields.io/github/license/yurencloud/yu.js.ui.svg" alt="">
+
+    <h4>yu.js.ui的优势</h4>
+    <ul>
+      <li>yu.js.ui 使用了yu.css.ui的样式，使用原生js，直接操作DOM，实现了element-ui, ant-design中的大部分组件</li>
+      <li>yu.js.ui 源码是使用ES6编写的，基本为原生JavaScript，未使用任何第三方库。</li>
+      <li>yu.js.ui 借鉴了一些Vue, React的表达方式和使用方式</li>
+      <li>yu.js.ui 可以实现自定义组件</li>
+      <li>yu.js.ui 同时支持ES5和ES6使用</li>
+      <li>yu.js.ui 源码总共只有几十KB，虽然打包后会大一些</li>
+      <li>yu.js.ui 基类核心代码只有30多行，仅让组件拥有状态，至于每个组件状态对应的DOM操作由组件自己实现</li>
+    </ul>
+    <h4>什么时候适合引入yu.js.ui</h4>
+    <p>当你的项目未引入Vue, React, Angular，基本是直接操作DOM，此时你又怀念Vue, React的一些操作和用法，想念element-ui, ant-design 等库带来的便捷时，你就可以引入yu.js.ui</p>
+
+    <h4>一、npm 引入</h4>
+    <div class="yu-code"
+         :active
+         :code='npm install --save yu.js.ui'></div>
+
+    <p>引入，并将yu挂载到window.yu</p>
+    <div class="yu-code"
+         :language="javascript"
+         :active
+         :code=' // commonjs2
+const yu = require("yu.js.ui")
+yu.install()
+
+ // es6
+import yu from "yu.js.ui"
+yu.install()
+'></div>
+
+    <h4>二、使用CDN引入</h4>
+    <p>目前可以通过 <a href="https://unpkg.com/yu.js.ui/dist/index.js">unpkg.com/yu.js.ui</a> 获取到最新版本的资源，在页面上引入 js 文件即可开始使用。</p>
+    <div class="yu-code"
+         :active
+         :code='<script src="https://unpkg.com/yu.js.ui/dist/index.js"></script>'></div>
+    <p>此js文件已经执行将yu挂载至window.yu，无需再重复执行yu.install()</p>
+
+    <h4>三、引入样式</h4>
+    <p>yu.js.ui使用的是yu.css.ui的样式，所以样式引入，请参考 <a href="http://www.yurencloud.com/css/install">yu.css.ui</a></p>
+    <p>如果你想快速体验，并引入样式，只要添加</p>
+
+    <div class="yu-code"
+         :active
+         :code='<link rel="stylesheet" href="https://unpkg.com/yu.css.ui/dist/index.css">'></div>
+
+</div>
+</div>
+</body>
+<script src="/index.bundle.js"></script>
+
+<script>
+</script>
+</html>

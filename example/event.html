@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>yu.js.ui</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<div class="web-outer">
+  <ul class="web-index" :option="$menuOption"></ul>
+  <div class="web-container">
+    <h2>组件事件</h2>
+    <p>组件事件，例如onChange, onBlur, onInput, onSelect等</p>
+    <p>大多数组件都没有组件事件，和表单输入相关的组件基本都有onChange组件事件, Input组件有onBlur, onInput, onFocus等事件</p>
+
+    <h4 class="web-title">一、组件事件</h4>
+    <p>必须使用驼峰式方法 onChange, onBlur, onInput, onSelect</p>
+    <p>the.input.onInput = function(value) {}</p>
+    <div class="yu-input" :ref="input">
+      <input type="text">
+    </div>
+    <div id="one" class="yu-tag">单向绑定</div>
+    <div class="yu-code"
+         :code='<div class="yu-input" :ref="input">
+  <input type="text">
+</div>
+<div id="one" class="yu-tag">单向绑定</div>
+
+<script>
+  var the = yu.init("Input")
+  the.input.onInput = function (value) {
+    document.getElementById("one").innerText = value
+  }
+</script>
+'></div>
+
+    <h4 class="web-title">二、使用属性状态响应事件</h4>
+    <p>省略on,全小写，例如@input, @change, 并且值只能是属性变量，指向yu.data中的一个变量</p>
+    <p>@input="$handleInput"</p>
+    <p>原理还是为实例添加一个onInput方法，和示例一相同</p>
+    <div class="yu-input" @input="$handleInput">
+      <input type="text">
+    </div>
+    <div id="two" class="yu-tag">单向绑定</div>
+    <div class="yu-code"
+         :code='<div class="yu-input" @input="$handleInput">
+  <input type="text">
+</div>
+<div id="two" class="yu-tag">单向绑定</div>
+
+<script>
+  yu.setData({
+    handleInput: function(value) {
+      document.getElementById("two").innerText = value
+    }
+  })
+  var the = yu.init("Input")
+</script>
+'></div>
+
+  </div>
+</div>
+</body>
+<script src="/index.bundle.js"></script>
+
+<script>
+  yu.setData({
+    handleInput: function(value) {
+      document.getElementById("two").innerText = value
+    }
+  })
+  var the = yu.init("Input", "WebIndex", "Code")
+  the.input.onInput = function (value) {
+    document.getElementById('one').innerText = value
+  }
+</script>
+</html>

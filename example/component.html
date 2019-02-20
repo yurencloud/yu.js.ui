@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>yu.js.ui</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<div class="web-outer">
+  <ul class="web-index" :option="$menuOption"></ul>
+  <div class="web-container">
+    <h2>组件继承和生命周期</h2>
+    <h4 class="web-title">组件基类</h4>
+    <p>总共130行，去除parseAttributesToStates,空行,注释，核心代码就30行左右</p>
+    <div class="yu-code"
+         :language="javascript"
+         :code="import convertToCamelCase from '../common/tool'
+
+export default class YuComponent {
+    states = {}
+
+    node = {}
+
+    mounted = false
+
+    /*
+    * 初始化组件
+    * @param {String | DOM} component - 组件选择器或DOM元素
+    * @param {Object} states - 参数状态
+    * */
+    init(component, states) {
+      this.initNode(component)
+      this.initStates(states)
+    }
+
+    /*
+    * 初始化组件DOM元素节点，并从节点上获取所有属性状态
+    * @param {String | DOM} component - 组件选择器或DOM元素
+    * */
+    initNode(component) {
+      this.node = typeof component === 'string' ? document.querySelector(component) : component
+      // attributes只是为了方便组件初始化，改变attributes不能改变state
+      this.states = this.parseAttributesToStates(this.node.attributes)
+    }
+
+
+    /*
+    * 初始化组件状态，合并默认状态>属性状态>参数状态，并执行每个状态方法
+    * @param {Object} states - 参数状态
+    * */
+    initStates(states) {
+      // states优先于attributes
+      this.states = Object.assign(this.defaultStates || {}, this.states, states || {})
+      this.setStates(this.states)
+      this.node.setAttribute('mounted', '')
+      this.mounted = true
+    }
+
+    /*
+    * 执行状态方法并更新状态
+    * @param {String} stateName - 状态名，也可称为状态方法名
+    * @param {Any} value - 状态值，传入状态方法的参数
+    * 判断状态方法是否存在，若存在则执行状态方法并更新状态
+    * */
+    setState(stateName, value) {
+      if (this[stateName]) {
+        this[stateName](value)
+        this.states[stateName] = value
+      }
+    }
+
+    /*
+    * 批量执行状态方法
+    * @param {Object} states - 状态集合对象
+    * */
+    setStates(states) {
+      for (const key of Object.keys(states)) {
+        this.setState(key, states[key])
+      }
+    }
+
+    /*
+    * 转化组件DOM节点属性为组件状态，属性状态
+    * @param {Attributes} attributes - 组件DOM节点所有属性
+    * */
+    parseAttributesToStates = (attributes) => {
+      const states = {}
+
+      Array.from(attributes).forEach((item) => {
+        if (item.name.indexOf(':') === 0) {
+          this.node.removeAttribute(item.name)
+          const name = convertToCamelCase(item.name.substr(1))
+          const start = item.value[0]
+          if (item.value === '') {
+            states[name] = true
+            return
+          }
+
+          if (start === '{' || start === '[') {
+            states[name] = JSON.parse(item.value)
+            return
+          }
+
+          // 可以有负号，可以是整数，可以是小数, 如果带有其他字符，则按字符串处理
+          if (/[-?0-9]/.test(start)) {
+            const num = Number(item.value)
+            if (isNaN(num)) {
+              states[name] = item.value
+            } else {
+              states[name] = num
+            }
+            return
+          }
+
+          if (item.value === 'true' || item.value === 'false') {
+            states[name] = item.value === 'true'
+            return
+          }
+
+          if (start === '$') {
+            states[name] = yu.data[item.value.substr(1)]
+            return
+          }
+
+          states[name] = item.value
+        }
+
+        // 绑定事件
+        if (item.name.indexOf('@') === 0) {
+          this.node.removeAttribute(item.name)
+          const eventName = `on${item.name[1].toLocaleUpperCase()}${item.name.substr(2)}`
+          this[eventName] = yu.data[item.value.substr(1)]
+        }
+      })
+      return states
+    }
+
+    /*
+    * 触发组件事件
+    * @param {String} eventName - 组件事件名称， on开头，驼峰式命名，例如：onChange, onSelect, onWrite等
+    * @param {Arguments} args - 其他参数
+    * */
+    emit(eventName, ...args) {
+      if (this[eventName]) {
+        this[eventName](...args)
+      }
+    }
+}
+"></div>
+    <p>组件基类属性和方法的作用</p>
+    <ul>
+      <li>states 组件状态：保存组件所有状态值</li>
+      <li>node 组件元素DOM节点：方便操作和控制组件</li>
+      <li>mounted 是否初始化：默认false,initStates方法执行后则为true</li>
+      <li>init 初始化组件：直接调用initNode和initStates方法，是个便捷函数</li>
+      <li>initNode 初始化组件DOM元素节点，并从节点上获取所有属性状态</li>
+      <li>initStates 初始化组件状态，合并默认状态>属性状态>参数状态，并执行每个状态方法</li>
+      <li>setState 执行状态方法并更新状态</li>
+      <li>setState 批量执行状态方法</li>
+      <li>parseAttributesToStates 转化组件DOM节点属性为组件状态，属性状态</li>
+      <li>emit 触发组件事件</li>
+    </ul>
+
+    <h2>组件的生命周期</h2>
+    <p>以Button组件为例</p>
+    <div class="yu-code"
+         :language="javascript"
+         :code="import YuComponent from '../util/component'
+
+export default class YuButton extends YuComponent {
+  constructor(component, states) {
+    super()
+    this.init(component, states)
+  }
+
+    type = (type) => {
+      this.node.classList.remove('primary', 'danger', 'warning', 'info', 'success')
+      this.node.classList.add(type)
+    }
+
+    text = (text) => {
+      this.node.innerText = text
+    }
+
+    disabled = (isDisabled) => {
+      this.node.classList.toggle('disabled', isDisabled)
+    }
+
+    plain = (isPlain) => {
+      this.node.classList.toggle('plain', isPlain)
+    }
+
+    size = (size) => {
+      this.node.classList.remove('small', 'large')
+      this.node.classList.add(size)
+    }
+
+    circle = (isCircle) => {
+      this.node.classList.toggle('circle', isCircle)
+    }
+
+    icon = (iconfontName) => {
+      if (this.node.firstElementChild && this.node.firstElementChild.classList.contains('iconfont')) {
+        this.node.firstElementChild.className = `iconfont ${iconfontName}`
+      } else {
+        const i = document.createElement('I')
+        i.className = `iconfont ${iconfontName}`
+        this.node.insertBefore(i, this.node.firstChild)
+      }
+    }
+}
+"></div>
+    <p>当 var button = new yu.Button('.yu-button', {type: 'primary'}), 发生了什么？</p>
+    <h4 class="web-title">一、传入构造参数</h4>
+    <p>参数一可以是选择器，也可以是DOM元素，参数二是初始状态</p>
+    <h4 class="web-title">二、执行构造函数</h4>
+    <p>this.init(component, states), 实际调用initNode和initStates方法，如果在initStates之前要初始化子节点，则可以不使用this.init，而是分别调用initNode和initStates方法</p>
+    <h4 class="web-title">三、初始化节点</h4>
+    <p>this.initNode只是获取组件容器（即组件最外层元素），并保存到this.node，同时还获取组件容器上的所有组件属性，通过parseAttributesToStates 并转化为组件属性状态，转化后会删除组件属性</p>
+    <h4 class="web-title">四、初始化子节点</h4>
+    <p>在this.initStates之前往往需要初始化子节点，比如Select组件在initNode之后需要初始化this.inputNode, this.optionNode节点，以方便控制状态时操作DOM节点，</p>
+    <h4 class="web-title">五、初始节点状态</h4>
+    <p>执行this.initStates方法, 合并默认状态>属性状态>参数状态, 其实后者状态会覆盖前者状态，但前者状态的排序会优先后者状态，所以默认状态defaultStates主要是用来调节状态排序的，因为状态的排序决定了执行状态方法的先后。比如Select组件的option一定要比value优先，要先有选项，才能设置默认值。</p>
+    <h4 class="web-title">六、执行状态方法</h4>
+    <p>每个组件实例都会有一个states属性，里面保存着组件的所有状态，例如option,value,type,disabled等，而和states同级的一定会有相对应的 <span style="color:red">同名的</span>状态方法：option(), value(), type(), disabled()。每次执行setState(stateName, stateValue)方法，实际上是向对应的状态方法传入stateValue,状态方法接收到参数后，执行一系列操作响应，操作结束后，把states中对应的状态更新。</p>
+    <div class="yu-code"
+         :language="javascript"
+         :code="export default class YuButton extends YuComponent {
+    states = {
+      type: 'primary',
+      text: 'button',
+      disabled: true,
+      plain: true,
+      size: 'large',
+      circle: true,
+      icon: 'icon-user'
+    }
+    type = (type) => {}
+    text = (text) => {}
+    disabled = (isDisabled) => {}
+    plain = (isPlain) => {}
+    size = (size) => {}
+    circle = (isCircle) => {}
+    icon = (iconfontName) => {}
+}
+"></div>
+    <h4 class="web-title">七、绑定事件</h4>
+    <p>在执行完initStates后,基本就完成组件的初始化，此时组件的所有节点元素已经就位。这时就可以向相应的元素绑定一些事件，比如Input组件需要绑定onInput, onChange, onBlur等事件</p>
+    <h4 class="web-title">八、初始化完成</h4>
+    <p>yu.init('Button'), 实际就根据'Button'，查到已经注册的选择器'.yu-button', 然后document.querySelectorAll('.yu-button'),得到所有Button组件，然后再遍历依次调用new yu.Button(node)，每次初始化完成后组件都会有一个mounted属性，yu.init遇到此属性组件将会跳过，不会再重复初始化</p>
+    <h4 class="web-title">九、改变组件状态</h4>
+    <p>无论是使用new,还是init,都将获取组件实例，通过组件实例调用setState方法，可以改变组件状态，所有的改变都将是重置型的，而不是追加型的，比如setState('option',[xxx]), 改变Select组件选项，将会先清空原先所有选项，再插入新选项。</p>
+  </div>
+
+</div>
+</body>
+<script src="/index.bundle.js"></script>
+
+<script>
+</script>
+</html>

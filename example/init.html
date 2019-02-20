@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>yu.js.ui</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<div class="web-outer">
+  <ul class="web-index" :option="$menuOption"></ul>
+  <div class="web-container">
+
+    <h2>组件初始化</h2>
+
+    <h4 class="web-title">单个组件初始化</h4>
+    <p>可以传入组件选择器，也可以直接传入组件DOM节点</p>
+    <button class="yu-button one">button</button>
+    <button id="one" class="yu-button">button</button>
+    <div class="yu-code"
+         :code='<button class="yu-button one">button</button>
+<button id="one" class="yu-button">button</button>
+
+<script>
+  var buttonOne = new yu.Button(".one")
+  var buttonOne2 = new yu.Button(document.getElementById("one"))
+</script>
+'></div>
+
+
+    <h4 class="web-title">单个组件初始化，并传递初始化状态</h4>
+    <button class="yu-button two">button</button>
+    <div class="yu-code"
+         :code='<button class="yu-button two">button</button>
+
+<script>
+  var buttonOne = new yu.Button(".two", {type: "primary"})
+</script>
+'></div>
+
+    <h4 class="web-title">单个类型的所有组件初始化</h4>
+    <div class="web-description">注意，已经被初始化过的组件，将拥有mounted属性，不会再被init初始化。</div>
+    <p>如果添加unmount属性，则此组件不会被 yu.init 初始化，只能使用 new yu.Button() 来初始化</p>
+    <button class="yu-button" :type="success">button</button>
+    <button class="yu-button">button</button>
+    <div class="yu-code"
+         :code='<button class="yu-button" :type="success">button</button>
+<button class="yu-button">button</button>
+
+<script>
+  var the = yu.init("Button")
+</script>
+'></div>
+
+    <h4 class="web-title">多个类型的所有组件初始化</h4>
+    <div class="yu-input">
+      <input type="text" placeholder="用户名">
+    </div>
+    <div class="yu-radio-group">
+      <label class="yu-radio">
+        <span class="radio"><input type="radio" value="apple"></span>
+        <span>苹果</span>
+      </label>
+      <label class="yu-radio">
+        <span class="radio"><input type="radio" value="banana"></span>
+        <span>香蕉</span>
+      </label>
+      <label class="yu-radio">
+        <span class="radio"><input type="radio" value="peach"></span>
+        <span>桃子</span>
+      </label>
+    </div>
+    <div class="yu-code"
+         :code='<div class="yu-input">
+        <input type="text" placeholder="用户名">
+</div>
+<div class="yu-radio-group">
+    <label class="yu-radio">
+        <span class="radio"><input type="radio" value="apple"></span>
+        <span>苹果</span>
+    </label>
+    <label class="yu-radio">
+        <span class="radio"><input type="radio" value="banana"></span>
+        <span>香蕉</span>
+    </label>
+    <label class="yu-radio">
+        <span class="radio"><input type="radio" value="peach"></span>
+        <span>桃子</span>
+    </label>
+</div>
+
+<script>
+  var the = yu.init("Input", "RadioGroup")
+</script>
+'></div>
+
+    <h4 class="web-title">最佳建议</h4>
+    <p>一、如果你只需要一个组件样式，并没有控制和改变他的状态，则不要初始化，比如Button组件，Tag组件，Alert组件</p>
+    <button class="yu-button">按钮</button>
+    <button class="yu-button primary plain">按钮</button>
+    <div class="yu-tag">标签</div>
+    <div class="yu-alert success">提示语</div>
+    <div class="yu-code"
+         :code='<button class="yu-button">按钮</button>
+<button class="yu-button primary plain">按钮</button>
+<div class="yu-tag">标签</div>
+<div class="yu-alert success">提示语</div>
+'></div>
+    <p>二、如果你需要多个组件样式，其中只有一个或两个需要控制状态，则使用单个组件初始化，new更合适，只初始化其中的一个或两个，其余不初始化。比如Button组件，Tag组件，Alert组件</p>
+    <button class="yu-button">普通按钮</button>
+    <button class="yu-button">普通按钮</button>
+    <button class="yu-button special" onclick="changeTypeToDanger()">控制按钮，点击改变类型</button>
+    <button class="yu-button">普通按钮</button>
+    <div class="yu-code"
+         :code='<button class="yu-button">普通按钮</button>
+<button class="yu-button">普通按钮</button>
+<button class="yu-button special" onclick="changeTypeToDanger()">控制按钮，点击改变类型</button>
+<button class="yu-button">普通按钮</button>
+
+<script>
+  var special = new yu.Button(".special")
+
+  function changeTypeToDanger() {
+    special.setState("type", "danger")
+  }
+</script>
+'></div>
+    <p>三、假如大都需要初始化，并控制状态，建议均采用多个类型的所有组件初始化，在需要操作状态的组件加上:ref属性,
+      这样则一行就可以初始化所有组件，例如Input组件，Checkbox组件，Select组件，Cascader组件</p>
+    <div class="web-description">var the = yu.init("Button","Radio", "Input")</div>
+
+  </div>
+</div>
+</body>
+<script src="/index.bundle.js"></script>
+
+<script>
+  yu.setData({
+    buttonType: "warning",
+  })
+
+  var special = new yu.Button('.special')
+
+
+  var buttonOne = new yu.Button('.one')
+  var buttonTwo = new yu.Button('.two', {type: 'primary'})
+
+  var the = yu.init('Code', 'Button', 'WebIndex', 'Input', 'RadioGroup')
+
+  function changeType() {
+    the.yourButton.setState('type', 'danger')
+  }
+
+  function changeTypeToDanger() {
+    special.setState('type', 'danger')
+  }
+
+  function changeIcon() {
+    the.yourButton.setStates({
+      type: 'warning',
+      icon: 'icon-heart'
+    })
+  }
+</script>
+</html>

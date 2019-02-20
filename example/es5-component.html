@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>yu.js.ui</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<style>
+  .yu-card-list {
+    width: 200px;
+    height: 250px;
+    border: 1px solid #eee;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+
+  .yu-card-list > .title {
+    font-weight: bold;
+    color: #333;
+    border-bottom: 1px solid #eee;
+    width: 100%;
+    padding: 14px;
+    box-sizing: border-box;
+  }
+
+  .yu-card-list > ul.body > li.active {
+    color: blue;
+  }
+</style>
+<body>
+<div class="web-outer">
+  <ul class="web-index" :option="$menuOption"></ul>
+  <div class="web-container">
+    <h2>ES5 自定义组件</h2>
+    <h4 class="web-title">自定义组件：卡片清单 CardList</h4>
+    <h4 class="web-title">步骤一、完成样式和组件结构</h4>
+    <div class="yu-card-list">
+      <div class="title">待完成事项</div>
+      <ul class="body">
+        <li class="active">清单一</li>
+        <li>清单二</li>
+        <li>清单三</li>
+        <li>清单四</li>
+      </ul>
+    </div>
+    <p>组件结构</p>
+    <div class="yu-code"
+         :code='<div class="yu-card-list">
+<div class="title">待完成事项</div>
+  <ul class="body">
+      <li class="active">清单一</li>
+      <li>清单二</li>
+      <li>清单三</li>
+      <li>清单四</li>
+  </ul>
+</div>'></div>
+    <p>组件样式</p>
+    <div class="yu-code"
+         :language="css"
+         :code='.yu-card-list {
+    width: 200px;
+    height: 250px;
+    border: 1px solid #eee;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.yu-card-list > .title {
+    font-weight: bold;
+    color: #333;
+    border-bottom: 1px solid #eee;
+    width: 100%;
+    padding: 14px;
+    box-sizing: border-box;
+}
+
+.yu-card-list > ul.body > li.active {
+    color: blue;
+}'></div>
+
+    <h4 class="web-title">步骤二、完成组件行为</h4>
+    <p>在ES5下，使用实例继承</p>
+    <div class="yu-card-list target" :title="我是新标题" :option="$option" @change="$handleChange">
+      <div class="title"></div>
+      <ul class="body"></ul>
+    </div>
+    <div class="yu-code"
+         :language="JavaScript"
+         :code='function CardList(component, states) {
+  // 创建组件实例&#10
+  var comp = new yu.Component()
+  // 添加组件属性方法
+  comp.title = function (title) {
+      this.titleNode.innerText = title
+  }
+  comp.option = function (option) {
+      if (option.length > 0) {
+        this.bodyNode.innerHTML = ""
+        option.forEach(function (item) {
+          comp.bodyNode.appendChild(comp.createOption(item))
+        })
+      }
+  }
+  // 添加组件静态方法
+  comp.createOption = function (option) {
+    var li = document.createElement("LI")
+    if (option.active) {
+      li.className = "active"
+    }
+    li.innerText = option.label
+    return li
+  }
+
+  //初始化组件元素
+  comp.initNode(component)
+  comp.titleNode = comp.node.querySelector(".title")
+  comp.bodyNode = comp.node.querySelector("ul.body")
+  //初始化组件状态
+  comp.initStates(states)
+
+  comp.bodyNode.addEventListener("click", function (e) {
+    e.target.classList.add("active")
+    comp.emit("onChange", e.target.innerText)
+  })
+  return comp
+}'></div>
+    <p>到此组件已经定义完成，可以使用单实例初始化方式对组件进行初始化</p>
+    <h4 class="web-title">步骤三、注册组件（可选）</h4>
+    <p>yu.register(Component, ComponentName, ComponentSelector)</p>
+    <p>示例：yu.register(CardList, 'CardList', '.yu-card-list')</p>
+    <p>完成注册组件后，即可以使用yu.init('CardList')来初始化所有的同类型组件</p>
+  </div>
+</div>
+</body>
+<script src="/index.bundle.js"></script>
+
+<script>
+  yu.setData({
+    option: [
+      {label: '清单一', active: true},
+      {label: '清单二'},
+      {label: '清单三'},
+    ],
+    handleChange: function (value) {
+      console.log(value)
+    }
+  })
+
+  function CardList(component, states) {
+    // 创建组件实例
+    var comp = new yu.Component()
+    // 添加组件属性方法
+    comp.title = function (title) {
+      this.titleNode.innerText = title
+    }
+    comp.option = function (option) {
+      if (option.length > 0) {
+        this.bodyNode.innerHTML = ''
+        option.forEach(function (item) {
+          comp.bodyNode.appendChild(comp.createOption(item))
+        })
+      }
+    }
+    // 添加组件静态方法
+    comp.createOption = function (option) {
+      var li = document.createElement('LI')
+      if (option.active) {
+        li.className = 'active'
+      }
+      li.innerText = option.label
+      return li
+    }
+
+    //初始化组件元素
+    comp.initNode(component)
+    comp.titleNode = comp.node.querySelector('.title')
+    comp.bodyNode = comp.node.querySelector('ul.body')
+    //初始化组件状态
+    comp.initStates(states)
+    comp.bodyNode.addEventListener('click', function (e) {
+      e.target.classList.add('active')
+      comp.emit('onChange', e.target.innerText)
+    })
+    return comp
+  }
+
+  var cardList = new CardList('.yu-card-list.target')
+  yu.data.option.push({label: '吃苹果'})
+  cardList.setState('option', yu.data.option)
+
+</script>
+</html>

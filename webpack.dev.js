@@ -5,22 +5,15 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 module.exports = {
   mode: 'development',
 
-  entry: './build/dev.js',
+  entry: './example/index.js',
 
   output: {
-    filename: 'index.js',
+    filename: 'index.bundle.js',
     path: path.resolve(__dirname, '/example/dist'),
   },
 
   module: {
     rules: [
-      {
-        test: /\.css$/,
-        exclude: /(bower_components)/,
-        use: ExtractTextPlugin.extract({
-          use: ['css-loader'],
-        }),
-      },
       {
         test: /\.m?js$/,
         exclude: /(node_modules|bower_components)/,
@@ -33,6 +26,14 @@ module.exports = {
             ],
           },
         },
+      },
+      {
+        test: /\.css$/,
+        exclude: /(bower_components)/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: 'css-loader',
+        }),
       },
     ],
   },
@@ -56,7 +57,7 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new ExtractTextPlugin({
       // 从 .js 文件中提取出来的 .css 文件的名称
-      filename: 'index.css',
+      filename: 'styles.css',
     }),
   ],
 }

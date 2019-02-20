@@ -248,7 +248,7 @@ Session.vim
 ### ExtJs template
 .architect
 bootstrap.json
-build/
+
 ext/
 ### Yeoman template
 
