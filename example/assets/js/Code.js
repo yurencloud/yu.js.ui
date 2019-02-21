@@ -25,7 +25,7 @@ export default class Code extends Component {
     // 初始化组件状态
     this.initStates(states)
     this.clipboardNode.setAttribute('data-clipboard-text', this.states.code)
-    const clipboard = new ClipboardJS('.clipboard')
+    const clipboard = new ClipboardJS(this.clipboardNode)
     clipboard.on('success', () => {
       console.log('复制成功')
     })
