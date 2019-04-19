@@ -12,7 +12,7 @@
 <p align="center">
   <a href="http://www.yurencloud.com/js-ui/component/install.html" target="_blank">使用文档</a>
   |
-  <a href="https://github.com/yurencloud/yu.js.ui/tree/master/example/component/"  target="_blank">完整示例</a>
+  <a href="https://github.com/yurencloud/yu.js.ui/tree/master/example/"  target="_blank">完整示例</a>
   |
   <a href="http://www.yurencloud.com"  target="_blank">官方网站</a>
 </p>
